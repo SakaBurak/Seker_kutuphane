@@ -1,6 +1,6 @@
 ﻿namespace Seker_kutuphane
 {
-    partial class login
+    partial class Login
     {
         /// <summary>
         /// Required designer variable.
@@ -28,13 +28,13 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(login));
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Login));
             panel1 = new Panel();
             label3 = new Label();
-            textBox3 = new TextBox();
+            txtEmail = new TextBox();
             label4 = new Label();
-            textBox4 = new TextBox();
-            button1 = new Button();
+            txtSifre = new TextBox();
+            btnGirisYap = new Button();
             pictureBox1 = new PictureBox();
             labelTitle = new Label();
             panelLine = new Panel();
@@ -50,10 +50,10 @@
             // 
             panel1.BackColor = Color.White;
             panel1.Controls.Add(label3);
-            panel1.Controls.Add(textBox3);
+            panel1.Controls.Add(txtEmail);
             panel1.Controls.Add(label4);
-            panel1.Controls.Add(textBox4);
-            panel1.Controls.Add(button1);
+            panel1.Controls.Add(txtSifre);
+            panel1.Controls.Add(btnGirisYap);
             panel1.Controls.Add(pictureBox1);
             panel1.Controls.Add(labelTitle);
             panel1.Controls.Add(panelLine);
@@ -76,12 +76,12 @@
             label3.TabIndex = 31;
             label3.Text = "E-posta *";
             // 
-            // textBox3
+            // txtEmail
             // 
-            textBox3.Location = new Point(80, 265);
-            textBox3.Name = "textBox3";
-            textBox3.Size = new Size(400, 23);
-            textBox3.TabIndex = 32;
+            txtEmail.Location = new Point(80, 265);
+            txtEmail.Name = "txtEmail";
+            txtEmail.Size = new Size(400, 23);
+            txtEmail.TabIndex = 32;
             // 
             // label4
             // 
@@ -92,25 +92,26 @@
             label4.TabIndex = 33;
             label4.Text = "Şifre *";
             // 
-            // textBox4
+            // txtSifre
             // 
-            textBox4.Location = new Point(80, 329);
-            textBox4.Name = "textBox4";
-            textBox4.Size = new Size(400, 23);
-            textBox4.TabIndex = 34;
+            txtSifre.Location = new Point(80, 329);
+            txtSifre.Name = "txtSifre";
+            txtSifre.Size = new Size(400, 23);
+            txtSifre.TabIndex = 34;
+            txtSifre.PasswordChar = '*';
             // 
-            // button1
+            // btnGirisYap
             // 
-            button1.BackColor = Color.FromArgb(76, 175, 80);
-            button1.FlatStyle = FlatStyle.Flat;
-            button1.ForeColor = Color.White;
-            button1.Location = new Point(80, 383);
-            button1.Name = "button1";
-            button1.Size = new Size(400, 40);
-            button1.TabIndex = 30;
-            button1.Text = "Giriş Yap";
-            button1.UseVisualStyleBackColor = false;
-            button1.Click += button1_Click_1;
+            btnGirisYap.BackColor = Color.FromArgb(76, 175, 80);
+            btnGirisYap.FlatStyle = FlatStyle.Flat;
+            btnGirisYap.ForeColor = Color.White;
+            btnGirisYap.Location = new Point(80, 383);
+            btnGirisYap.Name = "btnGirisYap";
+            btnGirisYap.Size = new Size(400, 40);
+            btnGirisYap.TabIndex = 30;
+            btnGirisYap.Text = "Giriş Yap";
+            btnGirisYap.UseVisualStyleBackColor = false;
+            btnGirisYap.Click += btnGirisYap_Click;
             // 
             // pictureBox1
             // 
@@ -185,15 +186,15 @@
             linkForgot.Text = "Şifrenizi mi unuttunuz?";
             linkForgot.TextAlign = ContentAlignment.MiddleCenter;
             // 
-            // login
+            // Login
             // 
             BackColor = Color.FromArgb(76, 175, 80);
             ClientSize = new Size(801, 750);
             Controls.Add(panel1);
             FormBorderStyle = FormBorderStyle.None;
-            Name = "login";
+            Name = "Login";
             StartPosition = FormStartPosition.CenterScreen;
-            Text = "login";
+            Text = "Login";
             panel1.ResumeLayout(false);
             panel1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
@@ -209,10 +210,10 @@
         private System.Windows.Forms.Panel panelDivider;
         private System.Windows.Forms.LinkLabel linkRegister;
         private System.Windows.Forms.LinkLabel linkForgot;
-        private Button button1;
+        private Button btnGirisYap;
         private Label label3;
-        private TextBox textBox3;
+        private TextBox txtEmail;
         private Label label4;
-        private TextBox textBox4;
+        private TextBox txtSifre;
     }
 }

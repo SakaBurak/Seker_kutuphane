@@ -1,6 +1,6 @@
 ﻿namespace Seker_kutuphane
 {
-    partial class kayit
+    partial class Kayit
     {
         /// <summary>
         /// Required designer variable.
@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(kayit));
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Kayit));
             panel1 = new Panel();
             pictureBox1 = new PictureBox();
             label7 = new Label();
@@ -233,7 +233,7 @@
             linkLabel1.TabStop = true;
             linkLabel1.Text = "Zaten hesabınız var mı? Giriş yapın";
             // 
-            // kayit
+            // Kayit
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
@@ -241,9 +241,9 @@
             ClientSize = new Size(827, 674);
             Controls.Add(panel1);
             FormBorderStyle = FormBorderStyle.None;
-            Name = "kayit";
+            Name = "Kayit";
             StartPosition = FormStartPosition.CenterScreen;
-            Text = "kayit";
+            Text = "Kayit";
             panel1.ResumeLayout(false);
             panel1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();

@@ -8,12 +8,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using Seker_kutuphane;
 
 namespace Seker_kutuphane
 {
-    public partial class kayit : Form
+    public partial class Kayit : Form
     {
-        public kayit()
+        public Kayit()
         {
             InitializeComponent();
         }

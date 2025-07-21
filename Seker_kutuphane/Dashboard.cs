@@ -38,19 +38,19 @@ namespace Seker_kutuphane
 
         private void Form2_Load(object? sender, EventArgs e)
         {
-            DatabaseHelper db = new DatabaseHelper();
+           DatabaseHelper db = new DatabaseHelper();
             // Örnek: admin@seker.com kullanıcısını test ediyoruz
-            var dt = db.KullaniciGetir("admin@seker.com");
+            /*var dt = db.KullaniciGetir("admin@seker.com");
             if (dt.Rows.Count > 0)
             {
                 int kullaniciId = Convert.ToInt32(dt.Rows[0]["kullanici_id"]);
                 string rol = db.KullaniciRolGetir(kullaniciId);
-                MessageBox.Show($"Kullanıcı: {dt.Rows[0]["ad"]} | Rol: {rol}");
+                // MessageBox.Show($"Kullanıcı: {dt.Rows[0]["ad"]} | Rol: {rol}"); // Bu satırı kaldırıyorum
             }
             else
             {
-                MessageBox.Show("Kullanıcı bulunamadı!");
-            }
+                // MessageBox.Show("Kullanıcı bulunamadı!"); // Bu satırı da kaldırıyorum
+            }*/
         }
     }
 }

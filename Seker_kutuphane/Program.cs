@@ -11,9 +11,7 @@ namespace Seker_kutuphane
             // To customize application configuration such as set high DPI settings or default font,
             // see https://aka.ms/applicationconfiguration.
             ApplicationConfiguration.Initialize();
-            // Form1 yerine Form2'yi (Dashboard) başlangıç formu yapıyoruz.
-            // Test için kullanıcı adı ve rolü geçici olarak kodda belirtilmiştir.
-            Application.Run(new Form2("Admin", "Yönetici"));
+            Application.Run(new login());
         }
     }
 }

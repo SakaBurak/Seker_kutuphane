@@ -4,6 +4,7 @@ using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -65,6 +66,13 @@ namespace Seker_kutuphane
         private void button1_Click_1(object sender, EventArgs e)
         {
 
+        }
+
+        private void linkRegister_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+           /* this.Close();
+            var kayit = new Form();
+            kayit.Show();*/
         }
     }
 }

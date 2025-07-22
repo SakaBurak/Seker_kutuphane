@@ -72,18 +72,20 @@
             panel1.Controls.Add(textBox6);
             panel1.Controls.Add(button1);
             panel1.Controls.Add(linkLabel1);
-            panel1.Location = new Point(169, 30);
+            panel1.Location = new Point(148, 22);
+            panel1.Margin = new Padding(3, 2, 3, 2);
             panel1.Name = "panel1";
-            panel1.Size = new Size(504, 542);
+            panel1.Size = new Size(441, 406);
             panel1.TabIndex = 0;
             panel1.Paint += panel1_Paint;
             // 
             // pictureBox1
             // 
             pictureBox1.Image = (Image)resources.GetObject("pictureBox1.Image");
-            pictureBox1.Location = new Point(216, 7);
+            pictureBox1.Location = new Point(189, 5);
+            pictureBox1.Margin = new Padding(3, 2, 3, 2);
             pictureBox1.Name = "pictureBox1";
-            pictureBox1.Size = new Size(97, 86);
+            pictureBox1.Size = new Size(85, 64);
             pictureBox1.SizeMode = PictureBoxSizeMode.Zoom;
             pictureBox1.TabIndex = 31;
             pictureBox1.TabStop = false;
@@ -92,9 +94,9 @@
             // 
             label7.AutoSize = true;
             label7.Font = new Font("Arial", 24F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label7.Location = new Point(180, 96);
+            label7.Location = new Point(158, 72);
             label7.Name = "label7";
-            label7.Size = new Size(170, 46);
+            label7.Size = new Size(139, 37);
             label7.TabIndex = 15;
             label7.Text = "Kayıt Ol";
             label7.TextAlign = ContentAlignment.MiddleCenter;
@@ -104,9 +106,9 @@
             label8.AutoSize = true;
             label8.Font = new Font("Arial", 7.8F, FontStyle.Regular, GraphicsUnit.Point, 162);
             label8.ForeColor = Color.Gray;
-            label8.Location = new Point(168, 151);
+            label8.Location = new Point(147, 113);
             label8.Name = "label8";
-            label8.Size = new Size(182, 16);
+            label8.Size = new Size(151, 14);
             label8.TabIndex = 16;
             label8.Text = "Kütüphane sistemine üye olun";
             label8.TextAlign = ContentAlignment.MiddleCenter;
@@ -114,99 +116,105 @@
             // label1
             // 
             label1.AutoSize = true;
-            label1.Location = new Point(55, 186);
+            label1.Location = new Point(48, 140);
             label1.Name = "label1";
-            label1.Size = new Size(38, 20);
+            label1.Size = new Size(30, 15);
             label1.TabIndex = 17;
             label1.Text = "Ad *";
             // 
             // textBox1
             // 
-            textBox1.Location = new Point(55, 206);
+            textBox1.Location = new Point(48, 154);
+            textBox1.Margin = new Padding(3, 2, 3, 2);
             textBox1.Name = "textBox1";
-            textBox1.Size = new Size(180, 27);
+            textBox1.Size = new Size(158, 23);
             textBox1.TabIndex = 18;
             // 
             // label2
             // 
             label2.AutoSize = true;
-            label2.Location = new Point(275, 186);
+            label2.Location = new Point(241, 140);
             label2.Name = "label2";
-            label2.Size = new Size(60, 20);
+            label2.Size = new Size(47, 15);
             label2.TabIndex = 19;
             label2.Text = "Soyad *";
             // 
             // textBox2
             // 
-            textBox2.Location = new Point(275, 206);
+            textBox2.Location = new Point(241, 154);
+            textBox2.Margin = new Padding(3, 2, 3, 2);
             textBox2.Name = "textBox2";
-            textBox2.Size = new Size(180, 27);
+            textBox2.Size = new Size(158, 23);
             textBox2.TabIndex = 20;
             // 
             // label3
             // 
             label3.AutoSize = true;
-            label3.Location = new Point(55, 246);
+            label3.Location = new Point(48, 184);
             label3.Name = "label3";
-            label3.Size = new Size(70, 20);
+            label3.Size = new Size(55, 15);
             label3.TabIndex = 21;
             label3.Text = "E-posta *";
             // 
             // textBox3
             // 
-            textBox3.Location = new Point(55, 266);
+            textBox3.Location = new Point(48, 200);
+            textBox3.Margin = new Padding(3, 2, 3, 2);
             textBox3.Name = "textBox3";
-            textBox3.Size = new Size(400, 27);
+            textBox3.Size = new Size(350, 23);
             textBox3.TabIndex = 22;
             // 
             // label4
             // 
             label4.AutoSize = true;
-            label4.Location = new Point(55, 306);
+            label4.Location = new Point(48, 230);
             label4.Name = "label4";
-            label4.Size = new Size(68, 20);
+            label4.Size = new Size(54, 15);
             label4.TabIndex = 23;
             label4.Text = "Telefon *";
             // 
             // textBox4
             // 
-            textBox4.Location = new Point(55, 326);
+            textBox4.Location = new Point(48, 244);
+            textBox4.Margin = new Padding(3, 2, 3, 2);
             textBox4.Name = "textBox4";
-            textBox4.Size = new Size(400, 27);
+            textBox4.Size = new Size(350, 23);
             textBox4.TabIndex = 24;
             // 
             // label5
             // 
             label5.AutoSize = true;
-            label5.Location = new Point(55, 366);
+            label5.Location = new Point(48, 274);
             label5.Name = "label5";
-            label5.Size = new Size(49, 20);
+            label5.Size = new Size(38, 15);
             label5.TabIndex = 25;
             label5.Text = "Şifre *";
             // 
             // textBox5
             // 
-            textBox5.Location = new Point(55, 386);
+            textBox5.Location = new Point(48, 290);
+            textBox5.Margin = new Padding(3, 2, 3, 2);
             textBox5.Name = "textBox5";
             textBox5.PasswordChar = '*';
-            textBox5.Size = new Size(180, 27);
+            textBox5.Size = new Size(158, 23);
             textBox5.TabIndex = 26;
             // 
             // label6
             // 
             label6.AutoSize = true;
-            label6.Location = new Point(275, 366);
+            label6.Location = new Point(241, 274);
             label6.Name = "label6";
-            label6.Size = new Size(93, 20);
+            label6.Size = new Size(73, 15);
             label6.TabIndex = 27;
             label6.Text = "Şifre Tekrar *";
             // 
             // textBox6
             // 
-            textBox6.Location = new Point(275, 386);
+            textBox6.Location = new Point(241, 290);
+            textBox6.Margin = new Padding(3, 2, 3, 2);
             textBox6.Name = "textBox6";
             textBox6.PasswordChar = '*';
-            textBox6.Size = new Size(180, 27);
+            textBox6.Size = new Size(158, 23);
             textBox6.TabIndex = 28;
             // 
             // button1
@@ -214,9 +222,10 @@
             button1.BackColor = Color.FromArgb(76, 175, 80);
             button1.FlatStyle = FlatStyle.Flat;
             button1.ForeColor = Color.White;
-            button1.Location = new Point(55, 436);
+            button1.Location = new Point(48, 327);
+            button1.Margin = new Padding(3, 2, 3, 2);
             button1.Name = "button1";
-            button1.Size = new Size(400, 40);
+            button1.Size = new Size(350, 30);
             button1.TabIndex = 29;
             button1.Text = "Kayıt Ol";
             button1.UseVisualStyleBackColor = false;
@@ -227,9 +236,9 @@
             linkLabel1.AutoSize = true;
             linkLabel1.Font = new Font("Segoe UI", 7.8F, FontStyle.Regular, GraphicsUnit.Point, 162);
             linkLabel1.LinkColor = Color.Green;
-            linkLabel1.Location = new Point(144, 494);
+            linkLabel1.Location = new Point(126, 370);
             linkLabel1.Name = "linkLabel1";
-            linkLabel1.Size = new Size(209, 17);
+            linkLabel1.Size = new Size(183, 13);
             linkLabel1.TabIndex = 30;
             linkLabel1.TabStop = true;
             linkLabel1.Text = "Zaten hesabınız var mı? Giriş yapın";
@@ -240,22 +249,25 @@
             cikisClk.BackColor = Color.Red;
             cikisClk.FlatStyle = FlatStyle.Popup;
             cikisClk.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point, 162);
-            cikisClk.Location = new Point(795, 1);
+            cikisClk.Location = new Point(696, 1);
+            cikisClk.Margin = new Padding(3, 2, 3, 2);
             cikisClk.Name = "cikisClk";
-            cikisClk.Size = new Size(30, 33);
+            cikisClk.Size = new Size(26, 25);
             cikisClk.TabIndex = 1;
             cikisClk.Text = "X";
             cikisClk.UseVisualStyleBackColor = false;
+            cikisClk.Click += cikisClk_Click;
             // 
             // Kayit
             // 
-            AutoScaleDimensions = new SizeF(8F, 20F);
+            AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.FromArgb(76, 175, 80);
-            ClientSize = new Size(827, 674);
+            ClientSize = new Size(724, 506);
             Controls.Add(cikisClk);
             Controls.Add(panel1);
             FormBorderStyle = FormBorderStyle.None;
+            Margin = new Padding(3, 2, 3, 2);
             Name = "Kayit";
             StartPosition = FormStartPosition.CenterScreen;
             Text = "Kayit";

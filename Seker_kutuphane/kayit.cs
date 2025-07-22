@@ -48,5 +48,10 @@ namespace Seker_kutuphane
             girisform.Show();
             this.Hide();
         }
+
+        private void cikisClk_Click(object sender, EventArgs e)
+        {
+            this.Close();
+        }
     }
 }

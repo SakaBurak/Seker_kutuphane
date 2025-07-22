@@ -47,6 +47,7 @@
             textBox6 = new TextBox();
             button1 = new Button();
             linkLabel1 = new LinkLabel();
+            cikisClk = new Button();
             panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             SuspendLayout();
@@ -232,6 +233,19 @@
             linkLabel1.TabIndex = 30;
             linkLabel1.TabStop = true;
             linkLabel1.Text = "Zaten hesabınız var mı? Giriş yapın";
+            linkLabel1.LinkClicked += linkLabel1_LinkClicked;
+            // 
+            // cikisClk
+            // 
+            cikisClk.BackColor = Color.Red;
+            cikisClk.FlatStyle = FlatStyle.Popup;
+            cikisClk.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point, 162);
+            cikisClk.Location = new Point(795, 1);
+            cikisClk.Name = "cikisClk";
+            cikisClk.Size = new Size(30, 33);
+            cikisClk.TabIndex = 1;
+            cikisClk.Text = "X";
+            cikisClk.UseVisualStyleBackColor = false;
             // 
             // Kayit
             // 
@@ -239,6 +253,7 @@
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.FromArgb(76, 175, 80);
             ClientSize = new Size(827, 674);
+            Controls.Add(cikisClk);
             Controls.Add(panel1);
             FormBorderStyle = FormBorderStyle.None;
             Name = "Kayit";
@@ -269,5 +284,6 @@
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.Label label8;
         private PictureBox pictureBox1;
+        private Button cikisClk;
     }
 }

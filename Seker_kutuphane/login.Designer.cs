@@ -42,6 +42,7 @@
             panelDivider = new Panel();
             linkRegister = new LinkLabel();
             linkForgot = new LinkLabel();
+            btnCikis = new Button();
             panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             SuspendLayout();
@@ -72,7 +73,7 @@
             label3.AutoSize = true;
             label3.Location = new Point(80, 242);
             label3.Name = "label3";
-            label3.Size = new Size(55, 15);
+            label3.Size = new Size(70, 20);
             label3.TabIndex = 31;
             label3.Text = "E-posta *";
             // 
@@ -80,7 +81,7 @@
             // 
             txtEmail.Location = new Point(80, 265);
             txtEmail.Name = "txtEmail";
-            txtEmail.Size = new Size(400, 23);
+            txtEmail.Size = new Size(400, 27);
             txtEmail.TabIndex = 32;
             // 
             // label4
@@ -88,7 +89,7 @@
             label4.AutoSize = true;
             label4.Location = new Point(80, 309);
             label4.Name = "label4";
-            label4.Size = new Size(38, 15);
+            label4.Size = new Size(49, 20);
             label4.TabIndex = 33;
             label4.Text = "Şifre *";
             // 
@@ -96,9 +97,9 @@
             // 
             txtSifre.Location = new Point(80, 329);
             txtSifre.Name = "txtSifre";
-            txtSifre.Size = new Size(400, 23);
-            txtSifre.TabIndex = 34;
             txtSifre.PasswordChar = '*';
+            txtSifre.Size = new Size(400, 27);
+            txtSifre.TabIndex = 34;
             // 
             // btnGirisYap
             // 
@@ -130,7 +131,7 @@
             labelTitle.ForeColor = Color.FromArgb(33, 37, 41);
             labelTitle.Location = new Point(195, 121);
             labelTitle.Name = "labelTitle";
-            labelTitle.Size = new Size(150, 45);
+            labelTitle.Size = new Size(185, 54);
             labelTitle.TabIndex = 1;
             labelTitle.Text = "Giriş Yap";
             // 
@@ -149,7 +150,7 @@
             labelDesc.ForeColor = Color.Gray;
             labelDesc.Location = new Point(193, 194);
             labelDesc.Name = "labelDesc";
-            labelDesc.Size = new Size(181, 13);
+            labelDesc.Size = new Size(202, 17);
             labelDesc.TabIndex = 3;
             labelDesc.Text = "Kütüphane sistemine hoş geldiniz";
             // 
@@ -186,10 +187,24 @@
             linkForgot.Text = "Şifrenizi mi unuttunuz?";
             linkForgot.TextAlign = ContentAlignment.MiddleCenter;
             // 
+            // btnCikis
+            // 
+            btnCikis.BackColor = Color.Red;
+            btnCikis.FlatStyle = FlatStyle.Popup;
+            btnCikis.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point, 162);
+            btnCikis.Location = new Point(765, 3);
+            btnCikis.Name = "btnCikis";
+            btnCikis.Size = new Size(34, 31);
+            btnCikis.TabIndex = 1;
+            btnCikis.Text = "X";
+            btnCikis.UseVisualStyleBackColor = false;
+            btnCikis.Click += btnCikis_Click;
+            // 
             // Login
             // 
             BackColor = Color.FromArgb(76, 175, 80);
             ClientSize = new Size(801, 750);
+            Controls.Add(btnCikis);
             Controls.Add(panel1);
             FormBorderStyle = FormBorderStyle.None;
             Name = "Login";
@@ -215,5 +230,6 @@
         private TextBox txtEmail;
         private Label label4;
         private TextBox txtSifre;
+        private Button btnCikis;
     }
 }

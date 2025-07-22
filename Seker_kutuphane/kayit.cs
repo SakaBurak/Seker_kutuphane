@@ -41,5 +41,12 @@ namespace Seker_kutuphane
         {
 
         }
+
+        private void linkLabel1_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            Login girisform = new Login();  // Class ismine dikkat, büyük harfle
+            girisform.Show();
+            this.Hide();
+        }
     }
 }

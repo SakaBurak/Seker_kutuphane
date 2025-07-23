@@ -33,7 +33,6 @@
             label3 = new Label();
             txtEmail = new TextBox();
             label4 = new Label();
-            txtSifre = new TextBox();
             btnGirisYap = new Button();
             pictureBox1 = new PictureBox();
             labelTitle = new Label();
@@ -43,6 +42,7 @@
             linkRegister = new LinkLabel();
             linkForgot = new LinkLabel();
             btnCikis = new Button();
+            txtSifre = new TextBox();
             panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             SuspendLayout();
@@ -62,7 +62,7 @@
             panel1.Controls.Add(panelDivider);
             panel1.Controls.Add(linkRegister);
             panel1.Controls.Add(linkForgot);
-            panel1.Location = new Point(133, 22);
+            panel1.Location = new Point(132, 84);
             panel1.Name = "panel1";
             panel1.Size = new Size(551, 583);
             panel1.TabIndex = 0;
@@ -73,9 +73,10 @@
             label3.AutoSize = true;
             label3.Location = new Point(80, 242);
             label3.Name = "label3";
-            label3.Size = new Size(70, 20);
+            label3.Size = new Size(104, 20);
             label3.TabIndex = 31;
-            label3.Text = "E-posta *";
+            label3.Text = "TC Kimlik No *";
+            label3.Click += label3_Click;
             // 
             // txtEmail
             // 
@@ -92,14 +93,6 @@
             label4.Size = new Size(49, 20);
             label4.TabIndex = 33;
             label4.Text = "Şifre *";
-            // 
-            // txtSifre
-            // 
-            txtSifre.Location = new Point(80, 329);
-            txtSifre.Name = "txtSifre";
-            txtSifre.PasswordChar = '*';
-            txtSifre.Size = new Size(400, 27);
-            txtSifre.TabIndex = 34;
             // 
             // btnGirisYap
             // 
@@ -186,6 +179,7 @@
             linkForgot.TabStop = true;
             linkForgot.Text = "Şifrenizi mi unuttunuz?";
             linkForgot.TextAlign = ContentAlignment.MiddleCenter;
+            linkForgot.LinkClicked += linkForgot_LinkClicked;
             // 
             // btnCikis
             // 
@@ -199,6 +193,14 @@
             btnCikis.Text = "X";
             btnCikis.UseVisualStyleBackColor = false;
             btnCikis.Click += btnCikis_Click;
+            // 
+            // txtSifre
+            // 
+            txtSifre.Location = new Point(80, 329);
+            txtSifre.Name = "txtSifre";
+            txtSifre.PasswordChar = '*';
+            txtSifre.Size = new Size(400, 27);
+            txtSifre.TabIndex = 34;
             // 
             // Login
             // 
@@ -229,7 +231,7 @@
         private Label label3;
         private TextBox txtEmail;
         private Label label4;
-        private TextBox txtSifre;
         private Button btnCikis;
+        private TextBox txtSifre;
     }
 }

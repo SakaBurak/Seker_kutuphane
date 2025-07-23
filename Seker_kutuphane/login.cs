@@ -98,5 +98,17 @@ namespace Seker_kutuphane
         {
             this.Close();
         }
+
+        private void linkForgot_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            sifre_yenileme yenile = new sifre_yenileme();
+            yenile.Show();
+            this.Hide();
+        }
+
+        private void label3_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }

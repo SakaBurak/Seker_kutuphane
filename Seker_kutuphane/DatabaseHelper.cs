@@ -13,7 +13,7 @@ namespace Seker_kutuphane
         private readonly string username = "sbuhs";
         private readonly string password = "sekerstajekip";
         private readonly HttpClient client;
-        private string sessionId;
+        private string? sessionId;
 
         public ApiHelper()
         {
@@ -36,6 +36,16 @@ namespace Seker_kutuphane
             client.DefaultRequestHeaders.Remove("Session-ID");
             client.DefaultRequestHeaders.Add("Session-ID", sessionId);
             return (sessionId, obj.user);
+        }
+
+        // Kayıt olma işlemi: POST /register
+        public async Task<dynamic> RegisterAsync(object userData)
+        {
+            var content = new StringContent(JsonConvert.SerializeObject(userData), Encoding.UTF8, "application/json");
+            var response = await client.PostAsync($"{apiBaseUrl}/register", content);
+            response.EnsureSuccessStatusCode();
+            var json = await response.Content.ReadAsStringAsync();
+            return JsonConvert.DeserializeObject(json);
         }
 
         // Kullanıcıları getir: GET /kullanicilar

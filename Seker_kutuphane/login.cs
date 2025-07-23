@@ -10,6 +10,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using Seker_kutuphane;
+using System.Security.Cryptography;
 
 namespace Seker_kutuphane
 {
@@ -96,10 +97,25 @@ namespace Seker_kutuphane
             this.Hide();
         }
 
+        private string Sha256Hash(string value)
+        {
+            using (SHA256 sha256 = SHA256.Create())
+            {
+                byte[] bytes = sha256.ComputeHash(Encoding.UTF8.GetBytes(value));
+                StringBuilder builder = new StringBuilder();
+                foreach (byte b in bytes)
+                {
+                    builder.Append(b.ToString("x2"));
+                }
+                return builder.ToString();
+            }
+        }
+
         private void btnGirisYap_Click(object sender, EventArgs e)
         {
             string email = txtEmail.Text.Trim();
             string sifre = txtSifre.Text.Trim();
+            string hashedSifre = Sha256Hash(sifre);
             if (string.IsNullOrEmpty(email) || string.IsNullOrEmpty(sifre))
             {
                 MessageBox.Show("Lütfen e-posta ve şifre giriniz.");
@@ -111,13 +127,9 @@ namespace Seker_kutuphane
             {
                 string? dbSifre = dt.Rows[0]["sifre"]?.ToString();
                 bool sifreDogru = false;
-                if (!string.IsNullOrEmpty(dbSifre) && (dbSifre.StartsWith("$2a$") || dbSifre.StartsWith("$2b$")))
+                if (!string.IsNullOrEmpty(dbSifre))
                 {
-                    sifreDogru = BCrypt.Net.BCrypt.Verify(sifre, dbSifre);
-                }
-                else
-                {
-                    sifreDogru = (dbSifre == sifre);
+                    sifreDogru = (dbSifre == hashedSifre);
                 }
                 if (sifreDogru)
                 {

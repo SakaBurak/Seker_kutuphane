@@ -1,4 +1,4 @@
-﻿namespace Seker_kutuphane
+namespace Seker_kutuphane
 {
     partial class Kayit
     {

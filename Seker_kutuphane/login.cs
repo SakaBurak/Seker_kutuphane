@@ -92,7 +92,7 @@ namespace Seker_kutuphane
              var kayit = new Form();
              kayit.Show();*/
 
-            Kayit kayitform = new Kayit(); 
+            Kayit kayitform = new Kayit();
             kayitform.Show();
             this.Hide();
         }
@@ -132,6 +132,19 @@ namespace Seker_kutuphane
         private void btnCikis_Click(object sender, EventArgs e)
         {
             this.Close();
+        }
+
+        private void linkForgot_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+
+            sifre_yenileme yenile = new sifre_yenileme();
+            yenile.Show();
+            this.Hide();
+        }
+
+        private void label3_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

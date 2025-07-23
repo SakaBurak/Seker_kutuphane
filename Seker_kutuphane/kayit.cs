@@ -57,9 +57,9 @@ namespace Seker_kutuphane
         {
             string ad = textBox1.Text.Trim();
             string soyad = textBox2.Text.Trim();
-            string tc = textBox7.Text.Trim();
+            string tc = textBox7.Text.Trim(); // Sadece textBox7 kullanılacak
             string telefon = textBox4.Text.Trim();
-            string email = textBox3.Text.Trim();
+            string email = textBox3.Text.Trim(); // Sadece textBox3 kullanılacak
             string sifre = textBox5.Text.Trim();
             string sifreTekrar = textBox6.Text.Trim();
 

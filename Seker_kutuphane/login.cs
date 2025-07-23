@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -63,18 +63,19 @@ namespace Seker_kutuphane
 
         private async void btnGirisYap_Click(object sender, EventArgs e)
         {
-            string email = txtEmail.Text.Trim();
+            string tc = txtEmail.Text.Trim(); // txtEmail artık TC Kimlik No için kullanılacak
             string sifre = txtSifre.Text.Trim();
             string hashedSifre = Sha256Hash(sifre);
-            if (string.IsNullOrEmpty(email) || string.IsNullOrEmpty(sifre))
+            MessageBox.Show($"Girişte gönderilen JSON: {{\"tc\": \"{tc}\", \"sifre\": \"{hashedSifre}\"}}");
+            if (string.IsNullOrEmpty(tc) || string.IsNullOrEmpty(sifre))
             {
-                MessageBox.Show("Lütfen e-posta ve şifre giriniz.");
+                MessageBox.Show("Lütfen TC Kimlik No ve şifre giriniz.");
                 return;
             }
             ApiHelper api = new ApiHelper();
             try
             {
-                var (sessionId, user) = await api.LoginAsync(email, hashedSifre);
+                var (sessionId, user) = await api.LoginAsync(tc, hashedSifre); // email yerine tc gönderiliyor
                 if (user != null)
                 {
                     string ad = user.ad ?? "";

@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -11,6 +11,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using Seker_kutuphane;
 using System.Security.Cryptography;
+using Newtonsoft.Json;
 
 namespace Seker_kutuphane
 {
@@ -21,50 +22,8 @@ namespace Seker_kutuphane
             InitializeComponent();
         }
 
-        private void button1_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void label1_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void button3_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void linkLabel1_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
-        {
-
-        }
-
-        private void pictureBox1_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void label4_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void login_Load(object sender, EventArgs e)
-        {
-
-        }
-
-        private void label5_Click(object sender, EventArgs e)
-        {
-
-        }
-
         private void panel1_Paint(object sender, PaintEventArgs e)
         {
-            // Panel çizim işlemleri buraya eklenebilir.
-
             Graphics v = e.Graphics;
             v.SmoothingMode = SmoothingMode.AntiAlias;
             v.Clear(panel1.BackColor);
@@ -81,18 +40,9 @@ namespace Seker_kutuphane
             panel1.Region = new Region(p);
         }
 
-        private void button1_Click_1(object sender, EventArgs e)
-        {
-
-        }
-
         private void linkRegister_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
-            /* this.Close();
-             var kayit = new Form();
-             kayit.Show();*/
-
-            Kayit kayitform = new Kayit(); 
+            Kayit kayitform = new Kayit();
             kayitform.Show();
             this.Hide();
         }
@@ -111,7 +61,7 @@ namespace Seker_kutuphane
             }
         }
 
-        private void btnGirisYap_Click(object sender, EventArgs e)
+        private async void btnGirisYap_Click(object sender, EventArgs e)
         {
             string email = txtEmail.Text.Trim();
             string sifre = txtSifre.Text.Trim();
@@ -121,33 +71,26 @@ namespace Seker_kutuphane
                 MessageBox.Show("Lütfen e-posta ve şifre giriniz.");
                 return;
             }
-            DatabaseHelper db = new DatabaseHelper();
-            DataTable dt = db.KullaniciGetir(email);
-            if (dt != null && dt.Rows.Count > 0)
+            ApiHelper api = new ApiHelper();
+            try
             {
-                string? dbSifre = dt.Rows[0]["sifre"]?.ToString();
-                bool sifreDogru = false;
-                if (!string.IsNullOrEmpty(dbSifre))
+                var (sessionId, user) = await api.LoginAsync(email, hashedSifre);
+                if (user != null)
                 {
-                    sifreDogru = (dbSifre == hashedSifre);
-                }
-                if (sifreDogru)
-                {
-                    int kullaniciId = Convert.ToInt32(dt.Rows[0]["kullanici_id"]);
-                    string ad = dt.Rows[0]["ad"]?.ToString() ?? "";
-                    string rol = db.KullaniciRolGetir(kullaniciId);
+                    string ad = user.ad ?? "";
+                    string rol = user.rol_adi ?? "";
                     Form2 dashboard = new Form2(ad, rol);
                     dashboard.Show();
                     this.Hide();
                 }
                 else
                 {
-                    MessageBox.Show("Şifre yanlış!");
+                    MessageBox.Show("Kullanıcı bulunamadı veya bilgiler hatalı!");
                 }
             }
-            else
+            catch (Exception ex)
             {
-                MessageBox.Show("Kullanıcı bulunamadı!");
+                MessageBox.Show($"Giriş başarısız: {ex.Message}");
             }
         }
 

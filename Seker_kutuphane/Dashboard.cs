@@ -36,21 +36,17 @@ namespace Seker_kutuphane
             // Diğer roller için ek kurallar eklenebilir
         }
 
-        private void Form2_Load(object? sender, EventArgs e)
+        private async void Form2_Load(object? sender, EventArgs e)
         {
-           DatabaseHelper db = new DatabaseHelper();
-            // Örnek: admin@seker.com kullanıcısını test ediyoruz
-            /*var dt = db.KullaniciGetir("admin@seker.com");
-            if (dt.Rows.Count > 0)
-            {
-                int kullaniciId = Convert.ToInt32(dt.Rows[0]["kullanici_id"]);
-                string rol = db.KullaniciRolGetir(kullaniciId);
-                // MessageBox.Show($"Kullanıcı: {dt.Rows[0]["ad"]} | Rol: {rol}"); // Bu satırı kaldırıyorum
-            }
-            else
-            {
-                // MessageBox.Show("Kullanıcı bulunamadı!"); // Bu satırı da kaldırıyorum
-            }*/
+            // API üzerinden kullanıcı ve rol bilgisi almak için örnek:
+            // ApiHelper api = new ApiHelper();
+            // var user = await api.KullaniciGetirAsync("admin@seker.com");
+            // if (user != null && user.Count > 0)
+            // {
+            //     int kullaniciId = (int)user[0].kullanici_id;
+            //     string rol = await api.KullaniciRolGetirAsync(kullaniciId);
+            //     // ...
+            // }
         }
     }
 }

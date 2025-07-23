@@ -1,4 +1,4 @@
-﻿namespace Seker_kutuphane
+namespace Seker_kutuphane
 {
     partial class Kayit
     {
@@ -72,7 +72,7 @@
             panel1.Location = new Point(130, 16);
             panel1.Margin = new Padding(3, 2, 3, 2);
             panel1.Name = "panel1";
-            panel1.Size = new Size(466, 468);
+            panel1.Size = new Size(466, 430);
             panel1.TabIndex = 0;
             // 
             // label10
@@ -308,8 +308,8 @@
         #endregion
 
         private Panel panel1;
-        private Label label1, label2, label3, label4, label5, label6, label7, label8, label9, label10;
-        private TextBox textBox1, textBox2, textBox3, textBox4, textBox5, textBox6, textBox7, textBox8;
+        private Label label1, label2, label3, label4, label5, label6, label7, label8, label9;
+        private TextBox textBox1, textBox2, textBox3, textBox4, textBox5, textBox6, textBox7;
         private Button button1, cikisClk;
         private LinkLabel linkLabel1;
         private PictureBox pictureBox1;

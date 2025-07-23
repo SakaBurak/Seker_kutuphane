@@ -23,11 +23,11 @@ namespace Seker_kutuphane
         }
 
         // Login işlemi: POST /login
-        public async Task<(string sessionId, dynamic user)> LoginAsync(string email, string sifre)
+        public async Task<(string sessionId, dynamic user)> LoginAsync(string tc, string sifre)
         {
-            var payload = new { email, sifre };
+            var payload = new { tc, sifre };
             var content = new StringContent(JsonConvert.SerializeObject(payload), Encoding.UTF8, "application/json");
-            var response = await client.PostAsync($"{apiBaseUrl}/login", content);
+            var response = await client.PostAsync($"{apiBaseUrl}/login-tc", content); // endpoint değişti
             response.EnsureSuccessStatusCode();
             var json = await response.Content.ReadAsStringAsync();
             dynamic obj = JsonConvert.DeserializeObject(json);

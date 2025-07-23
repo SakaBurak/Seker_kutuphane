@@ -1,4 +1,4 @@
-﻿namespace Seker_kutuphane
+namespace Seker_kutuphane
 {
     partial class Kayit
     {
@@ -19,6 +19,8 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Kayit));
             panel1 = new Panel();
+            label10 = new Label();
+            textBox8 = new TextBox();
             label9 = new Label();
             textBox7 = new TextBox();
             pictureBox1 = new PictureBox();
@@ -46,6 +48,8 @@
             // panel1
             // 
             panel1.BackColor = Color.White;
+            panel1.Controls.Add(label10);
+            panel1.Controls.Add(textBox8);
             panel1.Controls.Add(label9);
             panel1.Controls.Add(textBox7);
             panel1.Controls.Add(pictureBox1);
@@ -71,10 +75,27 @@
             panel1.Size = new Size(466, 430);
             panel1.TabIndex = 0;
             // 
+            // label10
+            // 
+            label10.AutoSize = true;
+            label10.Location = new Point(49, 266);
+            label10.Name = "label10";
+            label10.Size = new Size(55, 15);
+            label10.TabIndex = 34;
+            label10.Text = "E-posta *";
+            // 
+            // textBox8
+            // 
+            textBox8.Location = new Point(47, 281);
+            textBox8.Margin = new Padding(3, 2, 3, 2);
+            textBox8.Name = "textBox8";
+            textBox8.Size = new Size(353, 23);
+            textBox8.TabIndex = 35;
+            // 
             // label9
             // 
             label9.AutoSize = true;
-            label9.Location = new Point(49, 182);
+            label9.Location = new Point(49, 226);
             label9.Name = "label9";
             label9.Size = new Size(84, 15);
             label9.TabIndex = 32;
@@ -82,7 +103,7 @@
             // 
             // textBox7
             // 
-            textBox7.Location = new Point(47, 200);
+            textBox7.Location = new Point(47, 244);
             textBox7.Margin = new Padding(3, 2, 3, 2);
             textBox7.Name = "textBox7";
             textBox7.Size = new Size(353, 23);
@@ -157,7 +178,7 @@
             // label3
             // 
             label3.AutoSize = true;
-            label3.Location = new Point(49, 226);
+            label3.Location = new Point(50, 182);
             label3.Name = "label3";
             label3.Size = new Size(55, 15);
             label3.TabIndex = 43;
@@ -165,7 +186,7 @@
             // 
             // textBox3
             // 
-            textBox3.Location = new Point(47, 244);
+            textBox3.Location = new Point(47, 196);
             textBox3.Margin = new Padding(3, 2, 3, 2);
             textBox3.Name = "textBox3";
             textBox3.Size = new Size(353, 23);
@@ -174,7 +195,7 @@
             // label4
             // 
             label4.AutoSize = true;
-            label4.Location = new Point(49, 266);
+            label4.Location = new Point(48, 310);
             label4.Name = "label4";
             label4.Size = new Size(73, 15);
             label4.TabIndex = 45;
@@ -182,7 +203,7 @@
             // 
             // textBox4
             // 
-            textBox4.Location = new Point(47, 284);
+            textBox4.Location = new Point(47, 326);
             textBox4.Margin = new Padding(3, 2, 3, 2);
             textBox4.Name = "textBox4";
             textBox4.Size = new Size(353, 23);
@@ -191,7 +212,7 @@
             // label5
             // 
             label5.AutoSize = true;
-            label5.Location = new Point(49, 310);
+            label5.Location = new Point(48, 352);
             label5.Name = "label5";
             label5.Size = new Size(38, 15);
             label5.TabIndex = 47;
@@ -199,7 +220,7 @@
             // 
             // textBox5
             // 
-            textBox5.Location = new Point(47, 328);
+            textBox5.Location = new Point(47, 369);
             textBox5.Margin = new Padding(3, 2, 3, 2);
             textBox5.Name = "textBox5";
             textBox5.PasswordChar = '*';
@@ -209,7 +230,7 @@
             // label6
             // 
             label6.AutoSize = true;
-            label6.Location = new Point(241, 310);
+            label6.Location = new Point(241, 352);
             label6.Name = "label6";
             label6.Size = new Size(73, 15);
             label6.TabIndex = 49;
@@ -217,7 +238,7 @@
             // 
             // textBox6
             // 
-            textBox6.Location = new Point(241, 328);
+            textBox6.Location = new Point(241, 369);
             textBox6.Margin = new Padding(3, 2, 3, 2);
             textBox6.Name = "textBox6";
             textBox6.PasswordChar = '*';
@@ -229,7 +250,7 @@
             button1.BackColor = Color.FromArgb(76, 175, 80);
             button1.FlatStyle = FlatStyle.Flat;
             button1.ForeColor = Color.White;
-            button1.Location = new Point(47, 360);
+            button1.Location = new Point(47, 401);
             button1.Margin = new Padding(3, 2, 3, 2);
             button1.Name = "button1";
             button1.Size = new Size(353, 30);
@@ -243,7 +264,7 @@
             linkLabel1.AutoSize = true;
             linkLabel1.Font = new Font("Segoe UI", 7.8F, FontStyle.Regular, GraphicsUnit.Point, 162);
             linkLabel1.LinkColor = Color.Green;
-            linkLabel1.Location = new Point(124, 395);
+            linkLabel1.Location = new Point(124, 435);
             linkLabel1.Name = "linkLabel1";
             linkLabel1.Size = new Size(183, 13);
             linkLabel1.TabIndex = 52;
@@ -256,7 +277,7 @@
             cikisClk.BackColor = Color.Red;
             cikisClk.FlatStyle = FlatStyle.Popup;
             cikisClk.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point, 162);
-            cikisClk.Location = new Point(684, 1);
+            cikisClk.Location = new Point(683, 2);
             cikisClk.Margin = new Padding(3, 2, 3, 2);
             cikisClk.Name = "cikisClk";
             cikisClk.Size = new Size(26, 25);

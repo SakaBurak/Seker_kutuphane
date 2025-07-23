@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -10,6 +10,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using Seker_kutuphane;
+using System.Security.Cryptography;
 using Newtonsoft.Json;
 
 namespace Seker_kutuphane
@@ -21,50 +22,8 @@ namespace Seker_kutuphane
             InitializeComponent();
         }
 
-        private void button1_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void label1_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void button3_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void linkLabel1_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
-        {
-
-        }
-
-        private void pictureBox1_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void label4_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void login_Load(object sender, EventArgs e)
-        {
-
-        }
-
-        private void label5_Click(object sender, EventArgs e)
-        {
-
-        }
-
         private void panel1_Paint(object sender, PaintEventArgs e)
         {
-            // Panel çizim işlemleri buraya eklenebilir.
-
             Graphics v = e.Graphics;
             v.SmoothingMode = SmoothingMode.AntiAlias;
             v.Clear(panel1.BackColor);
@@ -81,26 +40,32 @@ namespace Seker_kutuphane
             panel1.Region = new Region(p);
         }
 
-        private void button1_Click_1(object sender, EventArgs e)
-        {
-
-        }
-
         private void linkRegister_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
-            /* this.Close();
-             var kayit = new Form();
-             kayit.Show();*/
-
-            Kayit kayitform = new Kayit(); 
+            Kayit kayitform = new Kayit();
             kayitform.Show();
             this.Hide();
+        }
+
+        private string Sha256Hash(string value)
+        {
+            using (SHA256 sha256 = SHA256.Create())
+            {
+                byte[] bytes = sha256.ComputeHash(Encoding.UTF8.GetBytes(value));
+                StringBuilder builder = new StringBuilder();
+                foreach (byte b in bytes)
+                {
+                    builder.Append(b.ToString("x2"));
+                }
+                return builder.ToString();
+            }
         }
 
         private async void btnGirisYap_Click(object sender, EventArgs e)
         {
             string email = txtEmail.Text.Trim();
             string sifre = txtSifre.Text.Trim();
+            string hashedSifre = Sha256Hash(sifre);
             if (string.IsNullOrEmpty(email) || string.IsNullOrEmpty(sifre))
             {
                 MessageBox.Show("Lütfen e-posta ve şifre giriniz.");
@@ -109,7 +74,7 @@ namespace Seker_kutuphane
             ApiHelper api = new ApiHelper();
             try
             {
-                var (sessionId, user) = await api.LoginAsync(email, sifre);
+                var (sessionId, user) = await api.LoginAsync(email, hashedSifre);
                 if (user != null)
                 {
                     string ad = user.ad ?? "";

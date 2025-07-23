@@ -48,6 +48,8 @@
             button1 = new Button();
             linkLabel1 = new LinkLabel();
             cikisClk = new Button();
+            label9 = new Label();
+            textBox7 = new TextBox();
             panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             SuspendLayout();
@@ -72,6 +74,8 @@
             panel1.Controls.Add(textBox6);
             panel1.Controls.Add(button1);
             panel1.Controls.Add(linkLabel1);
+            panel1.Controls.Add(label9);
+            panel1.Controls.Add(textBox7);
             panel1.Location = new Point(148, 22);
             panel1.Margin = new Padding(3, 2, 3, 2);
             panel1.Name = "panel1";
@@ -169,16 +173,16 @@
             label4.AutoSize = true;
             label4.Location = new Point(48, 230);
             label4.Name = "label4";
-            label4.Size = new Size(54, 15);
+            label4.Size = new Size(70, 15);
             label4.TabIndex = 23;
-            label4.Text = "Telefon *";
+            label4.Text = "Telefon No *";
             // 
             // textBox4
             // 
             textBox4.Location = new Point(48, 244);
             textBox4.Margin = new Padding(3, 2, 3, 2);
             textBox4.Name = "textBox4";
-            textBox4.Size = new Size(350, 23);
+            textBox4.Size = new Size(158, 23);
             textBox4.TabIndex = 24;
             // 
             // label5
@@ -258,6 +262,23 @@
             cikisClk.UseVisualStyleBackColor = false;
             cikisClk.Click += cikisClk_Click;
             // 
+            // label9
+            // 
+            label9.AutoSize = true;
+            label9.Location = new Point(241, 230);
+            label9.Name = "label9";
+            label9.Size = new Size(100, 15);
+            label9.TabIndex = 35;
+            label9.Text = "TC Kimlik No *";
+            // 
+            // textBox7
+            // 
+            textBox7.Location = new Point(241, 244);
+            textBox7.Margin = new Padding(3, 2, 3, 2);
+            textBox7.Name = "textBox7";
+            textBox7.Size = new Size(158, 23);
+            textBox7.TabIndex = 36;
+            // 
             // Kayit
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
@@ -297,5 +318,7 @@
         private System.Windows.Forms.Label label8;
         private PictureBox pictureBox1;
         private Button cikisClk;
+        private System.Windows.Forms.Label label9;
+        private System.Windows.Forms.TextBox textBox7;
     }
 }

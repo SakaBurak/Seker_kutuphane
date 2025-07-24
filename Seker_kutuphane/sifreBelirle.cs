@@ -13,9 +13,11 @@ namespace Seker_kutuphane
 {
     public partial class sifreBelirle : Form
     {
-        public sifreBelirle()
+        private string tc;
+        public sifreBelirle(string tc)
         {
             InitializeComponent();
+            this.tc = tc;
         }
 
         private void linkRegister_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
@@ -43,6 +45,47 @@ namespace Seker_kutuphane
         private void linkLabel1_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
 
+        }
+
+        private async void button1_Click(object sender, EventArgs e)
+        {
+            string sifre1 = textBox3.Text;
+            string sifre2 = textBox1.Text;
+            if (string.IsNullOrEmpty(sifre1) || string.IsNullOrEmpty(sifre2))
+            {
+                MessageBox.Show("Lütfen tüm alanları doldurunuz.", "Uyarı", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+            if (sifre1 != sifre2)
+            {
+                MessageBox.Show("Şifreler eşleşmiyor.", "Hata", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+            string hash = HashPassword(sifre1);
+            ApiHelper api = new ApiHelper();
+            bool result = await api.ResetPasswordAsync(tc, hash);
+            if (result)
+            {
+                MessageBox.Show("Şifreniz başarıyla değiştirildi.", "Bilgi", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                Login login = new Login();
+                login.Show();
+                this.Hide();
+            }
+            else
+            {
+                MessageBox.Show("Şifre değiştirme işlemi başarısız.", "Hata", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        // Şifreyi hashleyen fonksiyon (örnek SHA256)
+        private string HashPassword(string password)
+        {
+            using (var sha = System.Security.Cryptography.SHA256.Create())
+            {
+                var bytes = Encoding.UTF8.GetBytes(password);
+                var hash = sha.ComputeHash(bytes);
+                return BitConverter.ToString(hash).Replace("-", "").ToLower();
+            }
         }
     }
 }

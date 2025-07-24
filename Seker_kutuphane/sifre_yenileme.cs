@@ -35,9 +35,26 @@ namespace Seker_kutuphane
 
         }
 
-        private void button1_Click(object sender, EventArgs e)
+        private async void button1_Click(object sender, EventArgs e)
         {
-
+            string tc = textBox3.Text.Trim();
+            if (string.IsNullOrEmpty(tc))
+            {
+                MessageBox.Show("Lütfen TC kimlik numaranızı giriniz.", "Uyarı", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+            ApiHelper api = new ApiHelper();
+            bool isValid = await api.VerifyTCAsync(tc);
+            if (isValid)
+            {
+                sifreBelirle sifreForm = new sifreBelirle(tc);
+                sifreForm.Show();
+                this.Hide();
+            }
+            else
+            {
+                MessageBox.Show("Girilen TC numarası sistemde bulunamadı.", "Hata", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
 
         private void linkRegister_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)

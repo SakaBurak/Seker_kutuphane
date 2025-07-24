@@ -65,5 +65,39 @@ namespace Seker_kutuphane
             var json = await response.Content.ReadAsStringAsync();
             return JsonConvert.DeserializeObject(json);
         }
+
+        // TC doğrulama: POST /verify-tc
+        public async Task<bool> VerifyTCAsync(string tc)
+        {
+            try
+            {
+                var payload = new { tc };
+                var content = new StringContent(JsonConvert.SerializeObject(payload), Encoding.UTF8, "application/json");
+                var response = await client.PostAsync($"{apiBaseUrl}/verify-tc", content);
+                var json = await response.Content.ReadAsStringAsync();
+                if (!response.IsSuccessStatusCode)
+                    return false;
+                dynamic obj = JsonConvert.DeserializeObject(json);
+                return obj.verified == true;
+            }
+            catch (Exception ex)
+            {
+                System.Windows.Forms.MessageBox.Show(ex.ToString(), "Hata");
+                return false;
+            }
+        }
+
+        // Şifre sıfırlama: POST /reset-password
+        public async Task<bool> ResetPasswordAsync(string tc, string newPasswordHash)
+        {
+            var payload = new { tc, sifre = newPasswordHash };
+            var content = new StringContent(JsonConvert.SerializeObject(payload), Encoding.UTF8, "application/json");
+            var response = await client.PostAsync($"{apiBaseUrl}/reset-password", content);
+            if (!response.IsSuccessStatusCode)
+                return false;
+            var json = await response.Content.ReadAsStringAsync();
+            dynamic obj = JsonConvert.DeserializeObject(json);
+            return obj.success == true;
+        }
     }
 } 

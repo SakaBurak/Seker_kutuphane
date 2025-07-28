@@ -164,7 +164,7 @@
             btnCikis.FlatStyle = FlatStyle.Flat;
             btnCikis.Font = new Font("Segoe UI", 10F, FontStyle.Bold);
             btnCikis.ForeColor = Color.White;
-            btnCikis.Location = new Point(10, 400);
+            btnCikis.Location = new Point(10, 447);
             btnCikis.Name = "btnCikis";
             btnCikis.Size = new Size(180, 45);
             btnCikis.TabIndex = 5;
@@ -203,6 +203,7 @@
             Controls.Add(lblKullanici);
             Controls.Add(panelMenu);
             Name = "Form2";
+            StartPosition = FormStartPosition.CenterScreen;
             Text = "Dashboard";
             Load += Form2_Load;
             panelMenu.ResumeLayout(false);

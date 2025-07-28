@@ -125,8 +125,8 @@ namespace Seker_kutuphane
                             else if (rolIdsStr.Contains("3")) // Üye ID
                                 rol = "Üye";
                             else
-                                rol = "Üye"; // Varsayılan
-                        }
+                                rol = "Üye"; // Varsayılan 
+                        } //şu an çalışmıyor neden bilmiyoruz
                         
                         // Eğer rol_ids_str yoksa, rol_adlari array'ini kontrol et
                         if (string.IsNullOrEmpty(rol))
@@ -157,7 +157,7 @@ namespace Seker_kutuphane
                             rol = user.rol_adi ?? user.rol ?? user.role ?? user.role_name ?? user.rolAdi ?? "";
                         }
                         
-                        // Eğer hala boşsa, varsayılan rol ata
+                        // Eğer hala boşsa, varsayılan rol olarak ata
                         if (string.IsNullOrEmpty(rol))
                         {
                             rol = "Üye";

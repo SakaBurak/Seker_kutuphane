@@ -108,11 +108,11 @@ Admin > Kütüphane Yetkilisi/Görevlisi > Üye
 
 | Buton | Üye | Kütüphane Yetkilisi | Admin |
 |-------|-----|---------------------|-------|
-| Kitap Ara/Yönetimi | ✅ Aktif | ✅ Aktif | ✅ Aktif |
-| Profilim/Üye Yönetimi | ✅ Aktif | ✅ Aktif | ✅ Aktif |
-| Emanet İşlemleri | ❌ Devre Dışı | ✅ Aktif | ✅ Aktif |
-| Raporlar | ❌ Devre Dışı | ❌ Devre Dışı | ✅ Aktif |
-| Sistem Yönetimi | ❌ Devre Dışı | ❌ Devre Dışı | ✅ Aktif |
+| Kitap Ara/Yönetimi | ✅ Görünür | ✅ Görünür | ✅ Görünür |
+| Profilim/Üye Yönetimi | ✅ Görünür | ✅ Görünür | ✅ Görünür |
+| Emanet İşlemleri | ❌ Gizli | ✅ Görünür | ✅ Görünür |
+| Raporlar | ❌ Gizli | ❌ Gizli | ✅ Görünür |
+| Sistem Yönetimi | ❌ Gizli | ❌ Gizli | ✅ Görünür |
 
 ### 🎨 Tasarım Özellikleri
 - **Renk Paleti**: Kayseri Şeker Kurumsal Renkleri
@@ -120,11 +120,10 @@ Admin > Kütüphane Yetkilisi/Görevlisi > Üye
   - **Buton Yeşili**: #4CAF50 (Açık yeşil - aktif butonlar)
   - **Hover Yeşili**: #81C784 (Daha açık yeşil - hover efekti)
   - **Çıkış Kırmızısı**: #F44336 (Kırmızı - çıkış butonu)
-  - **Devre Dışı Gri**: #BDBDBD (Gri - devre dışı butonlar)
   - **Arka Plan**: #F5F5F5 (Açık gri - form arka planı)
 - **Buton Tasarımı**: Flat design, borderless
 - **Hover Efektleri**: Mouse üzerine gelince renk değişimi
-- **Devre Dışı Butonlar**: Gri renk (#BDBDBD) + "(Yetkiniz Yok)" yazısı
+- **Görünürlük Yaklaşımı**: Yetkisiz butonlar tamamen gizli
 - **Çıkış Butonu**: Kırmızı renk (#F44336)
 - **Font**: Segoe UI, Bold
 
@@ -143,9 +142,8 @@ Admin > Kütüphane Yetkilisi/Görevlisi > Üye
    - Dashboard rolünüze göre açılır
 
 3. **Dashboard Kullanımı**:
-   - **Tüm butonlar her zaman aynı yerde**
-   - Aktif butonlar mavi renkte
-   - Devre dışı butonlar gri renkte ve "(Yetkiniz Yok)" yazısı ile
+   - **Sadece yetkili olduğunuz butonlar görünür**
+   - Yetkiniz olmayan işlemler tamamen gizli
    - Hover efektleri ile etkileşimli tasarım
    - Her buton rolünüze uygun işlem yapar
    - **Çoklu rolünüz varsa en yüksek yetki kullanılır**

@@ -158,29 +158,20 @@ namespace Seker_kutuphane
             // Üye yetkileri: Sadece kitap arama ve profil güncelleme
             btnKitaplar.Text = "Kitap Ara";
             btnKitaplar.Enabled = true;
+            btnKitaplar.Visible = true;
             btnKitaplar.BackColor = Color.FromArgb(76, 175, 80); // Açık yeşil
             btnKitaplar.ForeColor = Color.White;
             
             btnUyeler.Text = "Profilim";
             btnUyeler.Enabled = true;
+            btnUyeler.Visible = true;
             btnUyeler.BackColor = Color.FromArgb(76, 175, 80); // Açık yeşil
             btnUyeler.ForeColor = Color.White;
             
-            // Diğer butonlar devre dışı
-            btnEmanetler.Enabled = false;
-            btnEmanetler.Text = "Emanet İşlemleri (Yetkiniz Yok)";
-            btnEmanetler.BackColor = Color.FromArgb(189, 189, 189); // Gri
-            btnEmanetler.ForeColor = Color.FromArgb(97, 97, 97); // Koyu gri
-            
-            btnRaporlar.Enabled = false;
-            btnRaporlar.Text = "Raporlar (Yetkiniz Yok)";
-            btnRaporlar.BackColor = Color.FromArgb(189, 189, 189); // Gri
-            btnRaporlar.ForeColor = Color.FromArgb(97, 97, 97); // Koyu gri
-            
-            btnYonetim.Enabled = false;
-            btnYonetim.Text = "Sistem Yönetimi (Yetkiniz Yok)";
-            btnYonetim.BackColor = Color.FromArgb(189, 189, 189); // Gri
-            btnYonetim.ForeColor = Color.FromArgb(97, 97, 97); // Koyu gri
+            // Diğer butonlar gizli
+            btnEmanetler.Visible = false;
+            btnRaporlar.Visible = false;
+            btnYonetim.Visible = false;
         }
 
         private void SetupGorevliPermissions()
@@ -188,29 +179,25 @@ namespace Seker_kutuphane
             // Kütüphane görevlisi yetkileri: Kitap arama + üye yönetimi + emanet işlemleri
             btnKitaplar.Text = "Kitap Yönetimi";
             btnKitaplar.Enabled = true;
+            btnKitaplar.Visible = true;
             btnKitaplar.BackColor = Color.FromArgb(76, 175, 80); // Açık yeşil
             btnKitaplar.ForeColor = Color.White;
             
             btnUyeler.Text = "Üye Yönetimi";
             btnUyeler.Enabled = true;
+            btnUyeler.Visible = true;
             btnUyeler.BackColor = Color.FromArgb(76, 175, 80); // Açık yeşil
             btnUyeler.ForeColor = Color.White;
             
             btnEmanetler.Text = "Emanet İşlemleri";
             btnEmanetler.Enabled = true;
+            btnEmanetler.Visible = true;
             btnEmanetler.BackColor = Color.FromArgb(76, 175, 80); // Açık yeşil
             btnEmanetler.ForeColor = Color.White;
             
-            // Raporlar ve yönetim devre dışı (sadece admin)
-            btnRaporlar.Enabled = false;
-            btnRaporlar.Text = "Raporlar (Yetkiniz Yok)";
-            btnRaporlar.BackColor = Color.FromArgb(189, 189, 189); // Gri
-            btnRaporlar.ForeColor = Color.FromArgb(97, 97, 97); // Koyu gri
-            
-            btnYonetim.Enabled = false;
-            btnYonetim.Text = "Sistem Yönetimi (Yetkiniz Yok)";
-            btnYonetim.BackColor = Color.FromArgb(189, 189, 189); // Gri
-            btnYonetim.ForeColor = Color.FromArgb(97, 97, 97); // Koyu gri
+            // Raporlar ve yönetim gizli (sadece admin)
+            btnRaporlar.Visible = false;
+            btnYonetim.Visible = false;
         }
 
         private void SetupAdminPermissions()
@@ -218,26 +205,31 @@ namespace Seker_kutuphane
             // Admin yetkileri: Tüm yetkiler
             btnKitaplar.Text = "Kitap Yönetimi";
             btnKitaplar.Enabled = true;
+            btnKitaplar.Visible = true;
             btnKitaplar.BackColor = Color.FromArgb(76, 175, 80); // Açık yeşil
             btnKitaplar.ForeColor = Color.White;
             
             btnUyeler.Text = "Üye Yönetimi";
             btnUyeler.Enabled = true;
+            btnUyeler.Visible = true;
             btnUyeler.BackColor = Color.FromArgb(76, 175, 80); // Açık yeşil
             btnUyeler.ForeColor = Color.White;
             
             btnEmanetler.Text = "Emanet İşlemleri";
             btnEmanetler.Enabled = true;
+            btnEmanetler.Visible = true;
             btnEmanetler.BackColor = Color.FromArgb(76, 175, 80); // Açık yeşil
             btnEmanetler.ForeColor = Color.White;
             
             btnRaporlar.Text = "Raporlar";
             btnRaporlar.Enabled = true;
+            btnRaporlar.Visible = true;
             btnRaporlar.BackColor = Color.FromArgb(76, 175, 80); // Açık yeşil
             btnRaporlar.ForeColor = Color.White;
             
             btnYonetim.Text = "Sistem Yönetimi";
             btnYonetim.Enabled = true;
+            btnYonetim.Visible = true;
             btnYonetim.BackColor = Color.FromArgb(76, 175, 80); // Açık yeşil
             btnYonetim.ForeColor = Color.White;
         }

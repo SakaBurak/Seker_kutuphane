@@ -71,6 +71,7 @@
             btnKitaplar.Size = new Size(160, 35);
             btnKitaplar.TabIndex = 0;
             btnKitaplar.Text = "Kitaplar";
+            btnKitaplar.Click += btnKitaplar_Click;
             // 
             // btnUyeler
             // 
@@ -143,7 +144,7 @@
             Controls.Add(panelMenu);
             Name = "Form2";
             Text = "Dashboard";
-            Load += this.Form2_Load;
+            Load += Form2_Load;
             panelMenu.ResumeLayout(false);
             ResumeLayout(false);
         }

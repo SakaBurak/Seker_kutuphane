@@ -48,5 +48,10 @@ namespace Seker_kutuphane
             //     // ...
             // }
         }
+
+        private void btnKitaplar_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }

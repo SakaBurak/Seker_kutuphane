@@ -78,18 +78,34 @@ namespace Seker_kutuphane
                 MessageBox.Show("TC Kimlik numarası 11 haneli olmalı ve sadece rakamlardan oluşmalıdır.");
                 return;
             }
+            
+            // Email format kontrolü
+            if (!email.Contains("@") || !email.Contains("."))
+            {
+                MessageBox.Show("Geçerli bir email adresi giriniz.");
+                return;
+            }
+            
+            // Telefon format kontrolü
+            if (telefon.Length < 10)
+            {
+                MessageBox.Show("Geçerli bir telefon numarası giriniz.");
+                return;
+            }
+            
             // Sadece şifre hashleniyor, TC düz gönderilecek
             string hashedSifre = Sha256Hash(sifre);
+            
+            // API'nin beklediği format - sadece temel alanlar
             var userData = new {
-                ad,
-                soyad,
-                tc,
-                telefon,
-                email,
+                ad = ad,
+                soyad = soyad,
+                tc = tc,
+                telefon = telefon,
+                email = email,
                 sifre = hashedSifre
             };
-            string json = Newtonsoft.Json.JsonConvert.SerializeObject(userData);
-            MessageBox.Show("Gönderilen JSON:\n" + json);
+            
             ApiHelper api = new ApiHelper();
             try
             {
@@ -101,7 +117,7 @@ namespace Seker_kutuphane
             }
             catch (HttpRequestException ex)
             {
-                MessageBox.Show($"Kayıt başarısız: {ex.Message}\nDetay: {ex.InnerException?.Message}");
+                MessageBox.Show($"Kayıt başarısız: {ex.Message}");
             }
             catch (Exception ex)
             {
@@ -119,6 +135,20 @@ namespace Seker_kutuphane
         private void cikisClk_Click(object sender, EventArgs e)
         {
             this.Close();
+        }
+
+        private async void TestApiEndpoints()
+        {
+            try
+            {
+                ApiHelper api = new ApiHelper();
+                var result = await api.TestEndpointsAsync();
+                MessageBox.Show($"API Endpoint Test Results:\n{result}", "API Test");
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Test Error: {ex.Message}", "Error");
+            }
         }
     }
 }

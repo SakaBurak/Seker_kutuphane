@@ -4,6 +4,7 @@ using System.Net.Http.Headers;
 using System.Text;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
+using System.Collections.Generic; // Added for List
 
 namespace Seker_kutuphane
 {
@@ -41,11 +42,36 @@ namespace Seker_kutuphane
         // Kayıt olma işlemi: POST /register
         public async Task<dynamic> RegisterAsync(object userData)
         {
-            var content = new StringContent(JsonConvert.SerializeObject(userData), Encoding.UTF8, "application/json");
-            var response = await client.PostAsync($"{apiBaseUrl}/register", content);
-            response.EnsureSuccessStatusCode();
-            var json = await response.Content.ReadAsStringAsync();
-            return JsonConvert.DeserializeObject(json);
+            try
+            {
+                var jsonData = JsonConvert.SerializeObject(userData);
+                System.Windows.Forms.MessageBox.Show($"Gönderilen JSON: {jsonData}", "Debug Info");
+                
+                var content = new StringContent(jsonData, Encoding.UTF8, "application/json");
+                
+                // Sadece /register endpoint'ini kullan
+                var response = await client.PostAsync($"{apiBaseUrl}/register", content);
+                
+                var responseContent = await response.Content.ReadAsStringAsync();
+                System.Windows.Forms.MessageBox.Show($"API Response Status: {response.StatusCode}\nResponse Content: {responseContent}", "API Response");
+                
+                if (!response.IsSuccessStatusCode)
+                {
+                    throw new HttpRequestException($"HTTP {response.StatusCode}: {responseContent}");
+                }
+                
+                return JsonConvert.DeserializeObject(responseContent);
+            }
+            catch (HttpRequestException ex)
+            {
+                System.Windows.Forms.MessageBox.Show($"HTTP Error: {ex.Message}", "Error");
+                throw;
+            }
+            catch (Exception ex)
+            {
+                System.Windows.Forms.MessageBox.Show($"General Error: {ex.Message}", "Error");
+                throw;
+            }
         }
 
         // Kullanıcıları getir: GET /kullanicilar
@@ -85,6 +111,28 @@ namespace Seker_kutuphane
                 System.Windows.Forms.MessageBox.Show(ex.ToString(), "Hata");
                 return false;
             }
+        }
+
+        // API endpoint'lerini test et
+        public async Task<string> TestEndpointsAsync()
+        {
+            var endpoints = new[] { "/register", "/kayit", "/user", "/users", "/kullanici" };
+            var results = new List<string>();
+            
+            foreach (var endpoint in endpoints)
+            {
+                try
+                {
+                    var response = await client.GetAsync($"{apiBaseUrl}{endpoint}");
+                    results.Add($"{endpoint}: {response.StatusCode}");
+                }
+                catch (Exception ex)
+                {
+                    results.Add($"{endpoint}: Error - {ex.Message}");
+                }
+            }
+            
+            return string.Join("\n", results);
         }
 
         // Şifre sıfırlama: POST /reset-password

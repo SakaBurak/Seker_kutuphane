@@ -78,12 +78,22 @@ namespace Seker_kutuphane
             btnCikis.MouseLeave += (s, e) => {
                 btnCikis.BackColor = Color.FromArgb(244, 67, 54); // Kırmızı
             };
+
+            // lblKullanici için hover efekti
+            lblKullanici.MouseEnter += (s, e) => {
+                lblKullanici.ForeColor = Color.FromArgb(129, 199, 132); // Daha açık yeşil
+            };
+            lblKullanici.MouseLeave += (s, e) => {
+                lblKullanici.ForeColor = Color.FromArgb(0, 128, 0); // Kayseri Şeker Yeşili
+            };
         }
 
         private void SetupRoleBasedAccess()
         {
             // Kullanıcı bilgisi göster
-            lblKullanici.Text = $"Kullanıcı: {kullaniciAdi}  |  Rol: {rol}";
+            lblKullanici.Text = $"Hoş geldiniz {kullaniciAdi}";
+            lblKullanici.Visible = true;
+            lblKullanici.BringToFront();
             
             // Tüm butonları varsayılan olarak görünür yap ama sadece yetkili olanları aktif et
             SetupAllButtons();

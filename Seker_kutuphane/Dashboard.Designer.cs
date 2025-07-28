@@ -187,11 +187,10 @@
             lblKullanici.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             lblKullanici.Font = new Font("Segoe UI", 11F, FontStyle.Bold);
             lblKullanici.ForeColor = Color.FromArgb(0, 128, 0);
-            lblKullanici.Location = new Point(600, 30);
+            lblKullanici.Location = new Point(638, 34);
             lblKullanici.Name = "lblKullanici";
             lblKullanici.Size = new Size(200, 30);
             lblKullanici.TabIndex = 1;
-            lblKullanici.Text = "Kullanıcı: - Rol: -";
             lblKullanici.TextAlign = ContentAlignment.MiddleRight;
             // 
             // Form2

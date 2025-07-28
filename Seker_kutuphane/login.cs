@@ -81,31 +81,49 @@ namespace Seker_kutuphane
                 {
                     string ad = user.ad ?? "";
                     
-                    // Rol bilgisini rol_adlari array'inden al
+                    // Rol bilgisini rol_ids_str veya rol_adlari array'inden al
                     string rol = "";
                     try
                     {
-                        // Önce rol_adlari array'ini kontrol et
-                        if (user.rol_adlari != null)
+                        // Önce rol_ids_str alanını kontrol et
+                        if (user.rol_ids_str != null)
                         {
-                            var rolAdlari = user.rol_adlari as Newtonsoft.Json.Linq.JArray;
-                            if (rolAdlari != null && rolAdlari.Count > 0)
+                            string rolIdsStr = user.rol_ids_str.ToString();
+                            // rol_ids_str'den rol adlarını çıkar
+                            if (rolIdsStr.Contains("1")) // Admin ID
+                                rol = "Admin";
+                            else if (rolIdsStr.Contains("2")) // Kütüphane Görevlisi ID
+                                rol = "Kütüphane Görevlisi";
+                            else if (rolIdsStr.Contains("3")) // Üye ID
+                                rol = "Üye";
+                            else
+                                rol = "Üye"; // Varsayılan
+                        }
+                        
+                        // Eğer rol_ids_str yoksa, rol_adlari array'ini kontrol et
+                        if (string.IsNullOrEmpty(rol))
+                        {
+                            if (user.rol_adlari != null)
                             {
-                                // En yüksek yetkili rolü bul (Admin > Kütüphane Yetkilisi > Üye)
-                                string[] roller = rolAdlari.ToObject<string[]>();
-                                
-                                if (roller.Contains("Admin"))
-                                    rol = "Admin";
-                                else if (roller.Contains("Kütüphane Yetkilisi") || roller.Contains("Kütüphane Görevlisi"))
-                                    rol = "Kütüphane Görevlisi";
-                                else if (roller.Contains("Üye"))
-                                    rol = "Üye";
-                                else
-                                    rol = roller[0]; // İlk rolü al
+                                var rolAdlari = user.rol_adlari as Newtonsoft.Json.Linq.JArray;
+                                if (rolAdlari != null && rolAdlari.Count > 0)
+                                {
+                                    // En yüksek yetkili rolü bul (Admin > Kütüphane Yetkilisi > Üye)
+                                    string[] roller = rolAdlari.ToObject<string[]>();
+                                    
+                                    if (roller.Contains("Admin"))
+                                        rol = "Admin";
+                                    else if (roller.Contains("Kütüphane Yetkilisi") || roller.Contains("Kütüphane Görevlisi"))
+                                        rol = "Kütüphane Görevlisi";
+                                    else if (roller.Contains("Üye"))
+                                        rol = "Üye";
+                                    else
+                                        rol = roller[0]; // İlk rolü al
+                                }
                             }
                         }
                         
-                        // Eğer rol_adlari yoksa, eski yöntemleri dene
+                        // Eğer hala rol bulunamadıysa, eski yöntemleri dene
                         if (string.IsNullOrEmpty(rol))
                         {
                             rol = user.rol_adi ?? user.rol ?? user.role ?? user.role_name ?? user.rolAdi ?? "";

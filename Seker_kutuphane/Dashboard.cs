@@ -14,12 +14,14 @@ namespace Seker_kutuphane
     {
         private string kullaniciAdi;
         private string rol;
+        private dynamic userData;
         
-        public Form2(string kullaniciAdi, string rol)
+        public Form2(string kullaniciAdi, string rol, dynamic userData = null)
         {
             InitializeComponent();
             this.kullaniciAdi = kullaniciAdi;
             this.rol = rol;
+            this.userData = userData;
             SetupRoleBasedAccess();
             SetupButtonHoverEffects();
         }
@@ -277,31 +279,9 @@ namespace Seker_kutuphane
 
         private void btnUyeler_Click(object sender, EventArgs e)
         {
-            // Rol bazlı üye işlemleri
-            switch (rol.ToLower())
-            {
-                case "üye":
-                case "uye":
-                case "kullanici":
-                    MessageBox.Show("Profil güncelleme sayfası açılıyor...", "Profilim");
-                    // ProfilGuncellemeForm.Show();
-                    break;
-                    
-                case "kütüphane görevlisi":
-                case "kutuphane gorevlisi":
-                case "görevli":
-                case "gorevli":
-                    MessageBox.Show("Üye yönetimi sayfası açılıyor...", "Üye Yönetimi");
-                    // UyeYonetimForm.Show();
-                    break;
-                    
-                case "admin":
-                case "yönetici":
-                case "yonetici":
-                    MessageBox.Show("Tam üye yönetimi sayfası açılıyor...", "Üye Yönetimi (Admin)");
-                    // UyeAdminForm.Show();
-                    break;
-            }
+            // Profil formu aç
+            ProfilForm profilForm = new ProfilForm(kullaniciAdi, rol, userData);
+            profilForm.ShowDialog();
         }
 
         private void btnEmanetler_Click(object sender, EventArgs e)

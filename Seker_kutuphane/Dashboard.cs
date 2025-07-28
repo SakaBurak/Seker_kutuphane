@@ -205,7 +205,7 @@ namespace Seker_kutuphane
             btnKitaplarim.BackColor = Color.FromArgb(76, 175, 80);
             btnKitaplarim.ForeColor = Color.White;
 
-            btnUyeler.Text = "Üye Yönetimi";
+            btnUyeler.Text = "Profilim";
             btnUyeler.Enabled = true;
             btnUyeler.Visible = true;
             btnUyeler.BackColor = Color.FromArgb(76, 175, 80); // Açık yeşil
@@ -237,7 +237,7 @@ namespace Seker_kutuphane
             btnKitaplarim.BackColor = Color.FromArgb(76, 175, 80);
             btnKitaplarim.ForeColor = Color.White;
 
-            btnUyeler.Text = "Üye Yönetimi";
+            btnUyeler.Text = "Profilim";
             btnUyeler.Enabled = true;
             btnUyeler.Visible = true;
             btnUyeler.BackColor = Color.FromArgb(76, 175, 80); // Açık yeşil

@@ -20,6 +20,34 @@ namespace Seker_kutuphane
         public Login()
         {
             InitializeComponent();
+            SetupTCRestrictions();
+        }
+
+        private void SetupTCRestrictions()
+        {
+            // TC kimlik numarası için kısıtlamalar
+            txtTC.MaxLength = 11; // 11 hane sınırı
+            txtTC.KeyPress += TxtTC_KeyPress; // Sadece sayı girişi
+            txtTC.TextChanged += TxtTC_TextChanged; // Boşluk engelleme
+        }
+
+        private void TxtTC_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            // Sadece sayı ve backspace'e izin ver
+            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar))
+            {
+                e.Handled = true;
+            }
+        }
+
+        private void TxtTC_TextChanged(object sender, EventArgs e)
+        {
+            // Boşlukları kaldır
+            if (txtTC.Text.Contains(" "))
+            {
+                txtTC.Text = txtTC.Text.Replace(" ", "");
+                txtTC.SelectionStart = txtTC.Text.Length;
+            }
         }
 
         private void panel1_Paint(object sender, PaintEventArgs e)
@@ -63,7 +91,7 @@ namespace Seker_kutuphane
 
         private async void btnGirisYap_Click(object sender, EventArgs e)
         {
-            string tc = txtEmail.Text.Trim();
+            string tc = txtTC.Text.Trim();
             string sifre = txtSifre.Text.Trim();
             string hashedSifre = Sha256Hash(sifre);
             

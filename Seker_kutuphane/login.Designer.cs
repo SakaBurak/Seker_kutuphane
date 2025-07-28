@@ -31,7 +31,7 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Login));
             panel1 = new Panel();
             label3 = new Label();
-            txtEmail = new TextBox();
+            txtTC = new TextBox();
             label4 = new Label();
             btnGirisYap = new Button();
             pictureBox1 = new PictureBox();
@@ -51,7 +51,7 @@
             // 
             panel1.BackColor = Color.White;
             panel1.Controls.Add(label3);
-            panel1.Controls.Add(txtEmail);
+            panel1.Controls.Add(txtTC);
             panel1.Controls.Add(label4);
             panel1.Controls.Add(txtSifre);
             panel1.Controls.Add(btnGirisYap);
@@ -78,12 +78,12 @@
             label3.Text = "TC Kimlik No *";
             label3.Click += label3_Click;
             // 
-            // txtEmail
+            // txtTC
             // 
-            txtEmail.Location = new Point(80, 265);
-            txtEmail.Name = "txtEmail";
-            txtEmail.Size = new Size(400, 27);
-            txtEmail.TabIndex = 32;
+            txtTC.Location = new Point(80, 265);
+            txtTC.Name = "txtTC";
+            txtTC.Size = new Size(400, 27);
+            txtTC.TabIndex = 32;
             // 
             // label4
             // 
@@ -229,7 +229,7 @@
         private System.Windows.Forms.LinkLabel linkForgot;
         private Button btnGirisYap;
         private Label label3;
-        private TextBox txtEmail;
+        private TextBox txtTC;
         private Label label4;
         private Button btnCikis;
         private TextBox txtSifre;

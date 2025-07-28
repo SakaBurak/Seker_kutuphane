@@ -28,6 +28,7 @@
         /// </summary>
         private System.Windows.Forms.Panel panelMenu;
         private System.Windows.Forms.Button btnKitaplar;
+        private System.Windows.Forms.Button btnKitaplarim;
         private System.Windows.Forms.Button btnUyeler;
         private System.Windows.Forms.Button btnEmanetler;
         private System.Windows.Forms.Button btnRaporlar;
@@ -39,6 +40,7 @@
         {
             panelMenu = new Panel();
             btnKitaplar = new Button();
+            btnKitaplarim = new Button();
             btnUyeler = new Button();
             btnEmanetler = new Button();
             btnRaporlar = new Button();
@@ -51,8 +53,9 @@
             // 
             // panelMenu
             // 
-            panelMenu.BackColor = Color.FromArgb(0, 128, 0); // Kayseri Şeker Yeşili
+            panelMenu.BackColor = Color.FromArgb(0, 128, 0);
             panelMenu.Controls.Add(btnKitaplar);
+            panelMenu.Controls.Add(btnKitaplarim);
             panelMenu.Controls.Add(btnUyeler);
             panelMenu.Controls.Add(btnEmanetler);
             panelMenu.Controls.Add(btnRaporlar);
@@ -66,12 +69,12 @@
             // 
             // btnKitaplar
             // 
-            btnKitaplar.BackColor = Color.FromArgb(76, 175, 80); // Açık Yeşil
+            btnKitaplar.BackColor = Color.FromArgb(76, 175, 80);
             btnKitaplar.FlatAppearance.BorderSize = 0;
             btnKitaplar.FlatStyle = FlatStyle.Flat;
             btnKitaplar.Font = new Font("Segoe UI", 10F, FontStyle.Bold);
             btnKitaplar.ForeColor = Color.White;
-            btnKitaplar.Location = new Point(10, 80);
+            btnKitaplar.Location = new Point(10, 27);
             btnKitaplar.Name = "btnKitaplar";
             btnKitaplar.Size = new Size(180, 45);
             btnKitaplar.TabIndex = 0;
@@ -79,9 +82,24 @@
             btnKitaplar.UseVisualStyleBackColor = false;
             btnKitaplar.Click += btnKitaplar_Click;
             // 
+            // btnKitaplarim
+            // 
+            btnKitaplarim.BackColor = Color.FromArgb(76, 175, 80);
+            btnKitaplarim.FlatAppearance.BorderSize = 0;
+            btnKitaplarim.FlatStyle = FlatStyle.Flat;
+            btnKitaplarim.Font = new Font("Segoe UI", 10F, FontStyle.Bold);
+            btnKitaplarim.ForeColor = Color.White;
+            btnKitaplarim.Location = new Point(10, 82);
+            btnKitaplarim.Name = "btnKitaplarim";
+            btnKitaplarim.Size = new Size(180, 43);
+            btnKitaplarim.TabIndex = 1;
+            btnKitaplarim.Text = "Kitaplarım";
+            btnKitaplarim.UseVisualStyleBackColor = false;
+            btnKitaplarim.Click += btnKitaplarim_Click;
+            // 
             // btnUyeler
             // 
-            btnUyeler.BackColor = Color.FromArgb(76, 175, 80); // Açık Yeşil
+            btnUyeler.BackColor = Color.FromArgb(76, 175, 80);
             btnUyeler.FlatAppearance.BorderSize = 0;
             btnUyeler.FlatStyle = FlatStyle.Flat;
             btnUyeler.Font = new Font("Segoe UI", 10F, FontStyle.Bold);
@@ -96,7 +114,7 @@
             // 
             // btnEmanetler
             // 
-            btnEmanetler.BackColor = Color.FromArgb(76, 175, 80); // Açık Yeşil
+            btnEmanetler.BackColor = Color.FromArgb(76, 175, 80);
             btnEmanetler.FlatAppearance.BorderSize = 0;
             btnEmanetler.FlatStyle = FlatStyle.Flat;
             btnEmanetler.Font = new Font("Segoe UI", 10F, FontStyle.Bold);
@@ -111,7 +129,7 @@
             // 
             // btnRaporlar
             // 
-            btnRaporlar.BackColor = Color.FromArgb(76, 175, 80); // Açık Yeşil
+            btnRaporlar.BackColor = Color.FromArgb(76, 175, 80);
             btnRaporlar.FlatAppearance.BorderSize = 0;
             btnRaporlar.FlatStyle = FlatStyle.Flat;
             btnRaporlar.Font = new Font("Segoe UI", 10F, FontStyle.Bold);
@@ -126,7 +144,7 @@
             // 
             // btnYonetim
             // 
-            btnYonetim.BackColor = Color.FromArgb(76, 175, 80); // Açık Yeşil
+            btnYonetim.BackColor = Color.FromArgb(76, 175, 80);
             btnYonetim.FlatAppearance.BorderSize = 0;
             btnYonetim.FlatStyle = FlatStyle.Flat;
             btnYonetim.Font = new Font("Segoe UI", 10F, FontStyle.Bold);
@@ -141,7 +159,7 @@
             // 
             // btnCikis
             // 
-            btnCikis.BackColor = Color.FromArgb(244, 67, 54); // Kırmızı
+            btnCikis.BackColor = Color.FromArgb(244, 67, 54);
             btnCikis.FlatAppearance.BorderSize = 0;
             btnCikis.FlatStyle = FlatStyle.Flat;
             btnCikis.Font = new Font("Segoe UI", 10F, FontStyle.Bold);
@@ -157,7 +175,7 @@
             // lblBaslik
             // 
             lblBaslik.Font = new Font("Segoe UI", 18F, FontStyle.Bold);
-            lblBaslik.ForeColor = Color.FromArgb(0, 128, 0); // Kayseri Şeker Yeşili
+            lblBaslik.ForeColor = Color.FromArgb(0, 128, 0);
             lblBaslik.Location = new Point(220, 30);
             lblBaslik.Name = "lblBaslik";
             lblBaslik.Size = new Size(500, 40);
@@ -168,7 +186,7 @@
             // 
             lblKullanici.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             lblKullanici.Font = new Font("Segoe UI", 11F, FontStyle.Bold);
-            lblKullanici.ForeColor = Color.FromArgb(0, 128, 0); // Kayseri Şeker Yeşili
+            lblKullanici.ForeColor = Color.FromArgb(0, 128, 0);
             lblKullanici.Location = new Point(600, 30);
             lblKullanici.Name = "lblKullanici";
             lblKullanici.Size = new Size(200, 30);
@@ -180,7 +198,7 @@
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            BackColor = Color.FromArgb(245, 245, 245); // Açık Gri
+            BackColor = Color.FromArgb(245, 245, 245);
             ClientSize = new Size(850, 500);
             Controls.Add(lblBaslik);
             Controls.Add(lblKullanici);

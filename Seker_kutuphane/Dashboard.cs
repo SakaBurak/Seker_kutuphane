@@ -155,19 +155,25 @@ namespace Seker_kutuphane
 
         private void SetupUyePermissions()
         {
-            // Üye yetkileri: Sadece kitap arama ve profil güncelleme
+            // Üye yetkileri: Sadece kitap arama, kitaplarım ve profil güncelleme
             btnKitaplar.Text = "Kitap Ara";
             btnKitaplar.Enabled = true;
             btnKitaplar.Visible = true;
             btnKitaplar.BackColor = Color.FromArgb(76, 175, 80); // Açık yeşil
             btnKitaplar.ForeColor = Color.White;
-            
+
+            btnKitaplarim.Text = "Kitaplarım";
+            btnKitaplarim.Enabled = true;
+            btnKitaplarim.Visible = true;
+            btnKitaplarim.BackColor = Color.FromArgb(76, 175, 80);
+            btnKitaplarim.ForeColor = Color.White;
+
             btnUyeler.Text = "Profilim";
             btnUyeler.Enabled = true;
             btnUyeler.Visible = true;
             btnUyeler.BackColor = Color.FromArgb(76, 175, 80); // Açık yeşil
             btnUyeler.ForeColor = Color.White;
-            
+
             // Diğer butonlar gizli
             btnEmanetler.Visible = false;
             btnRaporlar.Visible = false;
@@ -176,25 +182,31 @@ namespace Seker_kutuphane
 
         private void SetupGorevliPermissions()
         {
-            // Kütüphane görevlisi yetkileri: Kitap arama + üye yönetimi + emanet işlemleri
-            btnKitaplar.Text = "Kitap Yönetimi";
+            // Kütüphane görevlisi yetkileri: Üye yetkileri + üye yönetimi + emanet işlemleri
+            btnKitaplar.Text = "Kitap Ara";
             btnKitaplar.Enabled = true;
             btnKitaplar.Visible = true;
             btnKitaplar.BackColor = Color.FromArgb(76, 175, 80); // Açık yeşil
             btnKitaplar.ForeColor = Color.White;
-            
+
+            btnKitaplarim.Text = "Kitaplarım";
+            btnKitaplarim.Enabled = true;
+            btnKitaplarim.Visible = true;
+            btnKitaplarim.BackColor = Color.FromArgb(76, 175, 80);
+            btnKitaplarim.ForeColor = Color.White;
+
             btnUyeler.Text = "Üye Yönetimi";
             btnUyeler.Enabled = true;
             btnUyeler.Visible = true;
             btnUyeler.BackColor = Color.FromArgb(76, 175, 80); // Açık yeşil
             btnUyeler.ForeColor = Color.White;
-            
+
             btnEmanetler.Text = "Emanet İşlemleri";
             btnEmanetler.Enabled = true;
             btnEmanetler.Visible = true;
             btnEmanetler.BackColor = Color.FromArgb(76, 175, 80); // Açık yeşil
             btnEmanetler.ForeColor = Color.White;
-            
+
             // Raporlar ve yönetim gizli (sadece admin)
             btnRaporlar.Visible = false;
             btnYonetim.Visible = false;
@@ -202,31 +214,37 @@ namespace Seker_kutuphane
 
         private void SetupAdminPermissions()
         {
-            // Admin yetkileri: Tüm yetkiler
-            btnKitaplar.Text = "Kitap Yönetimi";
+            // Admin yetkileri: Tüm yetkiler (Görevli + raporlar + sistem yönetimi)
+            btnKitaplar.Text = "Kitap Ara";
             btnKitaplar.Enabled = true;
             btnKitaplar.Visible = true;
             btnKitaplar.BackColor = Color.FromArgb(76, 175, 80); // Açık yeşil
             btnKitaplar.ForeColor = Color.White;
-            
+
+            btnKitaplarim.Text = "Kitaplarım";
+            btnKitaplarim.Enabled = true;
+            btnKitaplarim.Visible = true;
+            btnKitaplarim.BackColor = Color.FromArgb(76, 175, 80);
+            btnKitaplarim.ForeColor = Color.White;
+
             btnUyeler.Text = "Üye Yönetimi";
             btnUyeler.Enabled = true;
             btnUyeler.Visible = true;
             btnUyeler.BackColor = Color.FromArgb(76, 175, 80); // Açık yeşil
             btnUyeler.ForeColor = Color.White;
-            
+
             btnEmanetler.Text = "Emanet İşlemleri";
             btnEmanetler.Enabled = true;
             btnEmanetler.Visible = true;
             btnEmanetler.BackColor = Color.FromArgb(76, 175, 80); // Açık yeşil
             btnEmanetler.ForeColor = Color.White;
-            
+
             btnRaporlar.Text = "Raporlar";
             btnRaporlar.Enabled = true;
             btnRaporlar.Visible = true;
             btnRaporlar.BackColor = Color.FromArgb(76, 175, 80); // Açık yeşil
             btnRaporlar.ForeColor = Color.White;
-            
+
             btnYonetim.Text = "Sistem Yönetimi";
             btnYonetim.Enabled = true;
             btnYonetim.Visible = true;
@@ -242,31 +260,9 @@ namespace Seker_kutuphane
 
         private void btnKitaplar_Click(object sender, EventArgs e)
         {
-            // Rol bazlı kitap işlemleri
-            switch (rol.ToLower())
-            {
-                case "üye":
-                case "uye":
-                case "kullanici":
-                    MessageBox.Show("Kitap arama sayfası açılıyor...", "Kitap Ara");
-                    // KitapAramaForm.Show();
-                    break;
-                    
-                case "kütüphane görevlisi":
-                case "kutuphane gorevlisi":
-                case "görevli":
-                case "gorevli":
-                    MessageBox.Show("Kitap yönetimi sayfası açılıyor...", "Kitap Yönetimi");
-                    // KitapYonetimForm.Show();
-                    break;
-                    
-                case "admin":
-                case "yönetici":
-                case "yonetici":
-                    MessageBox.Show("Tam kitap yönetimi sayfası açılıyor...", "Kitap Yönetimi (Admin)");
-                    // KitapAdminForm.Show();
-                    break;
-            }
+            // Tüm rollerde kitap arama işlemi
+            MessageBox.Show("Kitap arama sayfası açılıyor...", "Kitap Ara");
+            // KitapAramaForm.Show();
         }
 
         private void btnUyeler_Click(object sender, EventArgs e)
@@ -323,6 +319,11 @@ namespace Seker_kutuphane
         {
             // Çıkış işlemi
             Application.Exit();
+        }
+
+        private void btnKitaplarim_Click(object sender, EventArgs e)
+        {
+            MessageBox.Show("Burada ödünç aldığınız kitaplar listelenecek.", "Kitaplarım", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
     }
 }

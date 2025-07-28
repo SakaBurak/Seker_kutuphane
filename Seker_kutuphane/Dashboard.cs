@@ -271,8 +271,9 @@ namespace Seker_kutuphane
         private void btnKitaplar_Click(object sender, EventArgs e)
         {
             // Tüm rollerde kitap arama işlemi
-            MessageBox.Show("Kitap arama sayfası açılıyor...", "Kitap Ara");
-            // KitapAramaForm.Show();
+            this.Hide();
+            var kitapAramaForm = new KitapAramaForm(this);
+            kitapAramaForm.Show();
         }
 
         private void btnUyeler_Click(object sender, EventArgs e)

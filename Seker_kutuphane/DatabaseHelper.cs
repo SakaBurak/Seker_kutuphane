@@ -151,73 +151,140 @@ namespace Seker_kutuphane
             return obj.success == true;
         }
 
-        // Kitap arama: GET /kitaplar
+        // Kullanıcının ödünç aldığı kitapları getir: GET /kullanici-odunc/{userId}
+        public async Task<dynamic> GetKitaplarimAsync(int kullaniciId)
+        {
+            try
+            {
+                // Yeni API dokümantasyonuna göre endpoint
+                var response = await client.GetAsync($"{apiBaseUrl}/kullanici-odunc/{kullaniciId}");
+                
+                if (response.StatusCode == System.Net.HttpStatusCode.NotFound)
+                {
+                    // 404 hatası durumunda boş liste döndür
+                    return new { kitaplar = new List<object>() };
+                }
+                
+                response.EnsureSuccessStatusCode();
+                var json = await response.Content.ReadAsStringAsync();
+                return JsonConvert.DeserializeObject(json);
+            }
+            catch
+            {
+                System.Windows.Forms.MessageBox.Show($"Kitaplarınız yüklenirken hata oluştu: Hata oluştu.", "Hata", System.Windows.Forms.MessageBoxButtons.OK, System.Windows.Forms.MessageBoxIcon.Error);
+                // Hata durumunda boş liste döndür
+                return new { kitaplar = new List<object>() };
+            }
+        }
+
+        // Tüm kitapları getir: GET /kitaplar
+        public async Task<dynamic> GetAllBooksAsync()
+        {
+            try
+            {
+                var fullUrl = $"{apiBaseUrl}/kitaplar";
+                
+                // Debug: URL'yi yazdır
+                Console.WriteLine($"GetAllBooks URL: {fullUrl}");
+                
+                var response = await client.GetAsync(fullUrl);
+                
+                Console.WriteLine($"GetAllBooks Response Status: {response.StatusCode}");
+                
+                if (response.StatusCode == System.Net.HttpStatusCode.NotFound)
+                {
+                    // 404 hatası durumunda boş liste döndür
+                    Console.WriteLine("GetAllBooks 404 Not Found - Boş liste döndürülüyor");
+                    return new List<object>();
+                }
+                
+                if (!response.IsSuccessStatusCode)
+                {
+                    // API'den veri gelmezse boş liste döndür
+                    Console.WriteLine($"GetAllBooks API Error: {response.StatusCode} - Boş liste döndürülüyor");
+                    return new List<object>();
+                }
+                
+                var json = await response.Content.ReadAsStringAsync();
+                Console.WriteLine($"GetAllBooks API Response: {json}");
+                
+                var result = JsonConvert.DeserializeObject(json);
+                Console.WriteLine($"GetAllBooks Parsed Result Type: {result?.GetType()}");
+                
+                return result;
+            }
+            catch (Exception ex)
+            {
+                // Hata durumunda boş liste döndür
+                Console.WriteLine($"GetAllBooks Error: {ex.Message}");
+                return new List<object>();
+            }
+        }
+
+        // Kitap arama: GET /kitap-bul
         public async Task<dynamic> SearchBooksAsync(string searchTerm = "", string filterType = "")
         {
             try
             {
                 var queryParams = new List<string>();
                 if (!string.IsNullOrEmpty(searchTerm))
-                    queryParams.Add($"q={Uri.EscapeDataString(searchTerm)}");
-                if (!string.IsNullOrEmpty(filterType))
+                {
+                    // Filter türüne göre parametre adını belirle
+                    string paramName = filterType switch
+                    {
+                        "kitap_adi" => "kitap_adi",
+                        "yazar" => "yazar",
+                        "yil" => "yil",
+                        "yayinevi" => "yayinevi",
+                        _ => "q" // Varsayılan genel arama
+                    };
+                    queryParams.Add($"{paramName}={Uri.EscapeDataString(searchTerm)}");
+                }
+                if (!string.IsNullOrEmpty(filterType) && filterType != "q")
+                {
                     queryParams.Add($"filter={Uri.EscapeDataString(filterType)}");
+                }
 
                 var queryString = queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "";
-                var response = await client.GetAsync($"{apiBaseUrl}/kitaplar{queryString}");
+                var fullUrl = $"{apiBaseUrl}/kitap-bul{queryString}";
+                
+                // Debug: URL'yi yazdır
+                Console.WriteLine($"SearchBooksAsync - Filter Type: {filterType}");
+                Console.WriteLine($"SearchBooksAsync - Search Term: {searchTerm}");
+                Console.WriteLine($"API URL: {fullUrl}");
+                
+                var response = await client.GetAsync(fullUrl);
+                
+                Console.WriteLine($"Response Status: {response.StatusCode}");
+                
+                if (response.StatusCode == System.Net.HttpStatusCode.NotFound)
+                {
+                    // 404 hatası durumunda boş liste döndür
+                    Console.WriteLine("404 Not Found - Boş liste döndürülüyor");
+                    return new List<object>();
+                }
                 
                 if (!response.IsSuccessStatusCode)
                 {
-                    // API'den veri gelmezse örnek veriler döndür
-                    return GetSampleBooks(searchTerm);
+                    // API'den veri gelmezse boş liste döndür
+                    Console.WriteLine($"API Error: {response.StatusCode} - Boş liste döndürülüyor");
+                    return new List<object>();
                 }
                 
                 var json = await response.Content.ReadAsStringAsync();
-                return JsonConvert.DeserializeObject(json);
+                Console.WriteLine($"API Response: {json}");
+                
+                var result = JsonConvert.DeserializeObject(json);
+                Console.WriteLine($"Parsed Result Type: {result?.GetType()}");
+                
+                return result;
             }
             catch (Exception ex)
             {
-                // Hata durumunda örnek veriler döndür
-                return GetSampleBooks(searchTerm);
+                // Hata durumunda boş liste döndür
+                Console.WriteLine($"SearchBooksAsync Error: {ex.Message}");
+                return new List<object>();
             }
-        }
-
-        // Örnek kitap verileri
-        private dynamic GetSampleBooks(string searchTerm = "")
-        {
-            var allBooks = new List<object>
-            {
-                new { KitapAdi = "Suç ve Ceza", Yazar = "Fyodor Dostoyevski", Yayinevi = "İş Bankası Kültür Yayınları", Yil = 1866, Stok = 5, Durum = "Mevcut" },
-                new { KitapAdi = "1984", Yazar = "George Orwell", Yayinevi = "Can Yayınları", Yil = 1949, Stok = 3, Durum = "Mevcut" },
-                new { KitapAdi = "Küçük Prens", Yazar = "Antoine de Saint-Exupéry", Yayinevi = "Can Yayınları", Yil = 1943, Stok = 8, Durum = "Mevcut" },
-                new { KitapAdi = "Dönüşüm", Yazar = "Franz Kafka", Yayinevi = "İş Bankası Kültür Yayınları", Yil = 1915, Stok = 2, Durum = "Mevcut" },
-                new { KitapAdi = "Fareler ve İnsanlar", Yazar = "John Steinbeck", Yayinevi = "Remzi Kitabevi", Yil = 1937, Stok = 4, Durum = "Mevcut" },
-                new { KitapAdi = "Hayvan Çiftliği", Yazar = "George Orwell", Yayinevi = "Can Yayınları", Yil = 1945, Stok = 6, Durum = "Mevcut" },
-                new { KitapAdi = "Şeker Portakalı", Yazar = "José Mauro de Vasconcelos", Yayinevi = "Can Yayınları", Yil = 1968, Stok = 3, Durum = "Mevcut" },
-                new { KitapAdi = "Kürk Mantolu Madonna", Yazar = "Sabahattin Ali", Yayinevi = "Yapı Kredi Yayınları", Yil = 1943, Stok = 7, Durum = "Mevcut" },
-                new { KitapAdi = "Simyacı", Yazar = "Paulo Coelho", Yayinevi = "Can Yayınları", Yil = 1988, Stok = 4, Durum = "Mevcut" },
-                new { KitapAdi = "Küçük Kara Balık", Yazar = "Samed Behrengi", Yayinevi = "Can Yayınları", Yil = 1968, Stok = 6, Durum = "Mevcut" },
-                new { KitapAdi = "Yabancı", Yazar = "Albert Camus", Yayinevi = "Can Yayınları", Yil = 1942, Stok = 3, Durum = "Mevcut" }
-            };
-
-            // Eğer arama terimi varsa filtrele
-            if (!string.IsNullOrEmpty(searchTerm))
-            {
-                var filteredBooks = allBooks.Where(book =>
-                {
-                    var bookDict = new Dictionary<string, object>();
-                    foreach (var prop in book.GetType().GetProperties())
-                    {
-                        bookDict[prop.Name] = prop.GetValue(book);
-                    }
-
-                    return bookDict.Values.Any(value => 
-                        value?.ToString().Contains(searchTerm, StringComparison.OrdinalIgnoreCase) == true);
-                }).ToList();
-
-                return filteredBooks;
-            }
-
-            return allBooks;
         }
     }
 } 

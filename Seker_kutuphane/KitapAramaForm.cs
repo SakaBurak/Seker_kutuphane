@@ -27,22 +27,10 @@ namespace Seker_kutuphane
 
         private void SetupFormDesign()
         {
-            // Form ayarları
-            this.Text = "Kitap Arama - Kayseri Şeker Kütüphane";
-            this.StartPosition = FormStartPosition.CenterScreen;
-            this.Size = new Size(1000, 700);
-            this.BackColor = Color.FromArgb(245, 245, 245);
-
-            // Başlık
-            lblBaslik.Text = "Kitap Arama Motoru";
-            lblBaslik.Font = new Font("Segoe UI", 20, FontStyle.Bold);
+            // Form başlığı
+            lblBaslik.Font = new Font("Segoe UI", 18, FontStyle.Bold);
             lblBaslik.ForeColor = Color.FromArgb(0, 128, 0);
             lblBaslik.TextAlign = ContentAlignment.MiddleCenter;
-
-            // Arama kutusu
-            txtArama.Font = new Font("Segoe UI", 12);
-            txtArama.PlaceholderText = "Kitap adı, yazar, yayınevi veya yıl ile arama yapın...";
-            txtArama.BorderStyle = BorderStyle.FixedSingle;
 
             // Arama butonu
             btnAra.Font = new Font("Segoe UI", 11, FontStyle.Bold);
@@ -111,20 +99,63 @@ namespace Seker_kutuphane
         {
             try
             {
+                Console.WriteLine("LoadSampleBooks called - getting all books");
+
                 // API'den tüm kitap verilerini al
-                var books = await apiHelper.SearchBooksAsync();
-                
-                // DataGridView'ı temizle ve yeni veriyi yükle
-                dgvKitaplar.DataSource = null;
-                dgvKitaplar.DataSource = books;
-                
-                // Veri yüklendikten sonra sütun ayarlarını yap
-                SetupDataGridView();
-                lblSonuc.Text = $"Toplam {books.Count} kitap mevcut. Arama yapmak için yukarıdaki kutuya yazın.";
+                var books = await apiHelper.GetAllBooksAsync();
+
+                Console.WriteLine($"GetAllBooks returned: {books?.GetType()}");
+
+                // API'den gelen veriyi parse et
+                List<object> bookList = new List<object>();
+
+                if (books is Newtonsoft.Json.Linq.JArray jArray)
+                {
+                    Console.WriteLine($"Books is JArray with {jArray.Count} items");
+                    bookList = jArray.ToObject<List<object>>() ?? new List<object>();
+                }
+                else if (books is List<object> list)
+                {
+                    Console.WriteLine($"Books is List<object> with {list.Count} items");
+                    bookList = list;
+                }
+                else
+                {
+                    Console.WriteLine($"Books is of type: {books?.GetType()}");
+                    // Diğer türleri de kontrol et
+                    if (books != null)
+                    {
+                        bookList = new List<object> { books };
+                    }
+                }
+
+                Console.WriteLine($"Final bookList count: {bookList.Count}");
+
+                if (bookList.Count > 0)
+                {
+                    // DataGridView'ı temizle ve yeni veriyi yükle
+                    dgvKitaplar.DataSource = null;
+                    dgvKitaplar.DataSource = bookList;
+
+                    // Veri yüklendikten sonra sütun ayarlarını yap
+                    SetupDataGridView();
+                    lblSonuc.Text = $"Toplam {bookList.Count} kitap mevcut. Arama yapmak için yukarıdaki kutuya yazın.";
+                    Console.WriteLine($"Loaded {bookList.Count} books");
+                }
+                else
+                {
+                    // Kitap yoksa
+                    dgvKitaplar.DataSource = null;
+                    lblSonuc.Text = "Henüz kitap bulunmamaktadır.";
+                    Console.WriteLine("No books found");
+                }
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Kitap verileri yüklenirken hata oluştu: {ex.Message}", "Hata", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                // Hata durumunda sessizce boş liste göster
+                Console.WriteLine($"LoadSampleBooks error: {ex.Message}");
+                dgvKitaplar.DataSource = null;
+                lblSonuc.Text = "Kitap verileri yüklenemedi.";
             }
         }
 
@@ -199,7 +230,7 @@ namespace Seker_kutuphane
             PerformSearch();
         }
 
-        private void txtArama_KeyPress(object sender, KeyPressEventArgs e)
+        private void txtKitapAdi_KeyPress(object sender, KeyPressEventArgs e)
         {
             if (e.KeyChar == (char)Keys.Enter)
             {
@@ -208,43 +239,188 @@ namespace Seker_kutuphane
             }
         }
 
+        private void txtYazar_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (e.KeyChar == (char)Keys.Enter)
+            {
+                PerformSearch();
+                e.Handled = true;
+            }
+        }
+
+        private void txtYil_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            // Sadece sayı ve backspace'e izin ver
+            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar))
+            {
+                e.Handled = true;
+                return;
+            }
+
+            if (e.KeyChar == (char)Keys.Enter)
+            {
+                PerformSearch();
+                e.Handled = true;
+            }
+        }
+
+        private void txtYayinevi_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (e.KeyChar == (char)Keys.Enter)
+            {
+                PerformSearch();
+                e.Handled = true;
+            }
+        }
+
+        private void cmbAramaTuru_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            // Arama türü değiştiğinde ilgili alanı vurgula
+            switch (cmbAramaTuru.SelectedItem?.ToString())
+            {
+                case "Kitap Adı":
+                    txtKitapAdi.Focus();
+                    break;
+                case "Yazar":
+                    txtYazar.Focus();
+                    break;
+                case "Yıl":
+                    txtYil.Focus();
+                    break;
+                case "Yayınevi":
+                    txtYayinevi.Focus();
+                    break;
+            }
+        }
+
         private async void PerformSearch()
         {
-            string searchTerm = txtArama.Text.Trim();
+            string searchTerm = "";
+            string filterType = "";
+            
+            // Arama türüne göre parametreleri belirle
+            switch (cmbAramaTuru.SelectedItem?.ToString())
+            {
+                case "Kitap Adı":
+                    searchTerm = txtKitapAdi.Text.Trim();
+                    filterType = "kitap_adi";
+                    Console.WriteLine($"Selected: Kitap Adı - Term: '{searchTerm}'");
+                    break;
+                case "Yazar":
+                    searchTerm = txtYazar.Text.Trim();
+                    filterType = "yazar";
+                    Console.WriteLine($"Selected: Yazar - Term: '{searchTerm}'");
+                    break;
+                case "Yıl":
+                    searchTerm = txtYil.Text.Trim();
+                    filterType = "yil";
+                    Console.WriteLine($"Selected: Yıl - Term: '{searchTerm}'");
+                    break;
+                case "Yayınevi":
+                    searchTerm = txtYayinevi.Text.Trim();
+                    filterType = "yayinevi";
+                    Console.WriteLine($"Selected: Yayınevi - Term: '{searchTerm}'");
+                    break;
+                case "Tümü":
+                default:
+                    // Tümü seçilmişse, dolu olan ilk alanı kullan
+                    if (!string.IsNullOrEmpty(txtKitapAdi.Text.Trim()))
+                    {
+                        searchTerm = txtKitapAdi.Text.Trim();
+                        filterType = "kitap_adi";
+                        Console.WriteLine($"Tümü - Using Kitap Adı: '{searchTerm}'");
+                    }
+                    else if (!string.IsNullOrEmpty(txtYazar.Text.Trim()))
+                    {
+                        searchTerm = txtYazar.Text.Trim();
+                        filterType = "yazar";
+                        Console.WriteLine($"Tümü - Using Yazar: '{searchTerm}'");
+                    }
+                    else if (!string.IsNullOrEmpty(txtYil.Text.Trim()))
+                    {
+                        searchTerm = txtYil.Text.Trim();
+                        filterType = "yil";
+                        Console.WriteLine($"Tümü - Using Yıl: '{searchTerm}'");
+                    }
+                    else if (!string.IsNullOrEmpty(txtYayinevi.Text.Trim()))
+                    {
+                        searchTerm = txtYayinevi.Text.Trim();
+                        filterType = "yayinevi";
+                        Console.WriteLine($"Tümü - Using Yayınevi: '{searchTerm}'");
+                    }
+                    break;
+            }
+            
+            Console.WriteLine($"PerformSearch called with term: '{searchTerm}', filter: '{filterType}'");
+            
             if (string.IsNullOrEmpty(searchTerm))
             {
                 // Arama terimi boşsa tüm kitapları göster
+                Console.WriteLine("Search term is empty, loading all books");
                 await LoadSampleBooks();
                 return;
             }
 
             try
             {
-                // API'den arama yap (tüm alanlarda arama)
-                var books = await apiHelper.SearchBooksAsync(searchTerm);
+                Console.WriteLine($"Calling API with search term: '{searchTerm}', filter: '{filterType}'");
                 
-                // DataGridView'ı temizle ve yeni veriyi yükle
-                dgvKitaplar.DataSource = null;
-                dgvKitaplar.DataSource = books;
+                // API'den arama yap
+                var books = await apiHelper.SearchBooksAsync(searchTerm, filterType);
                 
-                // Veri yüklendikten sonra sütun ayarlarını yap
-                SetupDataGridView();
-
-                if (books.Count == 0)
+                Console.WriteLine($"API returned: {books?.GetType()}");
+                
+                // API'den gelen veriyi parse et
+                List<object> bookList = new List<object>();
+                
+                if (books is Newtonsoft.Json.Linq.JArray jArray)
                 {
-                    MessageBox.Show($"'{searchTerm}' ile ilgili kitap bulunamadı.", "Arama Sonucu", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                    lblSonuc.Text = "Aradığınız kitap bulunamadı.";
-                    // DataGridView'ı temizle
-                    dgvKitaplar.DataSource = null;
+                    Console.WriteLine($"Books is JArray with {jArray.Count} items");
+                    bookList = jArray.ToObject<List<object>>() ?? new List<object>();
+                }
+                else if (books is List<object> list)
+                {
+                    Console.WriteLine($"Books is List<object> with {list.Count} items");
+                    bookList = list;
                 }
                 else
                 {
-                    lblSonuc.Text = $"'{searchTerm}' için {books.Count} kitap bulundu.";
+                    Console.WriteLine($"Books is of type: {books?.GetType()}");
+                    // Diğer türleri de kontrol et
+                    if (books != null)
+                    {
+                        bookList = new List<object> { books };
+                    }
+                }
+                
+                Console.WriteLine($"Final bookList count: {bookList.Count}");
+                
+                // DataGridView'ı temizle ve yeni veriyi yükle
+                dgvKitaplar.DataSource = null;
+                
+                if (bookList.Count > 0)
+                {
+                    dgvKitaplar.DataSource = bookList;
+                    
+                    // Veri yüklendikten sonra sütun ayarlarını yap
+                    SetupDataGridView();
+                    lblSonuc.Text = $"'{searchTerm}' için {bookList.Count} kitap bulundu.";
+                    Console.WriteLine($"Found {bookList.Count} books for '{searchTerm}'");
+                }
+                else
+                {
+                    lblSonuc.Text = $"'{searchTerm}' ile ilgili kitap bulunamadı.";
+                    // DataGridView'ı temizle
+                    dgvKitaplar.DataSource = null;
+                    Console.WriteLine($"No books found for '{searchTerm}'");
                 }
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Arama sırasında hata oluştu: {ex.Message}", "Hata", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                // Hata durumunda sessizce boş liste göster
+                Console.WriteLine($"PerformSearch error: {ex.Message}");
+                dgvKitaplar.DataSource = null;
+                lblSonuc.Text = $"'{searchTerm}' ile ilgili kitap bulunamadı.";
             }
         }
 
@@ -252,11 +428,15 @@ namespace Seker_kutuphane
 
         private void btnTemizle_Click(object sender, EventArgs e)
         {
-            // Arama kutusunu temizle
-            txtArama.Text = "";
-            
+            // Tüm arama alanlarını temizle
+            txtKitapAdi.Text = "";
+            txtYazar.Text = "";
+            txtYil.Text = "";
+            txtYayinevi.Text = "";
+            cmbAramaTuru.SelectedIndex = 0;
+
             // Tüm kitapları göster
-            LoadSampleBooks();
+            _ = LoadSampleBooks();
         }
 
         private void btnGeri_Click(object sender, EventArgs e)
@@ -268,6 +448,11 @@ namespace Seker_kutuphane
         private void KitapAramaForm_FormClosing(object sender, FormClosingEventArgs e)
         {
             dashboardForm.Show();
+        }
+
+        private void lblKitapAdi_Click(object sender, EventArgs e)
+        {
+
         }
     }
 } 

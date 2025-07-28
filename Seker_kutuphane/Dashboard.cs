@@ -264,7 +264,7 @@ namespace Seker_kutuphane
             btnYonetim.ForeColor = Color.White;
         }
 
-        private async void Form2_Load(object? sender, EventArgs e)
+        private void Form2_Load(object? sender, EventArgs e)
         {
             // Form yüklendiğinde rol bilgisini logla
             Console.WriteLine($"Dashboard yüklendi - Kullanıcı: {kullaniciAdi}, Rol: {rol}");
@@ -314,7 +314,9 @@ namespace Seker_kutuphane
 
         private void btnKitaplarim_Click(object sender, EventArgs e)
         {
-            MessageBox.Show("Burada ödünç aldığınız kitaplar listelenecek.", "Kitaplarım", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            // Kitaplarım formu aç
+            KitaplarimForm kitaplarimForm = new KitaplarimForm(kullaniciAdi, rol, userData);
+            kitaplarimForm.ShowDialog();
         }
     }
 }

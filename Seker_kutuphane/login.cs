@@ -31,7 +31,7 @@ namespace Seker_kutuphane
             txtTC.TextChanged += TxtTC_TextChanged; // Boşluk engelleme
         }
 
-        private void TxtTC_KeyPress(object sender, KeyPressEventArgs e)
+        private void TxtTC_KeyPress(object? sender, KeyPressEventArgs e)
         {
             // Sadece sayı ve backspace'e izin ver
             if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar))
@@ -40,7 +40,7 @@ namespace Seker_kutuphane
             }
         }
 
-        private void TxtTC_TextChanged(object sender, EventArgs e)
+        private void TxtTC_TextChanged(object? sender, EventArgs e)
         {
             // Boşlukları kaldır
             if (txtTC.Text.Contains(" "))
@@ -137,7 +137,7 @@ namespace Seker_kutuphane
                                 if (rolAdlari != null && rolAdlari.Count > 0)
                                 {
                                     // En yüksek yetkili rolü bul (Admin > Kütüphane Yetkilisi > Üye)
-                                    string[] roller = rolAdlari.ToObject<string[]>();
+                                    string[] roller = rolAdlari.ToObject<string[]>() ?? new string[0];
                                     
                                     if (roller.Contains("Admin"))
                                         rol = "Admin";
@@ -146,7 +146,7 @@ namespace Seker_kutuphane
                                     else if (roller.Contains("Üye"))
                                         rol = "Üye";
                                     else
-                                        rol = roller[0]; // İlk rolü al
+                                        rol = roller.Length > 0 ? roller[0] : "Üye"; // İlk rolü al
                                 }
                             }
                         }

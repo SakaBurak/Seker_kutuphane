@@ -363,49 +363,53 @@ namespace Seker_kutuphane
 
             try
             {
-                Console.WriteLine($"Calling API with search term: '{searchTerm}', filter: '{filterType}'");
+                Console.WriteLine($"Loading all books and filtering by: '{searchTerm}' in '{filterType}'");
                 
-                // API'den arama yap
-                var books = await apiHelper.SearchBooksAsync(searchTerm, filterType);
+                // Önce tüm kitapları çek
+                var allBooks = await apiHelper.GetAllBooksAsync();
                 
-                Console.WriteLine($"API returned: {books?.GetType()}");
+                Console.WriteLine($"All books loaded: {allBooks?.GetType()}");
                 
                 // API'den gelen veriyi parse et
-                List<object> bookList = new List<object>();
+                List<object> allBookList = new List<object>();
                 
-                if (books is Newtonsoft.Json.Linq.JArray jArray)
+                if (allBooks is Newtonsoft.Json.Linq.JArray jArray)
                 {
-                    Console.WriteLine($"Books is JArray with {jArray.Count} items");
-                    bookList = jArray.ToObject<List<object>>() ?? new List<object>();
+                    Console.WriteLine($"All books is JArray with {jArray.Count} items");
+                    allBookList = jArray.ToObject<List<object>>() ?? new List<object>();
                 }
-                else if (books is List<object> list)
+                else if (allBooks is List<object> list)
                 {
-                    Console.WriteLine($"Books is List<object> with {list.Count} items");
-                    bookList = list;
+                    Console.WriteLine($"All books is List<object> with {list.Count} items");
+                    allBookList = list;
                 }
                 else
                 {
-                    Console.WriteLine($"Books is of type: {books?.GetType()}");
-                    // Diğer türleri de kontrol et
-                    if (books != null)
+                    Console.WriteLine($"All books is of type: {allBooks?.GetType()}");
+                    if (allBooks != null)
                     {
-                        bookList = new List<object> { books };
+                        allBookList = new List<object> { allBooks };
                     }
                 }
                 
-                Console.WriteLine($"Final bookList count: {bookList.Count}");
+                Console.WriteLine($"Total books loaded: {allBookList.Count}");
+                
+                // Client-side filtreleme yap
+                var filteredBooks = FilterBooks(allBookList, searchTerm, filterType);
+                
+                Console.WriteLine($"Filtered books count: {filteredBooks.Count}");
                 
                 // DataGridView'ı temizle ve yeni veriyi yükle
                 dgvKitaplar.DataSource = null;
                 
-                if (bookList.Count > 0)
+                if (filteredBooks.Count > 0)
                 {
-                    dgvKitaplar.DataSource = bookList;
+                    dgvKitaplar.DataSource = filteredBooks;
                     
                     // Veri yüklendikten sonra sütun ayarlarını yap
                     SetupDataGridView();
-                    lblSonuc.Text = $"'{searchTerm}' için {bookList.Count} kitap bulundu.";
-                    Console.WriteLine($"Found {bookList.Count} books for '{searchTerm}'");
+                    lblSonuc.Text = $"'{searchTerm}' için {filteredBooks.Count} kitap bulundu.";
+                    Console.WriteLine($"Found {filteredBooks.Count} books for '{searchTerm}'");
                 }
                 else
                 {
@@ -424,6 +428,113 @@ namespace Seker_kutuphane
             }
         }
 
+        private List<object> FilterBooks(List<object> allBooks, string searchTerm, string filterType)
+        {
+            var filteredBooks = new List<object>();
+            
+            Console.WriteLine($"FilterBooks called with {allBooks.Count} books, searchTerm: '{searchTerm}', filterType: '{filterType}'");
+            
+            foreach (var book in allBooks)
+            {
+                bool matches = false;
+                
+                try
+                {
+                    // JToken olarak parse et
+                    var bookToken = Newtonsoft.Json.Linq.JToken.FromObject(book);
+                    
+                    // Debug: İlk kitabın tüm alanlarını yazdır
+                    if (filteredBooks.Count == 0)
+                    {
+                        Console.WriteLine("=== FIRST BOOK STRUCTURE ===");
+                        Console.WriteLine($"Book object type: {book.GetType()}");
+                        Console.WriteLine($"BookToken type: {bookToken.GetType()}");
+                        
+                        if (bookToken is Newtonsoft.Json.Linq.JObject jObj)
+                        {
+                            Console.WriteLine("All properties:");
+                            foreach (var prop in jObj.Properties())
+                            {
+                                Console.WriteLine($"  {prop.Name}: {prop.Value} (Type: {prop.Value?.GetType()})");
+                            }
+                        }
+                        else
+                        {
+                            Console.WriteLine("BookToken is not JObject, it's: " + bookToken.GetType());
+                        }
+                        Console.WriteLine("=== END FIRST BOOK STRUCTURE ===");
+                    }
+                    
+                    // API'den gelen alan adlarını kontrol et
+                    string kitapAdi = "";
+                    string yazar = "";
+                    string yayinevi = "";
+                    string yil = "";
+                    
+                    // Farklı olası alan adlarını dene
+                    if (bookToken["kitap_adi"] != null) kitapAdi = bookToken["kitap_adi"].ToString();
+                    else if (bookToken["title"] != null) kitapAdi = bookToken["title"].ToString();
+                    else if (bookToken["kitapAdi"] != null) kitapAdi = bookToken["kitapAdi"].ToString();
+                    
+                    if (bookToken["yazar"] != null) yazar = bookToken["yazar"].ToString();
+                    else if (bookToken["author"] != null) yazar = bookToken["author"].ToString();
+                    else if (bookToken["yazar_adi"] != null) yazar = bookToken["yazar_adi"].ToString();
+                    else if (bookToken["yazarAdi"] != null) yazar = bookToken["yazarAdi"].ToString();
+                    
+                    if (bookToken["yayinevi"] != null) yayinevi = bookToken["yayinevi"].ToString();
+                    else if (bookToken["publisher"] != null) yayinevi = bookToken["publisher"].ToString();
+                    else if (bookToken["yayin_evi"] != null) yayinevi = bookToken["yayin_evi"].ToString();
+                    
+                    if (bookToken["yil"] != null) yil = bookToken["yil"].ToString();
+                    else if (bookToken["year"] != null) yil = bookToken["year"].ToString();
+                    else if (bookToken["yayin_yili"] != null) yil = bookToken["yayin_yili"].ToString();
+                    else if (bookToken["publishYear"] != null) yil = bookToken["publishYear"].ToString();
+                    
+                    Console.WriteLine($"  Extracted values - Kitap: '{kitapAdi}', Yazar: '{yazar}', Yayınevi: '{yayinevi}', Yıl: '{yil}'");
+                    
+                    switch (filterType)
+                    {
+                        case "kitap_adi":
+                            matches = kitapAdi.Contains(searchTerm, StringComparison.OrdinalIgnoreCase);
+                            Console.WriteLine($"  Kitap adı arama: '{kitapAdi}' contains '{searchTerm}' = {matches}");
+                            break;
+                        case "yazar":
+                            matches = yazar.Contains(searchTerm, StringComparison.OrdinalIgnoreCase);
+                            Console.WriteLine($"  Yazar arama: '{yazar}' contains '{searchTerm}' = {matches}");
+                            break;
+                        case "yil":
+                            matches = yil.Contains(searchTerm, StringComparison.OrdinalIgnoreCase);
+                            Console.WriteLine($"  Yıl arama: '{yil}' contains '{searchTerm}' = {matches}");
+                            break;
+                        case "yayinevi":
+                            matches = yayinevi.Contains(searchTerm, StringComparison.OrdinalIgnoreCase);
+                            Console.WriteLine($"  Yayınevi arama: '{yayinevi}' contains '{searchTerm}' = {matches}");
+                            break;
+                        default:
+                            // Genel arama - tüm alanlarda ara
+                            matches = kitapAdi.Contains(searchTerm, StringComparison.OrdinalIgnoreCase) ||
+                                    yazar.Contains(searchTerm, StringComparison.OrdinalIgnoreCase) ||
+                                    yayinevi.Contains(searchTerm, StringComparison.OrdinalIgnoreCase) ||
+                                    yil.Contains(searchTerm, StringComparison.OrdinalIgnoreCase);
+                            Console.WriteLine($"  Genel arama - Matches: {matches}");
+                            break;
+                    }
+                    
+                    if (matches)
+                    {
+                        filteredBooks.Add(book);
+                        Console.WriteLine($"  ✓ Kitap eklendi: {kitapAdi}");
+                    }
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine($"Error filtering book: {ex.Message}");
+                }
+            }
+            
+            Console.WriteLine($"FilterBooks completed. Found {filteredBooks.Count} matching books.");
+            return filteredBooks;
+        }
 
 
         private void btnTemizle_Click(object sender, EventArgs e)

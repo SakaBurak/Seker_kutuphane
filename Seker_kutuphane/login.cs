@@ -168,7 +168,7 @@ namespace Seker_kutuphane
                         rol = "Üye";
                     }
                     
-                    Form2 dashboard = new Form2(ad, rol);
+                    Form2 dashboard = new Form2(ad, rol, user);
                     dashboard.Show();
                     this.Hide();
                 }

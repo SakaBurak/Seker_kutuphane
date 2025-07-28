@@ -63,23 +63,65 @@ namespace Seker_kutuphane
 
         private async void btnGirisYap_Click(object sender, EventArgs e)
         {
-            string tc = txtEmail.Text.Trim(); // txtEmail artık TC Kimlik No için kullanılacak
+            string tc = txtEmail.Text.Trim();
             string sifre = txtSifre.Text.Trim();
             string hashedSifre = Sha256Hash(sifre);
-            MessageBox.Show($"Girişte gönderilen JSON: {{\"tc\": \"{tc}\", \"sifre\": \"{hashedSifre}\"}}");
+            
             if (string.IsNullOrEmpty(tc) || string.IsNullOrEmpty(sifre))
             {
                 MessageBox.Show("Lütfen TC Kimlik No ve şifre giriniz.");
                 return;
             }
+            
             ApiHelper api = new ApiHelper();
             try
             {
-                var (sessionId, user) = await api.LoginAsync(tc, hashedSifre); // email yerine tc gönderiliyor
+                var (sessionId, user) = await api.LoginAsync(tc, hashedSifre);
                 if (user != null)
                 {
                     string ad = user.ad ?? "";
-                    string rol = user.rol_adi ?? "";
+                    
+                    // Rol bilgisini rol_adlari array'inden al
+                    string rol = "";
+                    try
+                    {
+                        // Önce rol_adlari array'ini kontrol et
+                        if (user.rol_adlari != null)
+                        {
+                            var rolAdlari = user.rol_adlari as Newtonsoft.Json.Linq.JArray;
+                            if (rolAdlari != null && rolAdlari.Count > 0)
+                            {
+                                // En yüksek yetkili rolü bul (Admin > Kütüphane Yetkilisi > Üye)
+                                string[] roller = rolAdlari.ToObject<string[]>();
+                                
+                                if (roller.Contains("Admin"))
+                                    rol = "Admin";
+                                else if (roller.Contains("Kütüphane Yetkilisi") || roller.Contains("Kütüphane Görevlisi"))
+                                    rol = "Kütüphane Görevlisi";
+                                else if (roller.Contains("Üye"))
+                                    rol = "Üye";
+                                else
+                                    rol = roller[0]; // İlk rolü al
+                            }
+                        }
+                        
+                        // Eğer rol_adlari yoksa, eski yöntemleri dene
+                        if (string.IsNullOrEmpty(rol))
+                        {
+                            rol = user.rol_adi ?? user.rol ?? user.role ?? user.role_name ?? user.rolAdi ?? "";
+                        }
+                        
+                        // Eğer hala boşsa, varsayılan rol ata
+                        if (string.IsNullOrEmpty(rol))
+                        {
+                            rol = "Üye";
+                        }
+                    }
+                    catch (Exception)
+                    {
+                        rol = "Üye";
+                    }
+                    
                     Form2 dashboard = new Form2(ad, rol);
                     dashboard.Show();
                     this.Hide();

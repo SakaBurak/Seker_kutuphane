@@ -7,36 +7,101 @@ Bu proje, kütüphane yönetim sistemi için Windows Forms uygulamasıdır. Kull
 - ✅ Kullanıcı Girişi (TC Kimlik No ile)
 - ✅ Kullanıcı Kayıt
 - ✅ Şifre Yenileme
-- ✅ Dashboard (Rol bazlı erişim)
+- ✅ **Rol Bazlı Dashboard** (Çözüldü!)
+- ✅ Hiyerarşik Yetki Sistemi
+- ✅ **Çoklu Rol Desteği** (Yeni!)
+
+## Rol Sistemi ve Yetkiler
+
+### 🎯 Hiyerarşi
+```
+Admin > Kütüphane Yetkilisi/Görevlisi > Üye
+```
+
+### 👤 Üye Yetkileri
+- **Kitap Ara**: Kitap arama ve görüntüleme
+- **Profilim**: Profil bilgilerini güncelleme
+- **Sınırlı Erişim**: Sadece temel işlemler
+
+### 👨‍💼 Kütüphane Yetkilisi/Görevlisi Yetkileri
+- **Kitap Yönetimi**: Kitap arama, ekleme, düzenleme
+- **Üye Yönetimi**: Üye ekleme, düzenleme, ceza verme
+- **Emanet İşlemleri**: Kitap ödünç verme, alma
+- **Orta Seviye Erişim**: Üye yönetimi + emanet işlemleri
+
+### 👑 Admin Yetkileri
+- **Kitap Yönetimi**: Tam kitap yönetimi (ekleme, düzenleme, silme)
+- **Üye Yönetimi**: Tam üye yönetimi (ekleme, düzenleme, ceza verme, silme)
+- **Emanet İşlemleri**: Tüm emanet işlemleri + geçmiş
+- **Raporlar**: Detaylı raporlar ve istatistikler
+- **Sistem Yönetimi**: Görevli yönetimi, sistem ayarları
+- **Tam Erişim**: Tüm yetkiler
 
 ## API Bağlantısı
 - **API URL**: `http://10.100.74.48:5000`
 - **Authentication**: Basic Auth (sbuhs:sekerstajekip)
 
-## Kayıt İşlemi Sorunu ve Çözümü
+## Çözülen Sorunlar
 
-### Sorun
-Kayıt olma işleminde "Bad Request" hatası alınıyordu.
+### 🔧 Rol Bilgisi Sorunu (Çözüldü!)
+**Sorun**: API'den gelen rol bilgisi doğru şekilde çekilemiyordu.
 
-### Yapılan Düzeltmeler
+**Çözüm**: 
+- API'den gelen `rol_adlari` array'i kullanılıyor
+- Çoklu rol desteği eklendi
+- En yüksek yetkili rol otomatik seçiliyor
 
-1. **Debug Bilgileri Eklendi**: 
-   - Gönderilen JSON verisi gösteriliyor
-   - API yanıtı detaylı olarak loglanıyor
+**API Yanıt Formatı**:
+```json
+{
+  "kullanici_id": 1,
+  "ad": "Admin",
+  "soyad": "Hesabı",
+  "rol_ids": [1, 2, 3],
+  "rol_adlari": ["Üye", "Kütüphane Yetkilisi", "Admin"]
+}
+```
 
-2. **Veri Doğrulama Geliştirildi**:
-   - Email format kontrolü
-   - Telefon numarası uzunluk kontrolü
-   - TC kimlik numarası format kontrolü
+**Rol Seçim Mantığı**:
+1. `rol_adlari` array'i kontrol edilir
+2. En yüksek yetkili rol seçilir: Admin > Kütüphane Yetkilisi > Üye
+3. Dashboard bu role göre ayarlanır
 
-3. **Hata Yakalama İyileştirildi**:
-   - HTTP hataları detaylı olarak yakalanıyor
-   - Kullanıcıya anlamlı hata mesajları gösteriliyor
+### 🎯 Kayıt İşlemi Sorunu (Çözüldü!)
+**Sorun**: Kayıt olma işleminde "Bad Request" hatası alınıyordu.
 
-4. **API Endpoint Test Metodu Eklendi**:
-   - Farklı endpoint'lerin test edilmesi için metod eklendi
+**Çözüm**:
+1. **Debug Bilgileri Eklendi**: Gönderilen JSON ve API yanıtı loglanıyor
+2. **Veri Doğrulama Geliştirildi**: Email, telefon, TC format kontrolleri
+3. **Hata Yakalama İyileştirildi**: Detaylı hata mesajları
+4. **API Endpoint Test Metodu**: Farklı endpoint'lerin test edilmesi
 
-### Kullanım
+## Dashboard Sistemi
+
+### 🎨 Tek Dashboard + Rol Bazlı Görünürlük
+- **Avantaj**: Kod tekrarı yok, tutarlı UX, kolay bakım
+- **Yaklaşım**: Aynı dashboard, farklı yetkiler
+- **Dinamik**: Rol değişikliği anında yansır
+- **Çoklu Rol**: Birden fazla rolü olan kullanıcılar için en yüksek yetki
+
+### 🔧 Teknik Detaylar
+- **SetupRoleBasedAccess()**: Rol bazlı yetki ayarları
+- **SetupUyePermissions()**: Üye yetkileri
+- **SetupGorevliPermissions()**: Görevli yetkileri  
+- **SetupAdminPermissions()**: Admin yetkileri
+- **Rol Array Parsing**: `rol_adlari` array'inden rol seçimi
+
+### 📋 Buton Görünürlük Matrisi
+
+| Buton | Üye | Kütüphane Yetkilisi | Admin |
+|-------|-----|---------------------|-------|
+| Kitap Ara/Yönetimi | ✅ | ✅ | ✅ |
+| Profilim/Üye Yönetimi | ✅ | ✅ | ✅ |
+| Emanet İşlemleri | ❌ | ✅ | ✅ |
+| Raporlar | ❌ | ❌ | ✅ |
+| Sistem Yönetimi | ❌ | ❌ | ✅ |
+
+## Kullanım
 
 1. **Kayıt Olma**:
    - Tüm alanları doldurun
@@ -47,8 +112,16 @@ Kayıt olma işleminde "Bad Request" hatası alınıyordu.
 2. **Giriş Yapma**:
    - TC kimlik numarası ile giriş yapın
    - Şifrenizi girin
+   - **Rolünüz otomatik olarak belirlenir**
+   - Dashboard rolünüze göre açılır
 
-3. **Şifre Yenileme**:
+3. **Dashboard Kullanımı**:
+   - Rolünüze uygun butonlar görünür
+   - Yetkiniz olmayan işlemler gizli kalır
+   - Her buton rolünüze uygun işlem yapar
+   - **Çoklu rolünüz varsa en yüksek yetki kullanılır**
+
+4. **Şifre Yenileme**:
    - TC kimlik numaranızı girin
    - Yeni şifrenizi belirleyin
 
@@ -91,3 +164,6 @@ Eğer hala "Bad Request" hatası alıyorsanız:
 - Windows Forms uygulaması
 - Newtonsoft.Json kullanılıyor
 - Async/await pattern kullanılıyor
+- **Rol bazlı erişim kontrolü (RBAC)** implementasyonu
+- **Tek dashboard, çoklu yetki** yaklaşımı
+- **Çoklu rol desteği** ve otomatik en yüksek yetki seçimi

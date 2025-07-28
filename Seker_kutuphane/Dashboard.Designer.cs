@@ -80,6 +80,7 @@
             btnUyeler.Size = new Size(160, 35);
             btnUyeler.TabIndex = 1;
             btnUyeler.Text = "Üyeler";
+            btnUyeler.Click += btnUyeler_Click;
             // 
             // btnEmanetler
             // 
@@ -88,6 +89,7 @@
             btnEmanetler.Size = new Size(160, 35);
             btnEmanetler.TabIndex = 2;
             btnEmanetler.Text = "Emanetler";
+            btnEmanetler.Click += btnEmanetler_Click;
             // 
             // btnRaporlar
             // 
@@ -96,6 +98,7 @@
             btnRaporlar.Size = new Size(160, 35);
             btnRaporlar.TabIndex = 3;
             btnRaporlar.Text = "Raporlar";
+            btnRaporlar.Click += btnRaporlar_Click;
             // 
             // btnYonetim
             // 
@@ -104,6 +107,7 @@
             btnYonetim.Size = new Size(160, 35);
             btnYonetim.TabIndex = 4;
             btnYonetim.Text = "Yönetim";
+            btnYonetim.Click += btnYonetim_Click;
             // 
             // btnCikis
             // 
@@ -112,6 +116,7 @@
             btnCikis.Size = new Size(160, 35);
             btnCikis.TabIndex = 5;
             btnCikis.Text = "Çıkış";
+            btnCikis.Click += btnCikis_Click;
             // 
             // lblBaslik
             // 

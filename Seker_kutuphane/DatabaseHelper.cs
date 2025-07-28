@@ -31,11 +31,14 @@ namespace Seker_kutuphane
             var response = await client.PostAsync($"{apiBaseUrl}/login-tc", content); // endpoint değişti
             response.EnsureSuccessStatusCode();
             var json = await response.Content.ReadAsStringAsync();
+            
             dynamic obj = JsonConvert.DeserializeObject(json);
             sessionId = obj.sessionId;
+            
             // Session-ID header'ı ekle
             client.DefaultRequestHeaders.Remove("Session-ID");
             client.DefaultRequestHeaders.Add("Session-ID", sessionId);
+            
             return (sessionId, obj.user);
         }
 

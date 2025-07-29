@@ -1,6 +1,6 @@
 namespace Seker_kutuphane
 {
-    partial class EmanetIslemleriForm
+    partial class OduncIslemleriForm
     {
         /// <summary>
         /// Required designer variable.
@@ -90,7 +90,7 @@ namespace Seker_kutuphane
             this.btnYeniEmanet.TabIndex = 1;
             this.btnYeniEmanet.Text = "+ Yeni Emanet";
             this.btnYeniEmanet.UseVisualStyleBackColor = false;
-            this.btnYeniEmanet.Click += new System.EventHandler(this.btnYeniEmanet_Click);
+            this.btnYeniEmanet.Click += new System.EventHandler(this.btnYeniOdunc_Click);
             // 
             // btnAnaSayfa
             // 

@@ -11,7 +11,7 @@ using Newtonsoft.Json;
 
 namespace Seker_kutuphane
 {
-    public partial class EmanetIslemleriForm : Form
+    public partial class OduncIslemleriForm : Form
     {
         private ApiHelper apiHelper;
         private string kullaniciAdi;
@@ -19,18 +19,18 @@ namespace Seker_kutuphane
         private dynamic userData;
         private DataTable emanetTable;
 
-        public EmanetIslemleriForm(string kullaniciAdi, string rol, dynamic userData = null)
+        public OduncIslemleriForm(string kullaniciAdi, string rol, dynamic userData = null)
         {
             InitializeComponent();
             this.kullaniciAdi = kullaniciAdi;
             this.rol = rol;
             this.userData = userData;
             this.apiHelper = new ApiHelper();
-            InitializeEmanetTable();
-            LoadEmanetler();
+            InitializeOduncTable();
+            LoadOduncler();
         }
 
-        private void InitializeEmanetTable()
+        private void InitializeOduncTable()
         {
             emanetTable = new DataTable();
             emanetTable.Columns.Add("EmanetId", typeof(int));
@@ -47,107 +47,133 @@ namespace Seker_kutuphane
             dataGridViewEmanetler.AutoResizeColumns(DataGridViewAutoSizeColumnsMode.AllCells);
         }
 
-        private async void LoadEmanetler()
+        private async void LoadOduncler()
         {
             try
             {
-                var emanetler = await apiHelper.GetAllEmanetlerAsync();
+                var oduncler = await apiHelper.GetAllOdunclerAsync();
                 emanetTable.Clear();
 
                 // Debug: API yanıtını kontrol et
-                Console.WriteLine($"API Response Type: {emanetler?.GetType()}");
-                Console.WriteLine($"API Response: {emanetler}");
-
-                if (emanetler is Newtonsoft.Json.Linq.JArray emanetArray)
+                Console.WriteLine($"API Response Type: {oduncler?.GetType()}");
+                Console.WriteLine($"API Response: {oduncler}");
+                
+                if (oduncler is Newtonsoft.Json.Linq.JArray oduncArray)
                 {
-                    Console.WriteLine($"JArray Count: {emanetArray.Count}");
-                    foreach (var emanet in emanetArray)
+                    Console.WriteLine($"JArray Count: {oduncArray.Count}");
+                    
+                    // API yanıtını daha detaylı logla
+                    Console.WriteLine($"=== API Response Details ===");
+                    for (int i = 0; i < oduncArray.Count; i++)
                     {
-                        Console.WriteLine($"Processing emanet: {emanet}");
+                        var item = oduncArray[i];
+                        Console.WriteLine($"Item {i}: ID={item["odunc_id"]}, TeslimEdildi={item["teslim_edildi"]}, Ad={item["ad"]}, Kitap={item["title"]}");
+                    }
+                    Console.WriteLine($"=== End API Response Details ===");
+                    
+                    foreach (var odunc in oduncArray)
+                    {
+                        Console.WriteLine($"Processing odunc: {odunc}");
+                        
+                        // Debug: teslim_edildi değerini kontrol et
+                        var teslimEdildi = odunc["teslim_edildi"]?.ToString() ?? "0";
+                        var oduncId = odunc["odunc_id"]?.ToString() ?? "0";
+                        Console.WriteLine($"Odunc ID: {oduncId}, Teslim Edildi: '{teslimEdildi}' (Type: {teslimEdildi.GetType()})");
+                        
+                        // Sadece iade edilmemiş ödünçleri göster (teslim_edildi = 0)
+                        if (teslimEdildi == "1" || teslimEdildi == "True" || teslimEdildi == "true")
+                        {
+                            Console.WriteLine($"Skipping returned odunc: {oduncId}");
+                            continue; // İade edilmiş ödünçleri atla
+                        }
+                        
                         var row = emanetTable.NewRow();
                         
                         try
                         {
                             // API'deki alan adlarına göre uyarlama
-                            row["EmanetId"] = emanet["odunc_id"]?.ToString() != null ? int.Parse(emanet["odunc_id"].ToString()) : 0;
-                            row["KullaniciAdi"] = $"{emanet["ad"]?.ToString() ?? ""} {emanet["soyad"]?.ToString() ?? ""}".Trim();
-                            row["KitapAdi"] = emanet["title"]?.ToString() ?? "";
-                            row["OduncTarihi"] = DateTime.Parse(emanet["odunc_tarihi"]?.ToString() ?? DateTime.Now.ToString());
-                            row["BeklenenTeslim"] = DateTime.Parse(emanet["iade_tarihi"]?.ToString() ?? DateTime.Now.AddDays(30).ToString());
-                            row["TeslimTarihi"] = emanet["iade_tarihi"] != null && emanet["teslim_edildi"]?.ToString() == "1" ? DateTime.Parse(emanet["iade_tarihi"].ToString()) : DBNull.Value;
-                            row["Durum"] = emanet["teslim_edildi"]?.ToString() == "1" ? "İade Edildi" : "İade Edilmedi";
-                            row["KullaniciId"] = emanet["kullanici_id"]?.ToString() != null ? int.Parse(emanet["kullanici_id"].ToString()) : 0;
-                            row["KitapId"] = emanet["id"]?.ToString() != null ? int.Parse(emanet["id"].ToString()) : 0;
+                            row["EmanetId"] = odunc["odunc_id"]?.ToString() != null ? int.Parse(odunc["odunc_id"].ToString()) : 0;
+                            row["KullaniciAdi"] = $"{odunc["ad"]?.ToString() ?? ""} {odunc["soyad"]?.ToString() ?? ""}".Trim();
+                            row["KitapAdi"] = odunc["title"]?.ToString() ?? "";
+                            row["OduncTarihi"] = DateTime.Parse(odunc["odunc_tarihi"]?.ToString() ?? DateTime.Now.ToString());
+                            row["BeklenenTeslim"] = DateTime.Parse(odunc["iade_tarihi"]?.ToString() ?? DateTime.Now.AddDays(30).ToString());
+                            row["TeslimTarihi"] = DBNull.Value; // Aktif ödünçler için boş
+                            row["Durum"] = "İade Edilmedi";
+                            row["KullaniciId"] = odunc["kullanici_id"]?.ToString() != null ? int.Parse(odunc["kullanici_id"].ToString()) : 0;
+                            row["KitapId"] = odunc["id"]?.ToString() != null ? int.Parse(odunc["id"].ToString()) : 0;
                             emanetTable.Rows.Add(row);
-                            Console.WriteLine($"Added row: {row["EmanetId"]} - {row["KullaniciAdi"]} - {row["KitapAdi"]}");
+                            Console.WriteLine($"Added active odunc: {row["EmanetId"]} - {row["KullaniciAdi"]} - {row["KitapAdi"]}");
                         }
                         catch (Exception ex)
                         {
-                            Console.WriteLine($"Error processing emanet: {ex.Message}");
+                            Console.WriteLine($"Error processing odunc: {ex.Message}");
                         }
                     }
                 }
-                else if (emanetler is Newtonsoft.Json.Linq.JObject)
+                else if (oduncler is Newtonsoft.Json.Linq.JObject)
                 {
-                    // Tek bir emanet objesi olabilir
-                    var emanet = (Newtonsoft.Json.Linq.JObject)emanetler;
-                    var row = emanetTable.NewRow();
-                    row["EmanetId"] = emanet["odunc_id"]?.ToString() != null ? int.Parse(emanet["odunc_id"].ToString()) : 0;
-                    row["KullaniciAdi"] = $"{emanet["ad"]?.ToString() ?? ""} {emanet["soyad"]?.ToString() ?? ""}".Trim();
-                    row["KitapAdi"] = emanet["title"]?.ToString() ?? "";
-                    row["OduncTarihi"] = DateTime.Parse(emanet["odunc_tarihi"]?.ToString() ?? DateTime.Now.ToString());
-                    row["BeklenenTeslim"] = DateTime.Parse(emanet["iade_tarihi"]?.ToString() ?? DateTime.Now.AddDays(30).ToString());
-                    row["TeslimTarihi"] = emanet["iade_tarihi"] != null && emanet["teslim_edildi"]?.ToString() == "1" ? DateTime.Parse(emanet["iade_tarihi"].ToString()) : DBNull.Value;
-                    row["Durum"] = emanet["teslim_edildi"]?.ToString() == "1" ? "İade Edildi" : "İade Edilmedi";
-                    row["KullaniciId"] = emanet["kullanici_id"]?.ToString() != null ? int.Parse(emanet["kullanici_id"].ToString()) : 0;
-                    row["KitapId"] = emanet["id"]?.ToString() != null ? int.Parse(emanet["id"].ToString()) : 0;
-                    emanetTable.Rows.Add(row);
+                    // Tek bir ödünç objesi olabilir
+                    var odunc = (Newtonsoft.Json.Linq.JObject)oduncler;
+                    var teslimEdildi = odunc["teslim_edildi"]?.ToString() ?? "0";
+                    var oduncId = odunc["odunc_id"]?.ToString() ?? "0";
+                    Console.WriteLine($"Single Odunc ID: {oduncId}, Teslim Edildi: '{teslimEdildi}'");
+                    
+                    if (teslimEdildi != "1" && teslimEdildi != "True" && teslimEdildi != "true") // Sadece iade edilmemiş ödünçleri göster
+                    {
+                        var row = emanetTable.NewRow();
+                        row["EmanetId"] = odunc["odunc_id"]?.ToString() != null ? int.Parse(odunc["odunc_id"].ToString()) : 0;
+                        row["KullaniciAdi"] = $"{odunc["ad"]?.ToString() ?? ""} {odunc["soyad"]?.ToString() ?? ""}".Trim();
+                        row["KitapAdi"] = odunc["title"]?.ToString() ?? "";
+                        row["OduncTarihi"] = DateTime.Parse(odunc["odunc_tarihi"]?.ToString() ?? DateTime.Now.ToString());
+                        row["BeklenenTeslim"] = DateTime.Parse(odunc["iade_tarihi"]?.ToString() ?? DateTime.Now.AddDays(30).ToString());
+                        row["TeslimTarihi"] = DBNull.Value; // Aktif ödünçler için boş
+                        row["Durum"] = "İade Edilmedi";
+                        row["KullaniciId"] = odunc["kullanici_id"]?.ToString() != null ? int.Parse(odunc["kullanici_id"].ToString()) : 0;
+                        row["KitapId"] = odunc["id"]?.ToString() != null ? int.Parse(odunc["id"].ToString()) : 0;
+                        emanetTable.Rows.Add(row);
+                    }
                 }
                 else
                 {
-                    Console.WriteLine($"Unexpected response type: {emanetler?.GetType()}");
+                    Console.WriteLine($"Unexpected response type: {oduncler?.GetType()}");
                 }
 
-                Console.WriteLine($"Total rows in table: {emanetTable.Rows.Count}");
+                Console.WriteLine($"Total active odunc rows in table: {emanetTable.Rows.Count}");
                 UpdateStatistics();
             }
             catch (Exception ex)
             {
-                Console.WriteLine($"LoadEmanetler Error: {ex.Message}");
-                MessageBox.Show($"Emanetler yüklenirken hata oluştu: {ex.Message}", "Hata", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                Console.WriteLine($"LoadOduncler Error: {ex.Message}");
+                MessageBox.Show($"Ödünçler yüklenirken hata oluştu: {ex.Message}", "Hata", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
         private void UpdateStatistics()
         {
-            int toplamEmanet = emanetTable.Rows.Count;
-            int aktifEmanet = 0;
-            int gecikmisEmanet = 0;
+            int toplamOdunc = emanetTable.Rows.Count;
+            int aktifOdunc = toplamOdunc; // Artık sadece aktif ödünçler gösteriliyor
+            int gecikmisOdunc = 0;
 
             foreach (DataRow row in emanetTable.Rows)
             {
-                if (row["Durum"].ToString() == "AKTİF")
+                var beklenenTeslim = (DateTime)row["BeklenenTeslim"];
+                if (DateTime.Now > beklenenTeslim)
                 {
-                    aktifEmanet++;
-                    var beklenenTeslim = (DateTime)row["BeklenenTeslim"];
-                    if (DateTime.Now > beklenenTeslim)
-                    {
-                        gecikmisEmanet++;
-                    }
+                    gecikmisOdunc++;
                 }
             }
 
-            lblToplamEmanet.Text = toplamEmanet.ToString();
-            lblAktifEmanet.Text = aktifEmanet.ToString();
-            lblGecikmisEmanet.Text = gecikmisEmanet.ToString();
+            lblToplamEmanet.Text = toplamOdunc.ToString();
+            lblAktifEmanet.Text = aktifOdunc.ToString();
+            lblGecikmisEmanet.Text = gecikmisOdunc.ToString();
         }
 
-        private async void btnYeniEmanet_Click(object sender, EventArgs e)
+        private async void btnYeniOdunc_Click(object sender, EventArgs e)
         {
-            var yeniEmanetForm = new YeniEmanetForm(apiHelper);
-            if (yeniEmanetForm.ShowDialog() == DialogResult.OK)
+            var yeniOduncForm = new YeniOduncForm(apiHelper);
+            if (yeniOduncForm.ShowDialog() == DialogResult.OK)
             {
-                LoadEmanetler();
+                LoadOduncler();
             }
         }
 
@@ -155,7 +181,7 @@ namespace Seker_kutuphane
         {
             if (dataGridViewEmanetler.SelectedRows.Count == 0)
             {
-                MessageBox.Show("Lütfen iade edilecek emaneti seçin.", "Uyarı", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                MessageBox.Show("Lütfen iade edilecek ödünçü seçin.", "Uyarı", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
 
@@ -163,16 +189,18 @@ namespace Seker_kutuphane
             int emanetId = (int)selectedRow.Cells["EmanetId"].Value;
             string kullaniciAdi = selectedRow.Cells["KullaniciAdi"].Value.ToString();
             string kitapAdi = selectedRow.Cells["KitapAdi"].Value.ToString();
+            string durum = selectedRow.Cells["Durum"].Value.ToString();
 
-            if (selectedRow.Cells["Durum"].Value.ToString() != "AKTİF")
+            // Eğer ödünç zaten iade edilmişse uyarı ver
+            if (durum == "İade Edildi")
             {
-                MessageBox.Show("Bu emanet zaten iade edilmiş.", "Uyarı", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                MessageBox.Show("Bu ödünç zaten iade edilmiş.", "Uyarı", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
 
             var result = MessageBox.Show(
                 $"{kullaniciAdi} adlı kullanıcının '{kitapAdi}' kitabını iade etmek istediğinizden emin misiniz?",
-                "Emanet İade Onayı",
+                "Ödünç İade Onayı",
                 MessageBoxButtons.YesNo,
                 MessageBoxIcon.Question);
 
@@ -181,12 +209,12 @@ namespace Seker_kutuphane
                 try
                 {
                     await apiHelper.ReturnEmanetAsync(emanetId);
-                    MessageBox.Show("Emanet başarıyla iade edildi.", "Başarılı", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                    LoadEmanetler();
+                    MessageBox.Show("Ödünç başarıyla iade edildi.", "Başarılı", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    LoadOduncler();
                 }
                 catch (Exception ex)
                 {
-                    MessageBox.Show($"Emanet iade edilirken hata oluştu: {ex.Message}", "Hata", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show($"Ödünç iade edilirken hata oluştu: {ex.Message}", "Hata", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
         }
@@ -195,29 +223,36 @@ namespace Seker_kutuphane
         {
             if (string.IsNullOrEmpty(txtArama.Text))
             {
-                LoadEmanetler();
+                LoadOduncler();
                 return;
             }
 
             try
             {
-                var aramaSonuclari = await apiHelper.SearchEmanetlerAsync(txtArama.Text);
+                var aramaSonuclari = await apiHelper.SearchOdunclerAsync(txtArama.Text);
                 emanetTable.Clear();
 
                 if (aramaSonuclari is Newtonsoft.Json.Linq.JArray sonucArray)
                 {
-                    foreach (var emanet in sonucArray)
+                    foreach (var odunc in sonucArray)
                     {
+                        // Sadece iade edilmemiş ödünçleri göster
+                        var teslimEdildi = odunc["teslim_edildi"]?.ToString() ?? "0";
+                        if (teslimEdildi == "1")
+                        {
+                            continue; // İade edilmiş ödünçleri atla
+                        }
+
                         var row = emanetTable.NewRow();
-                        row["EmanetId"] = emanet["emanet_id"]?.ToString() != null ? int.Parse(emanet["emanet_id"].ToString()) : 0;
-                        row["KullaniciAdi"] = emanet["kullanici_adi"]?.ToString() ?? "";
-                        row["KitapAdi"] = emanet["kitap_adi"]?.ToString() ?? "";
-                        row["OduncTarihi"] = DateTime.Parse(emanet["odunc_tarihi"]?.ToString() ?? DateTime.Now.ToString());
-                        row["BeklenenTeslim"] = DateTime.Parse(emanet["beklenen_teslim"]?.ToString() ?? DateTime.Now.AddDays(30).ToString());
-                        row["TeslimTarihi"] = emanet["teslim_tarihi"] != null ? DateTime.Parse(emanet["teslim_tarihi"].ToString()) : DBNull.Value;
-                        row["Durum"] = emanet["durum"]?.ToString() ?? "";
-                        row["KullaniciId"] = emanet["kullanici_id"]?.ToString() != null ? int.Parse(emanet["kullanici_id"].ToString()) : 0;
-                        row["KitapId"] = emanet["kitap_id"]?.ToString() != null ? int.Parse(emanet["kitap_id"].ToString()) : 0;
+                        row["EmanetId"] = odunc["odunc_id"]?.ToString() != null ? int.Parse(odunc["odunc_id"].ToString()) : 0;
+                        row["KullaniciAdi"] = $"{odunc["ad"]?.ToString() ?? ""} {odunc["soyad"]?.ToString() ?? ""}".Trim();
+                        row["KitapAdi"] = odunc["title"]?.ToString() ?? "";
+                        row["OduncTarihi"] = DateTime.Parse(odunc["odunc_tarihi"]?.ToString() ?? DateTime.Now.ToString());
+                        row["BeklenenTeslim"] = DateTime.Parse(odunc["iade_tarihi"]?.ToString() ?? DateTime.Now.AddDays(30).ToString());
+                        row["TeslimTarihi"] = DBNull.Value; // Aktif ödünçler için boş
+                        row["Durum"] = "İade Edilmedi";
+                        row["KullaniciId"] = odunc["kullanici_id"]?.ToString() != null ? int.Parse(odunc["kullanici_id"].ToString()) : 0;
+                        row["KitapId"] = odunc["id"]?.ToString() != null ? int.Parse(odunc["id"].ToString()) : 0;
                         emanetTable.Rows.Add(row);
                     }
                 }
@@ -232,14 +267,49 @@ namespace Seker_kutuphane
 
         private void btnYenile_Click(object sender, EventArgs e)
         {
-            LoadEmanetler();
+            LoadOduncler();
         }
 
         // Test butonu için event handler
-        private void btnTestAPI_Click(object sender, EventArgs e)
+        private async void btnTestAPI_Click(object sender, EventArgs e)
         {
-            var testForm = new EmanetTestForm();
-            testForm.Show();
+            try
+            {
+                var oduncler = await apiHelper.GetAllOdunclerAsync();
+                string debugInfo = "=== API Debug Bilgileri ===\n";
+                
+                if (oduncler is Newtonsoft.Json.Linq.JArray oduncArray)
+                {
+                    debugInfo += $"Toplam Ödünç Sayısı: {oduncArray.Count}\n\n";
+                    
+                    for (int i = 0; i < oduncArray.Count; i++)
+                    {
+                        var item = oduncArray[i];
+                        var id = item["odunc_id"]?.ToString() ?? "N/A";
+                        var teslimEdildi = item["teslim_edildi"]?.ToString() ?? "N/A";
+                        var ad = item["ad"]?.ToString() ?? "N/A";
+                        var kitap = item["title"]?.ToString() ?? "N/A";
+                        
+                        debugInfo += $"Ödünç {i+1}:\n";
+                        debugInfo += $"  ID: {id}\n";
+                        debugInfo += $"  Teslim Edildi: '{teslimEdildi}' (Type: {teslimEdildi.GetType()})\n";
+                        debugInfo += $"  Kullanıcı: {ad}\n";
+                        debugInfo += $"  Kitap: {kitap}\n\n";
+                    }
+                }
+                else
+                {
+                    debugInfo += "API yanıtı JArray değil!\n";
+                    debugInfo += $"Yanıt tipi: {oduncler?.GetType()}\n";
+                    debugInfo += $"Yanıt içeriği: {oduncler}";
+                }
+                
+                MessageBox.Show(debugInfo, "API Debug Bilgileri", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"API test hatası: {ex.Message}", "Hata", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
 
         // Ana dashboard'a dönüş butonu için event handler

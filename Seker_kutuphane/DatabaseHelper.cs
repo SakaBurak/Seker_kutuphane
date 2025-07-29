@@ -289,7 +289,7 @@ namespace Seker_kutuphane
 
         // Emanet işlemleri için metodlar (ODUNC_ISLEMLERI tablosu kullanılıyor)
         // Tüm emanet işlemlerini getir: GET /odunc-islemleri
-        public async Task<dynamic> GetAllEmanetlerAsync()
+        public async Task<dynamic> GetAllOdunclerAsync()
         {
             try
             {
@@ -306,11 +306,11 @@ namespace Seker_kutuphane
         }
 
         // Yeni emanet oluştur: POST /odunc-ekle
-        public async Task<dynamic> CreateEmanetAsync(object emanetData)
+        public async Task<dynamic> CreateOduncAsync(object oduncData)
         {
             try
             {
-                var jsonData = JsonConvert.SerializeObject(emanetData);
+                var jsonData = JsonConvert.SerializeObject(oduncData);
                 var content = new StringContent(jsonData, Encoding.UTF8, "application/json");
                 var response = await client.PostAsync($"{apiBaseUrl}/odunc-ekle", content);
                 
@@ -325,7 +325,7 @@ namespace Seker_kutuphane
             }
             catch (Exception ex)
             {
-                Console.WriteLine($"CreateEmanetAsync Error: {ex.Message}");
+                Console.WriteLine($"CreateOduncAsync Error: {ex.Message}");
                 throw;
             }
         }
@@ -353,7 +353,7 @@ namespace Seker_kutuphane
         }
 
         // Emanet arama: GET /odunc-islemleri (filtreleme client tarafında yapılacak)
-        public async Task<dynamic> SearchEmanetlerAsync(string searchTerm = "")
+        public async Task<dynamic> SearchOdunclerAsync(string searchTerm = "")
         {
             try
             {
@@ -374,7 +374,7 @@ namespace Seker_kutuphane
             }
             catch (Exception ex)
             {
-                Console.WriteLine($"SearchEmanetlerAsync Error: {ex.Message}");
+                Console.WriteLine($"SearchOdunclerAsync Error: {ex.Message}");
                 return new List<object>();
             }
         }

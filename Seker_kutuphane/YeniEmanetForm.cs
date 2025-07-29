@@ -11,13 +11,13 @@ using Newtonsoft.Json;
 
 namespace Seker_kutuphane
 {
-    public partial class YeniEmanetForm : Form
+    public partial class YeniOduncForm : Form
     {
         private ApiHelper apiHelper;
         private DataTable kullanicilarTable;
         private DataTable kitaplarTable;
 
-        public YeniEmanetForm(ApiHelper apiHelper)
+        public YeniOduncForm(ApiHelper apiHelper)
         {
             InitializeComponent();
             this.apiHelper = apiHelper;
@@ -147,19 +147,19 @@ namespace Seker_kutuphane
                 // Stok kontrolü
                 if (stok <= 0)
                 {
-                    btnEmanetVer.Enabled = false;
+                    btnOduncVer.Enabled = false;
                     lblStok.ForeColor = Color.Red;
                     lblStok.Text += " (Stokta kitap yok!)";
                 }
                 else
                 {
-                    btnEmanetVer.Enabled = true;
+                    btnOduncVer.Enabled = true;
                     lblStok.ForeColor = Color.Green;
                 }
             }
         }
 
-        private async void btnEmanetVer_Click(object sender, EventArgs e)
+        private async void btnOduncVer_Click(object sender, EventArgs e)
         {
             if (comboBoxKullanici.SelectedItem == null || comboBoxKitap.SelectedItem == null)
             {
@@ -180,11 +180,11 @@ namespace Seker_kutuphane
                 return;
             }
 
-            // Emanet süresi 30 gün
+            // Ödünç süresi 30 gün
             DateTime oduncTarihi = DateTime.Now;
             DateTime iadeTarihi = oduncTarihi.AddDays(30);
 
-            var emanetData = new
+            var oduncData = new
             {
                 kullanici_id = kullaniciId,
                 kitap_id = kitapId,
@@ -195,14 +195,14 @@ namespace Seker_kutuphane
 
             try
             {
-                await apiHelper.CreateEmanetAsync(emanetData);
-                MessageBox.Show("Emanet başarıyla oluşturuldu.", "Başarılı", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                await apiHelper.CreateOduncAsync(oduncData);
+                MessageBox.Show("Ödünç başarıyla oluşturuldu.", "Başarılı", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 this.DialogResult = DialogResult.OK;
                 this.Close();
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Emanet oluşturulurken hata oluştu: {ex.Message}", "Hata", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show($"Ödünç oluşturulurken hata oluştu: {ex.Message}", "Hata", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 

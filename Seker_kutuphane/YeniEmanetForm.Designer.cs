@@ -1,6 +1,6 @@
 namespace Seker_kutuphane
 {
-    partial class YeniEmanetForm
+    partial class YeniOduncForm
     {
         /// <summary>
         /// Required designer variable.
@@ -47,7 +47,7 @@ namespace Seker_kutuphane
             this.lblKitapBilgiTitle = new System.Windows.Forms.Label();
             this.panelButtons = new System.Windows.Forms.Panel();
             this.btnIptal = new System.Windows.Forms.Button();
-            this.btnEmanetVer = new System.Windows.Forms.Button();
+            this.btnOduncVer = new System.Windows.Forms.Button();
             this.panelHeader.SuspendLayout();
             this.panelKullanici.SuspendLayout();
             this.panelKitap.SuspendLayout();
@@ -74,7 +74,7 @@ namespace Seker_kutuphane
             this.lblTitle.Name = "lblTitle";
             this.lblTitle.Size = new System.Drawing.Size(150, 30);
             this.lblTitle.TabIndex = 0;
-            this.lblTitle.Text = "Yeni Emanet";
+            this.lblTitle.Text = "Yeni Ödünç";
             // 
             // panelKullanici
             // 
@@ -243,7 +243,7 @@ namespace Seker_kutuphane
             // 
             this.panelButtons.BackColor = System.Drawing.Color.White;
             this.panelButtons.Controls.Add(this.btnIptal);
-            this.panelButtons.Controls.Add(this.btnEmanetVer);
+            this.panelButtons.Controls.Add(this.btnOduncVer);
             this.panelButtons.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.panelButtons.Location = new System.Drawing.Point(0, 480);
             this.panelButtons.Name = "panelButtons";
@@ -266,21 +266,21 @@ namespace Seker_kutuphane
             this.btnIptal.UseVisualStyleBackColor = false;
             this.btnIptal.Click += new System.EventHandler(this.btnIptal_Click);
             // 
-            // btnEmanetVer
+            // btnOduncVer
             // 
-            this.btnEmanetVer.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnEmanetVer.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(76)))), ((int)(((byte)(175)))), ((int)(((byte)(80)))));
-            this.btnEmanetVer.FlatAppearance.BorderSize = 0;
-            this.btnEmanetVer.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnEmanetVer.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.btnEmanetVer.ForeColor = System.Drawing.Color.White;
-            this.btnEmanetVer.Location = new System.Drawing.Point(360, 20);
-            this.btnEmanetVer.Name = "btnEmanetVer";
-            this.btnEmanetVer.Size = new System.Drawing.Size(110, 35);
-            this.btnEmanetVer.TabIndex = 0;
-            this.btnEmanetVer.Text = "Emanet Ver";
-            this.btnEmanetVer.UseVisualStyleBackColor = false;
-            this.btnEmanetVer.Click += new System.EventHandler(this.btnEmanetVer_Click);
+            this.btnOduncVer.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnOduncVer.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(76)))), ((int)(((byte)(175)))), ((int)(((byte)(80)))));
+            this.btnOduncVer.FlatAppearance.BorderSize = 0;
+            this.btnOduncVer.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnOduncVer.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.btnOduncVer.ForeColor = System.Drawing.Color.White;
+            this.btnOduncVer.Location = new System.Drawing.Point(360, 20);
+            this.btnOduncVer.Name = "btnOduncVer";
+            this.btnOduncVer.Size = new System.Drawing.Size(110, 35);
+            this.btnOduncVer.TabIndex = 0;
+            this.btnOduncVer.Text = "Ödünç Ver";
+            this.btnOduncVer.UseVisualStyleBackColor = false;
+            this.btnOduncVer.Click += new System.EventHandler(this.btnOduncVer_Click);
             // 
             // YeniEmanetForm
             // 
@@ -295,9 +295,9 @@ namespace Seker_kutuphane
             this.Controls.Add(this.panelHeader);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.MaximizeBox = false;
-            this.Name = "YeniEmanetForm";
+            this.Name = "YeniOduncForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
-            this.Text = "Yeni Emanet";
+            this.Text = "Yeni Ödünç";
             this.panelHeader.ResumeLayout(false);
             this.panelHeader.PerformLayout();
             this.panelKullanici.ResumeLayout(false);
@@ -332,6 +332,6 @@ namespace Seker_kutuphane
         private Label lblKitapBilgiTitle;
         private Panel panelButtons;
         private Button btnIptal;
-        private Button btnEmanetVer;
+        private Button btnOduncVer;
     }
 } 

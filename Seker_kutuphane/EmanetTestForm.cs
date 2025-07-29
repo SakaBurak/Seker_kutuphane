@@ -36,7 +36,7 @@ namespace Seker_kutuphane
             try
             {
                 txtResults.Clear();
-                txtResults.AppendText("Emanet ekleme test ediliyor...\n\n");
+                txtResults.AppendText("Ödünç ekleme test ediliyor...\n\n");
 
                 var testData = new
                 {
@@ -47,12 +47,12 @@ namespace Seker_kutuphane
                     durum = "AKTİF"
                 };
 
-                var result = await apiHelper.CreateEmanetAsync(testData);
-                txtResults.AppendText($"Emanet ekleme başarılı: {result}\n");
+                var result = await apiHelper.CreateOduncAsync(testData);
+                txtResults.AppendText($"Ödünç ekleme başarılı: {result}\n");
             }
             catch (Exception ex)
             {
-                txtResults.AppendText($"Emanet ekleme hatası: {ex.Message}\n");
+                txtResults.AppendText($"Ödünç ekleme hatası: {ex.Message}\n");
             }
         }
 
@@ -87,7 +87,7 @@ namespace Seker_kutuphane
                 txtResults.AppendText("Emanet arama test ediliyor...\n\n");
 
                 var searchTerm = txtAramaTerm.Text;
-                var results = await apiHelper.SearchEmanetlerAsync(searchTerm);
+                var results = await apiHelper.SearchOdunclerAsync(searchTerm);
                 txtResults.AppendText($"Arama sonuçları: {results}\n");
             }
             catch (Exception ex)
@@ -117,14 +117,14 @@ namespace Seker_kutuphane
             try
             {
                 txtResults.Clear();
-                txtResults.AppendText("Tüm emanetler test ediliyor...\n\n");
+                txtResults.AppendText("Tüm ödünçler test ediliyor...\n\n");
 
-                var results = await apiHelper.GetAllEmanetlerAsync();
-                txtResults.AppendText($"Tüm emanetler: {results}\n");
+                var results = await apiHelper.GetAllOdunclerAsync();
+                txtResults.AppendText($"Tüm ödünçler: {results}\n");
             }
             catch (Exception ex)
             {
-                txtResults.AppendText($"Tüm emanetler hatası: {ex.Message}\n");
+                txtResults.AppendText($"Tüm ödünçler hatası: {ex.Message}\n");
             }
         }
     }

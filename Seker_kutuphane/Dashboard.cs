@@ -213,7 +213,7 @@ namespace Seker_kutuphane
             btnUyeler.BackColor = Color.FromArgb(76, 175, 80); // Açık yeşil
             btnUyeler.ForeColor = Color.White;
 
-            btnEmanetler.Text = "Emanet İşlemleri";
+            btnEmanetler.Text = "Ödünç İşlemleri";
             btnEmanetler.Enabled = true;
             btnEmanetler.Visible = true;
             btnEmanetler.BackColor = Color.FromArgb(76, 175, 80); // Açık yeşil
@@ -245,7 +245,7 @@ namespace Seker_kutuphane
             btnUyeler.BackColor = Color.FromArgb(76, 175, 80); // Açık yeşil
             btnUyeler.ForeColor = Color.White;
 
-            btnEmanetler.Text = "Emanet İşlemleri";
+            btnEmanetler.Text = "Ödünç İşlemleri";
             btnEmanetler.Enabled = true;
             btnEmanetler.Visible = true;
             btnEmanetler.BackColor = Color.FromArgb(76, 175, 80); // Açık yeşil
@@ -287,10 +287,10 @@ namespace Seker_kutuphane
 
         private void btnEmanetler_Click(object sender, EventArgs e)
         {
-            // Emanet işlemleri (sadece görevli ve admin)
+            // Ödünç işlemleri (sadece görevli ve admin)
             this.Hide();
-            var emanetForm = new EmanetIslemleriForm(kullaniciAdi, rol, userData);
-            emanetForm.Show();
+            var oduncForm = new OduncIslemleriForm(kullaniciAdi, rol, userData);
+            oduncForm.Show();
         }
 
         // Test amaçlı emanet API test formu

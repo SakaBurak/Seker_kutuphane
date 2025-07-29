@@ -286,5 +286,200 @@ namespace Seker_kutuphane
                 return new List<object>();
             }
         }
+
+        // Emanet işlemleri için metodlar (ODUNC_ISLEMLERI tablosu kullanılıyor)
+        // Tüm emanet işlemlerini getir: GET /odunc-islemleri
+        public async Task<dynamic> GetAllEmanetlerAsync()
+        {
+            try
+            {
+                var response = await client.GetAsync($"{apiBaseUrl}/odunc-islemleri");
+                response.EnsureSuccessStatusCode();
+                var json = await response.Content.ReadAsStringAsync();
+                return JsonConvert.DeserializeObject(json);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"GetAllEmanetlerAsync Error: {ex.Message}");
+                return new List<object>();
+            }
+        }
+
+        // Yeni emanet oluştur: POST /odunc-ekle
+        public async Task<dynamic> CreateEmanetAsync(object emanetData)
+        {
+            try
+            {
+                var jsonData = JsonConvert.SerializeObject(emanetData);
+                var content = new StringContent(jsonData, Encoding.UTF8, "application/json");
+                var response = await client.PostAsync($"{apiBaseUrl}/odunc-ekle", content);
+                
+                var responseContent = await response.Content.ReadAsStringAsync();
+                
+                if (!response.IsSuccessStatusCode)
+                {
+                    throw new HttpRequestException($"HTTP {response.StatusCode}: {responseContent}");
+                }
+                
+                return JsonConvert.DeserializeObject(responseContent);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"CreateEmanetAsync Error: {ex.Message}");
+                throw;
+            }
+        }
+
+        // Emanet iade et: PUT /odunc-iade/{emanetId}
+        public async Task<dynamic> ReturnEmanetAsync(int emanetId)
+        {
+            try
+            {
+                var response = await client.PutAsync($"{apiBaseUrl}/odunc-iade/{emanetId}", null);
+                var responseContent = await response.Content.ReadAsStringAsync();
+                
+                if (!response.IsSuccessStatusCode)
+                {
+                    throw new HttpRequestException($"HTTP {response.StatusCode}: {responseContent}");
+                }
+                
+                return JsonConvert.DeserializeObject(responseContent);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"ReturnEmanetAsync Error: {ex.Message}");
+                throw;
+            }
+        }
+
+        // Emanet arama: GET /odunc-islemleri (filtreleme client tarafında yapılacak)
+        public async Task<dynamic> SearchEmanetlerAsync(string searchTerm = "")
+        {
+            try
+            {
+                var response = await client.GetAsync($"{apiBaseUrl}/odunc-islemleri");
+                
+                if (response.StatusCode == System.Net.HttpStatusCode.NotFound)
+                {
+                    return new List<object>();
+                }
+                
+                if (!response.IsSuccessStatusCode)
+                {
+                    return new List<object>();
+                }
+                
+                var json = await response.Content.ReadAsStringAsync();
+                return JsonConvert.DeserializeObject(json);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"SearchEmanetlerAsync Error: {ex.Message}");
+                return new List<object>();
+            }
+        }
+
+        // Gecikmiş emanetleri getir: GET /odunc-islemleri (client tarafında filtreleme)
+        public async Task<dynamic> GetGecikmisEmanetlerAsync()
+        {
+            try
+            {
+                var response = await client.GetAsync($"{apiBaseUrl}/odunc-islemleri");
+                response.EnsureSuccessStatusCode();
+                var json = await response.Content.ReadAsStringAsync();
+                return JsonConvert.DeserializeObject(json);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"GetGecikmisEmanetlerAsync Error: {ex.Message}");
+                return new List<object>();
+            }
+        }
+
+        // Kullanıcı emanetlerini getir: GET /kullanici-odunc/{kullaniciId}
+        public async Task<dynamic> GetKullaniciEmanetlerAsync(int kullaniciId)
+        {
+            try
+            {
+                var response = await client.GetAsync($"{apiBaseUrl}/kullanici-odunc/{kullaniciId}");
+                response.EnsureSuccessStatusCode();
+                var json = await response.Content.ReadAsStringAsync();
+                return JsonConvert.DeserializeObject(json);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"GetKullaniciEmanetlerAsync Error: {ex.Message}");
+                return new List<object>();
+            }
+        }
+
+        // Emanet endpoint'lerini test et
+        public async Task<string> TestEmanetEndpointsAsync()
+        {
+            var results = new List<string>();
+            
+            try
+            {
+                // Test odunc-islemleri endpoint (mevcut API'deki endpoint)
+                try
+                {
+                    var response = await client.GetAsync($"{apiBaseUrl}/odunc-islemleri");
+                    var content = await response.Content.ReadAsStringAsync();
+                    results.Add($"GET /odunc-islemleri: {response.StatusCode}");
+                    results.Add($"Response: {content}");
+                }
+                catch (Exception ex)
+                {
+                    results.Add($"GET /odunc-islemleri: Error - {ex.Message}");
+                }
+
+                // Test odunc-ekle endpoint (mevcut API'deki endpoint)
+                try
+                {
+                    var testData = new { kullanici_id = 1, kitap_id = 1, odunc_tarihi = "2024-01-01", iade_tarihi = "2024-02-01", durum = "AKTİF" };
+                    var content = new StringContent(JsonConvert.SerializeObject(testData), Encoding.UTF8, "application/json");
+                    var response = await client.PostAsync($"{apiBaseUrl}/odunc-ekle", content);
+                    var responseContent = await response.Content.ReadAsStringAsync();
+                    results.Add($"POST /odunc-ekle: {response.StatusCode}");
+                    results.Add($"Response: {responseContent}");
+                }
+                catch (Exception ex)
+                {
+                    results.Add($"POST /odunc-ekle: Error - {ex.Message}");
+                }
+
+                // Test odunc-iade endpoint (mevcut API'deki endpoint)
+                try
+                {
+                    var response = await client.PutAsync($"{apiBaseUrl}/odunc-iade/1", null);
+                    var content = await response.Content.ReadAsStringAsync();
+                    results.Add($"PUT /odunc-iade/1: {response.StatusCode}");
+                    results.Add($"Response: {content}");
+                }
+                catch (Exception ex)
+                {
+                    results.Add($"PUT /odunc-iade/1: Error - {ex.Message}");
+                }
+
+                // Test kullanici-odunc endpoint (mevcut API'deki endpoint)
+                try
+                {
+                    var response = await client.GetAsync($"{apiBaseUrl}/kullanici-odunc/1");
+                    var content = await response.Content.ReadAsStringAsync();
+                    results.Add($"GET /kullanici-odunc/1: {response.StatusCode}");
+                    results.Add($"Response: {content}");
+                }
+                catch (Exception ex)
+                {
+                    results.Add($"GET /kullanici-odunc/1: Error - {ex.Message}");
+                }
+
+                return string.Join("\n", results);
+            }
+            catch (Exception ex)
+            {
+                return $"Test Error: {ex.Message}";
+            }
+        }
     }
 } 

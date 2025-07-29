@@ -1,6 +1,6 @@
 ﻿namespace Seker_kutuphane
 {
-    partial class Form2
+    partial class Dashboard
     {
         /// <summary>
         /// Required designer variable.
@@ -193,7 +193,7 @@
             lblKullanici.TabIndex = 1;
             lblKullanici.TextAlign = ContentAlignment.MiddleRight;
             // 
-            // Form2
+            // Dashboard
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
@@ -202,10 +202,10 @@
             Controls.Add(lblBaslik);
             Controls.Add(lblKullanici);
             Controls.Add(panelMenu);
-            Name = "Form2";
+            Name = "Dashboard";
             StartPosition = FormStartPosition.CenterScreen;
             Text = "Dashboard";
-            Load += Form2_Load;
+            Load += Dashboard_Load;
             panelMenu.ResumeLayout(false);
             ResumeLayout(false);
         }

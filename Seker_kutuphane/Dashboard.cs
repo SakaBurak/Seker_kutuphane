@@ -10,13 +10,13 @@ using System.Windows.Forms;
 
 namespace Seker_kutuphane
 {
-    public partial class Form2 : Form
+    public partial class Dashboard : Form
     {
         private string kullaniciAdi;
         private string rol;
         private dynamic userData;
         
-        public Form2(string kullaniciAdi, string rol, dynamic userData = null)
+        public Dashboard(string kullaniciAdi, string rol, dynamic userData = null)
         {
             InitializeComponent();
             this.kullaniciAdi = kullaniciAdi;
@@ -264,7 +264,7 @@ namespace Seker_kutuphane
             btnYonetim.ForeColor = Color.White;
         }
 
-        private void Form2_Load(object? sender, EventArgs e)
+        private void Dashboard_Load(object? sender, EventArgs e)
         {
             // Form yüklendiğinde rol bilgisini logla
             Console.WriteLine($"Dashboard yüklendi - Kullanıcı: {kullaniciAdi}, Rol: {rol}");
@@ -288,8 +288,23 @@ namespace Seker_kutuphane
         private void btnEmanetler_Click(object sender, EventArgs e)
         {
             // Emanet işlemleri (sadece görevli ve admin)
-            MessageBox.Show("Emanet işlemleri sayfası açılıyor...", "Emanet İşlemleri");
-            // EmanetIslemleriForm.Show();
+            this.Hide();
+            var emanetForm = new EmanetIslemleriForm(kullaniciAdi, rol, userData);
+            emanetForm.Show();
+        }
+
+        // Test amaçlı emanet API test formu
+        private void btnEmanetTest_Click(object sender, EventArgs e)
+        {
+            var testForm = new EmanetTestForm();
+            testForm.Show();
+        }
+
+        // Emanet test butonu için event handler
+        private void btnTestEmanet_Click(object sender, EventArgs e)
+        {
+            var testForm = new EmanetTestForm();
+            testForm.Show();
         }
 
         private void btnRaporlar_Click(object sender, EventArgs e)

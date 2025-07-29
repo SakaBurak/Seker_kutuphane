@@ -14,9 +14,9 @@ namespace Seker_kutuphane
     public partial class KitapAramaForm : Form
     {
         private ApiHelper apiHelper;
-        private Form2 dashboardForm;
+        private Dashboard dashboardForm;
 
-        public KitapAramaForm(Form2 dashboardForm)
+        public KitapAramaForm(Dashboard dashboardForm)
         {
             InitializeComponent();
             this.dashboardForm = dashboardForm;

@@ -3,6 +3,7 @@ using System.Drawing;
 using System.Windows.Forms;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using Newtonsoft.Json;
 
 namespace Seker_kutuphane
 {
@@ -80,8 +81,12 @@ namespace Seker_kutuphane
                     return new List<KitapEmanet>();
                 }
 
+                Console.WriteLine($"GetKitaplarimFromAPI - Kullanıcı ID: {kullaniciId}");
+
                 ApiHelper api = new ApiHelper();
                 var response = await api.GetKitaplarimAsync(kullaniciId);
+                
+                Console.WriteLine($"GetKitaplarimFromAPI - API Response: {JsonConvert.SerializeObject(response)}");
                 
                 if (response == null)
                 {

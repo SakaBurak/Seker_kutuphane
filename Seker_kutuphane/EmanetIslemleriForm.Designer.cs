@@ -28,287 +28,285 @@ namespace Seker_kutuphane
         /// </summary>
         private void InitializeComponent()
         {
-            this.panelHeader = new System.Windows.Forms.Panel();
-            this.lblTitle = new System.Windows.Forms.Label();
-            this.btnYeniEmanet = new System.Windows.Forms.Button();
-            this.btnAnaSayfa = new System.Windows.Forms.Button();
-            this.panelStats = new System.Windows.Forms.Panel();
-            this.lblGecikmisEmanet = new System.Windows.Forms.Label();
-            this.lblAktifEmanet = new System.Windows.Forms.Label();
-            this.lblToplamEmanet = new System.Windows.Forms.Label();
-            this.lblGecikmisEmanetTitle = new System.Windows.Forms.Label();
-            this.lblAktifEmanetTitle = new System.Windows.Forms.Label();
-            this.lblToplamEmanetTitle = new System.Windows.Forms.Label();
-            this.panelSearch = new System.Windows.Forms.Panel();
-            this.txtArama = new System.Windows.Forms.TextBox();
-            this.lblArama = new System.Windows.Forms.Label();
-            this.btnYenile = new System.Windows.Forms.Button();
-            this.dataGridViewEmanetler = new System.Windows.Forms.DataGridView();
-            this.panelActions = new System.Windows.Forms.Panel();
-            this.btnIadeEt = new System.Windows.Forms.Button();
-            this.panelHeader.SuspendLayout();
-            this.panelStats.SuspendLayout();
-            this.panelSearch.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewEmanetler)).BeginInit();
-            this.panelActions.SuspendLayout();
-            this.SuspendLayout();
+            panelHeader = new Panel();
+            lblTitle = new Label();
+            btnYeniEmanet = new Button();
+            btnAnaSayfa = new Button();
+            panelStats = new Panel();
+            lblGecikmisEmanet = new Label();
+            lblAktifEmanet = new Label();
+            lblToplamEmanet = new Label();
+            lblGecikmisEmanetTitle = new Label();
+            lblAktifEmanetTitle = new Label();
+            lblToplamEmanetTitle = new Label();
+            panelSearch = new Panel();
+            txtArama = new TextBox();
+            lblArama = new Label();
+            btnYenile = new Button();
+            dataGridViewEmanetler = new DataGridView();
+            panelActions = new Panel();
+            btnIadeEt = new Button();
+            panelHeader.SuspendLayout();
+            panelStats.SuspendLayout();
+            panelSearch.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)dataGridViewEmanetler).BeginInit();
+            panelActions.SuspendLayout();
+            SuspendLayout();
             // 
             // panelHeader
             // 
-            this.panelHeader.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(76)))), ((int)(((byte)(175)))), ((int)(((byte)(80)))));
-            this.panelHeader.Controls.Add(this.lblTitle);
-            this.panelHeader.Controls.Add(this.btnYeniEmanet);
-            this.panelHeader.Controls.Add(this.btnAnaSayfa);
-            this.panelHeader.Dock = System.Windows.Forms.DockStyle.Top;
-            this.panelHeader.Location = new System.Drawing.Point(0, 0);
-            this.panelHeader.Name = "panelHeader";
-            this.panelHeader.Size = new System.Drawing.Size(1200, 80);
-            this.panelHeader.TabIndex = 0;
+            panelHeader.BackColor = Color.FromArgb(76, 175, 80);
+            panelHeader.Controls.Add(lblTitle);
+            panelHeader.Controls.Add(btnYeniEmanet);
+            panelHeader.Controls.Add(btnAnaSayfa);
+            panelHeader.Dock = DockStyle.Top;
+            panelHeader.Location = new Point(0, 0);
+            panelHeader.Name = "panelHeader";
+            panelHeader.Size = new Size(1200, 80);
+            panelHeader.TabIndex = 0;
             // 
             // lblTitle
             // 
-            this.lblTitle.AutoSize = true;
-            this.lblTitle.Font = new System.Drawing.Font("Segoe UI", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.lblTitle.ForeColor = System.Drawing.Color.White;
-            this.lblTitle.Location = new System.Drawing.Point(20, 20);
-            this.lblTitle.Name = "lblTitle";
-            this.lblTitle.Size = new System.Drawing.Size(200, 32);
-            this.lblTitle.TabIndex = 0;
-            this.lblTitle.Text = "Emanet İşlemleri";
+            lblTitle.AutoSize = true;
+            lblTitle.Font = new Font("Segoe UI", 18F, FontStyle.Bold);
+            lblTitle.ForeColor = Color.White;
+            lblTitle.Location = new Point(20, 20);
+            lblTitle.Name = "lblTitle";
+            lblTitle.Size = new Size(194, 32);
+            lblTitle.TabIndex = 0;
+            lblTitle.Text = "Ödünç İşlemleri";
             // 
             // btnYeniEmanet
             // 
-            this.btnYeniEmanet.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnYeniEmanet.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(129)))), ((int)(((byte)(199)))), ((int)(((byte)(132)))));
-            this.btnYeniEmanet.FlatAppearance.BorderSize = 0;
-            this.btnYeniEmanet.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnYeniEmanet.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.btnYeniEmanet.ForeColor = System.Drawing.Color.White;
-            this.btnYeniEmanet.Location = new System.Drawing.Point(1050, 20);
-            this.btnYeniEmanet.Name = "btnYeniEmanet";
-            this.btnYeniEmanet.Size = new System.Drawing.Size(130, 40);
-            this.btnYeniEmanet.TabIndex = 1;
-            this.btnYeniEmanet.Text = "+ Yeni Emanet";
-            this.btnYeniEmanet.UseVisualStyleBackColor = false;
-            this.btnYeniEmanet.Click += new System.EventHandler(this.btnYeniOdunc_Click);
+            btnYeniEmanet.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            btnYeniEmanet.BackColor = Color.FromArgb(129, 199, 132);
+            btnYeniEmanet.FlatAppearance.BorderSize = 0;
+            btnYeniEmanet.FlatStyle = FlatStyle.Flat;
+            btnYeniEmanet.Font = new Font("Segoe UI", 12F, FontStyle.Bold);
+            btnYeniEmanet.ForeColor = Color.White;
+            btnYeniEmanet.Location = new Point(1050, 20);
+            btnYeniEmanet.Name = "btnYeniEmanet";
+            btnYeniEmanet.Size = new Size(130, 40);
+            btnYeniEmanet.TabIndex = 1;
+            btnYeniEmanet.Text = "+ Yeni Ödünç";
+            btnYeniEmanet.UseVisualStyleBackColor = false;
+            btnYeniEmanet.Click += btnYeniOdunc_Click;
             // 
             // btnAnaSayfa
             // 
-            this.btnAnaSayfa.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnAnaSayfa.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(33)))), ((int)(((byte)(150)))), ((int)(((byte)(243)))));
-            this.btnAnaSayfa.FlatAppearance.BorderSize = 0;
-            this.btnAnaSayfa.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnAnaSayfa.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.btnAnaSayfa.ForeColor = System.Drawing.Color.White;
-            this.btnAnaSayfa.Location = new System.Drawing.Point(900, 20);
-            this.btnAnaSayfa.Name = "btnAnaSayfa";
-            this.btnAnaSayfa.Size = new System.Drawing.Size(130, 40);
-            this.btnAnaSayfa.TabIndex = 2;
-            this.btnAnaSayfa.Text = "← Ana Sayfa";
-            this.btnAnaSayfa.UseVisualStyleBackColor = false;
-            this.btnAnaSayfa.Click += new System.EventHandler(this.btnAnaSayfa_Click);
+            btnAnaSayfa.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            btnAnaSayfa.BackColor = Color.FromArgb(33, 150, 243);
+            btnAnaSayfa.FlatAppearance.BorderSize = 0;
+            btnAnaSayfa.FlatStyle = FlatStyle.Flat;
+            btnAnaSayfa.Font = new Font("Segoe UI", 12F, FontStyle.Bold);
+            btnAnaSayfa.ForeColor = Color.White;
+            btnAnaSayfa.Location = new Point(900, 20);
+            btnAnaSayfa.Name = "btnAnaSayfa";
+            btnAnaSayfa.Size = new Size(130, 40);
+            btnAnaSayfa.TabIndex = 2;
+            btnAnaSayfa.Text = "← Ana Sayfa";
+            btnAnaSayfa.UseVisualStyleBackColor = false;
+            btnAnaSayfa.Click += btnAnaSayfa_Click;
             // 
             // panelStats
             // 
-            this.panelStats.BackColor = System.Drawing.Color.White;
-            this.panelStats.Controls.Add(this.lblGecikmisEmanet);
-            this.panelStats.Controls.Add(this.lblAktifEmanet);
-            this.panelStats.Controls.Add(this.lblToplamEmanet);
-            this.panelStats.Controls.Add(this.lblGecikmisEmanetTitle);
-            this.panelStats.Controls.Add(this.lblAktifEmanetTitle);
-            this.panelStats.Controls.Add(this.lblToplamEmanetTitle);
-            this.panelStats.Dock = System.Windows.Forms.DockStyle.Top;
-            this.panelStats.Location = new System.Drawing.Point(0, 80);
-            this.panelStats.Name = "panelStats";
-            this.panelStats.Size = new System.Drawing.Size(1200, 100);
-            this.panelStats.TabIndex = 1;
+            panelStats.BackColor = Color.White;
+            panelStats.Controls.Add(lblGecikmisEmanet);
+            panelStats.Controls.Add(lblAktifEmanet);
+            panelStats.Controls.Add(lblToplamEmanet);
+            panelStats.Controls.Add(lblGecikmisEmanetTitle);
+            panelStats.Controls.Add(lblAktifEmanetTitle);
+            panelStats.Controls.Add(lblToplamEmanetTitle);
+            panelStats.Dock = DockStyle.Top;
+            panelStats.Location = new Point(0, 80);
+            panelStats.Name = "panelStats";
+            panelStats.Size = new Size(1200, 100);
+            panelStats.TabIndex = 1;
             // 
             // lblGecikmisEmanet
             // 
-            this.lblGecikmisEmanet.AutoSize = true;
-            this.lblGecikmisEmanet.Font = new System.Drawing.Font("Segoe UI", 24F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.lblGecikmisEmanet.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(244)))), ((int)(((byte)(67)))), ((int)(((byte)(54)))));
-            this.lblGecikmisEmanet.Location = new System.Drawing.Point(900, 30);
-            this.lblGecikmisEmanet.Name = "lblGecikmisEmanet";
-            this.lblGecikmisEmanet.Size = new System.Drawing.Size(37, 45);
-            this.lblGecikmisEmanet.TabIndex = 5;
-            this.lblGecikmisEmanet.Text = "0";
+            lblGecikmisEmanet.AutoSize = true;
+            lblGecikmisEmanet.Font = new Font("Segoe UI", 24F, FontStyle.Bold);
+            lblGecikmisEmanet.ForeColor = Color.FromArgb(244, 67, 54);
+            lblGecikmisEmanet.Location = new Point(900, 30);
+            lblGecikmisEmanet.Name = "lblGecikmisEmanet";
+            lblGecikmisEmanet.Size = new Size(38, 45);
+            lblGecikmisEmanet.TabIndex = 5;
+            lblGecikmisEmanet.Text = "0";
             // 
             // lblAktifEmanet
             // 
-            this.lblAktifEmanet.AutoSize = true;
-            this.lblAktifEmanet.Font = new System.Drawing.Font("Segoe UI", 24F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.lblAktifEmanet.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(76)))), ((int)(((byte)(175)))), ((int)(((byte)(80)))));
-            this.lblAktifEmanet.Location = new System.Drawing.Point(500, 30);
-            this.lblAktifEmanet.Name = "lblAktifEmanet";
-            this.lblAktifEmanet.Size = new System.Drawing.Size(37, 45);
-            this.lblAktifEmanet.TabIndex = 4;
-            this.lblAktifEmanet.Text = "0";
+            lblAktifEmanet.AutoSize = true;
+            lblAktifEmanet.Font = new Font("Segoe UI", 24F, FontStyle.Bold);
+            lblAktifEmanet.ForeColor = Color.FromArgb(76, 175, 80);
+            lblAktifEmanet.Location = new Point(500, 30);
+            lblAktifEmanet.Name = "lblAktifEmanet";
+            lblAktifEmanet.Size = new Size(38, 45);
+            lblAktifEmanet.TabIndex = 4;
+            lblAktifEmanet.Text = "0";
             // 
             // lblToplamEmanet
             // 
-            this.lblToplamEmanet.AutoSize = true;
-            this.lblToplamEmanet.Font = new System.Drawing.Font("Segoe UI", 24F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.lblToplamEmanet.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(33)))), ((int)(((byte)(150)))), ((int)(((byte)(243)))));
-            this.lblToplamEmanet.Location = new System.Drawing.Point(100, 30);
-            this.lblToplamEmanet.Name = "lblToplamEmanet";
-            this.lblToplamEmanet.Size = new System.Drawing.Size(37, 45);
-            this.lblToplamEmanet.TabIndex = 3;
-            this.lblToplamEmanet.Text = "0";
+            lblToplamEmanet.AutoSize = true;
+            lblToplamEmanet.Font = new Font("Segoe UI", 24F, FontStyle.Bold);
+            lblToplamEmanet.ForeColor = Color.FromArgb(33, 150, 243);
+            lblToplamEmanet.Location = new Point(100, 30);
+            lblToplamEmanet.Name = "lblToplamEmanet";
+            lblToplamEmanet.Size = new Size(38, 45);
+            lblToplamEmanet.TabIndex = 3;
+            lblToplamEmanet.Text = "0";
             // 
             // lblGecikmisEmanetTitle
             // 
-            this.lblGecikmisEmanetTitle.AutoSize = true;
-            this.lblGecikmisEmanetTitle.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.lblGecikmisEmanetTitle.ForeColor = System.Drawing.Color.Gray;
-            this.lblGecikmisEmanetTitle.Location = new System.Drawing.Point(800, 75);
-            this.lblGecikmisEmanetTitle.Name = "lblGecikmisEmanetTitle";
-            this.lblGecikmisEmanetTitle.Size = new System.Drawing.Size(120, 19);
-            this.lblGecikmisEmanetTitle.TabIndex = 2;
-            this.lblGecikmisEmanetTitle.Text = "Gecikmiş Emanet";
+            lblGecikmisEmanetTitle.AutoSize = true;
+            lblGecikmisEmanetTitle.Font = new Font("Segoe UI", 10F);
+            lblGecikmisEmanetTitle.ForeColor = Color.Gray;
+            lblGecikmisEmanetTitle.Location = new Point(800, 75);
+            lblGecikmisEmanetTitle.Name = "lblGecikmisEmanetTitle";
+            lblGecikmisEmanetTitle.Size = new Size(108, 19);
+            lblGecikmisEmanetTitle.TabIndex = 2;
+            lblGecikmisEmanetTitle.Text = "Gecikmiş Ödünç";
             // 
             // lblAktifEmanetTitle
             // 
-            this.lblAktifEmanetTitle.AutoSize = true;
-            this.lblAktifEmanetTitle.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.lblAktifEmanetTitle.ForeColor = System.Drawing.Color.Gray;
-            this.lblAktifEmanetTitle.Location = new System.Drawing.Point(400, 75);
-            this.lblAktifEmanetTitle.Name = "lblAktifEmanetTitle";
-            this.lblAktifEmanetTitle.Size = new System.Drawing.Size(100, 19);
-            this.lblAktifEmanetTitle.TabIndex = 1;
-            this.lblAktifEmanetTitle.Text = "Aktif Emanet";
+            lblAktifEmanetTitle.AutoSize = true;
+            lblAktifEmanetTitle.Font = new Font("Segoe UI", 10F);
+            lblAktifEmanetTitle.ForeColor = Color.Gray;
+            lblAktifEmanetTitle.Location = new Point(400, 75);
+            lblAktifEmanetTitle.Name = "lblAktifEmanetTitle";
+            lblAktifEmanetTitle.Size = new Size(82, 19);
+            lblAktifEmanetTitle.TabIndex = 1;
+            lblAktifEmanetTitle.Text = "Aktif Ödünç";
             // 
             // lblToplamEmanetTitle
             // 
-            this.lblToplamEmanetTitle.AutoSize = true;
-            this.lblToplamEmanetTitle.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.lblToplamEmanetTitle.ForeColor = System.Drawing.Color.Gray;
-            this.lblToplamEmanetTitle.Location = new System.Drawing.Point(0, 75);
-            this.lblToplamEmanetTitle.Name = "lblToplamEmanetTitle";
-            this.lblToplamEmanetTitle.Size = new System.Drawing.Size(110, 19);
-            this.lblToplamEmanetTitle.TabIndex = 0;
-            this.lblToplamEmanetTitle.Text = "Toplam Emanet";
+            lblToplamEmanetTitle.AutoSize = true;
+            lblToplamEmanetTitle.Font = new Font("Segoe UI", 10F);
+            lblToplamEmanetTitle.ForeColor = Color.Gray;
+            lblToplamEmanetTitle.Location = new Point(0, 75);
+            lblToplamEmanetTitle.Name = "lblToplamEmanetTitle";
+            lblToplamEmanetTitle.Size = new Size(98, 19);
+            lblToplamEmanetTitle.TabIndex = 0;
+            lblToplamEmanetTitle.Text = "Toplam Ödünç";
+            lblToplamEmanetTitle.Click += lblToplamEmanetTitle_Click;
             // 
             // panelSearch
             // 
-            this.panelSearch.BackColor = System.Drawing.Color.White;
-            this.panelSearch.Controls.Add(this.txtArama);
-            this.panelSearch.Controls.Add(this.lblArama);
-            this.panelSearch.Controls.Add(this.btnYenile);
-            this.panelSearch.Dock = System.Windows.Forms.DockStyle.Top;
-            this.panelSearch.Location = new System.Drawing.Point(0, 180);
-            this.panelSearch.Name = "panelSearch";
-            this.panelSearch.Size = new System.Drawing.Size(1200, 60);
-            this.panelSearch.TabIndex = 2;
+            panelSearch.BackColor = Color.White;
+            panelSearch.Controls.Add(txtArama);
+            panelSearch.Controls.Add(lblArama);
+            panelSearch.Controls.Add(btnYenile);
+            panelSearch.Dock = DockStyle.Top;
+            panelSearch.Location = new Point(0, 180);
+            panelSearch.Name = "panelSearch";
+            panelSearch.Size = new Size(1200, 60);
+            panelSearch.TabIndex = 2;
             // 
             // txtArama
             // 
-            this.txtArama.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.txtArama.Location = new System.Drawing.Point(20, 20);
-            this.txtArama.Name = "txtArama";
-            this.txtArama.PlaceholderText = "🔍 Emanet ara...";
-            this.txtArama.Size = new System.Drawing.Size(300, 29);
-            this.txtArama.TabIndex = 2;
-            this.txtArama.TextChanged += new System.EventHandler(this.txtArama_TextChanged);
+            txtArama.Font = new Font("Segoe UI", 12F);
+            txtArama.Location = new Point(20, 20);
+            txtArama.Name = "txtArama";
+            txtArama.PlaceholderText = "🔍 Emanet ara...";
+            txtArama.Size = new Size(300, 29);
+            txtArama.TabIndex = 2;
+            txtArama.TextChanged += txtArama_TextChanged;
             // 
             // lblArama
             // 
-            this.lblArama.AutoSize = true;
-            this.lblArama.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.lblArama.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
-            this.lblArama.Location = new System.Drawing.Point(340, 23);
-            this.lblArama.Name = "lblArama";
-            this.lblArama.Size = new System.Drawing.Size(60, 21);
-            this.lblArama.TabIndex = 1;
-            this.lblArama.Text = "Arama:";
+            lblArama.AutoSize = true;
+            lblArama.Font = new Font("Segoe UI", 12F, FontStyle.Bold);
+            lblArama.ForeColor = Color.FromArgb(64, 64, 64);
+            lblArama.Location = new Point(340, 23);
+            lblArama.Name = "lblArama";
+            lblArama.Size = new Size(64, 21);
+            lblArama.TabIndex = 1;
+            lblArama.Text = "Arama:";
             // 
             // btnYenile
             // 
-            this.btnYenile.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnYenile.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(33)))), ((int)(((byte)(150)))), ((int)(((byte)(243)))));
-            this.btnYenile.FlatAppearance.BorderSize = 0;
-            this.btnYenile.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnYenile.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.btnYenile.ForeColor = System.Drawing.Color.White;
-            this.btnYenile.Location = new System.Drawing.Point(1100, 20);
-            this.btnYenile.Name = "btnYenile";
-            this.btnYenile.Size = new System.Drawing.Size(80, 30);
-            this.btnYenile.TabIndex = 0;
-            this.btnYenile.Text = "Yenile";
-            this.btnYenile.UseVisualStyleBackColor = false;
-            this.btnYenile.Click += new System.EventHandler(this.btnYenile_Click);
+            btnYenile.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            btnYenile.BackColor = Color.FromArgb(33, 150, 243);
+            btnYenile.FlatAppearance.BorderSize = 0;
+            btnYenile.FlatStyle = FlatStyle.Flat;
+            btnYenile.Font = new Font("Segoe UI", 10F, FontStyle.Bold);
+            btnYenile.ForeColor = Color.White;
+            btnYenile.Location = new Point(1100, 20);
+            btnYenile.Name = "btnYenile";
+            btnYenile.Size = new Size(80, 30);
+            btnYenile.TabIndex = 0;
+            btnYenile.Text = "Yenile";
+            btnYenile.UseVisualStyleBackColor = false;
+            btnYenile.Click += btnYenile_Click;
             // 
             // dataGridViewEmanetler
             // 
-            this.dataGridViewEmanetler.AllowUserToAddRows = false;
-            this.dataGridViewEmanetler.AllowUserToDeleteRows = false;
-            this.dataGridViewEmanetler.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.dataGridViewEmanetler.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
-            this.dataGridViewEmanetler.BackgroundColor = System.Drawing.Color.White;
-            this.dataGridViewEmanetler.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.dataGridViewEmanetler.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridViewEmanetler.Location = new System.Drawing.Point(20, 20);
-            this.dataGridViewEmanetler.MultiSelect = false;
-            this.dataGridViewEmanetler.Name = "dataGridViewEmanetler";
-            this.dataGridViewEmanetler.ReadOnly = true;
-            this.dataGridViewEmanetler.RowHeadersVisible = false;
-            this.dataGridViewEmanetler.RowTemplate.Height = 25;
-            this.dataGridViewEmanetler.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dataGridViewEmanetler.Size = new System.Drawing.Size(1160, 400);
-            this.dataGridViewEmanetler.TabIndex = 0;
-            this.dataGridViewEmanetler.CellFormatting += new System.Windows.Forms.DataGridViewCellFormattingEventHandler(this.dataGridViewEmanetler_CellFormatting);
+            dataGridViewEmanetler.AllowUserToAddRows = false;
+            dataGridViewEmanetler.AllowUserToDeleteRows = false;
+            dataGridViewEmanetler.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+            dataGridViewEmanetler.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+            dataGridViewEmanetler.BackgroundColor = Color.White;
+            dataGridViewEmanetler.BorderStyle = BorderStyle.None;
+            dataGridViewEmanetler.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dataGridViewEmanetler.Location = new Point(20, 20);
+            dataGridViewEmanetler.MultiSelect = false;
+            dataGridViewEmanetler.Name = "dataGridViewEmanetler";
+            dataGridViewEmanetler.ReadOnly = true;
+            dataGridViewEmanetler.RowHeadersVisible = false;
+            dataGridViewEmanetler.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
+            dataGridViewEmanetler.Size = new Size(1160, 400);
+            dataGridViewEmanetler.TabIndex = 0;
+            dataGridViewEmanetler.CellFormatting += dataGridViewEmanetler_CellFormatting;
             // 
             // panelActions
             // 
-            this.panelActions.BackColor = System.Drawing.Color.White;
-            this.panelActions.Controls.Add(this.btnIadeEt);
-            this.panelActions.Controls.Add(this.dataGridViewEmanetler);
-            this.panelActions.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panelActions.Location = new System.Drawing.Point(0, 240);
-            this.panelActions.Name = "panelActions";
-            this.panelActions.Size = new System.Drawing.Size(1200, 460);
-            this.panelActions.TabIndex = 3;
+            panelActions.BackColor = Color.White;
+            panelActions.Controls.Add(btnIadeEt);
+            panelActions.Controls.Add(dataGridViewEmanetler);
+            panelActions.Dock = DockStyle.Fill;
+            panelActions.Location = new Point(0, 240);
+            panelActions.Name = "panelActions";
+            panelActions.Size = new Size(1200, 460);
+            panelActions.TabIndex = 3;
             // 
             // btnIadeEt
             // 
-            this.btnIadeEt.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnIadeEt.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(76)))), ((int)(((byte)(175)))), ((int)(((byte)(80)))));
-            this.btnIadeEt.FlatAppearance.BorderSize = 0;
-            this.btnIadeEt.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnIadeEt.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.btnIadeEt.ForeColor = System.Drawing.Color.White;
-            this.btnIadeEt.Location = new System.Drawing.Point(1050, 420);
-            this.btnIadeEt.Name = "btnIadeEt";
-            this.btnIadeEt.Size = new System.Drawing.Size(130, 35);
-            this.btnIadeEt.TabIndex = 1;
-            this.btnIadeEt.Text = "İade Et";
-            this.btnIadeEt.UseVisualStyleBackColor = false;
-            this.btnIadeEt.Click += new System.EventHandler(this.btnIadeEt_Click);
+            btnIadeEt.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
+            btnIadeEt.BackColor = Color.FromArgb(76, 175, 80);
+            btnIadeEt.FlatAppearance.BorderSize = 0;
+            btnIadeEt.FlatStyle = FlatStyle.Flat;
+            btnIadeEt.Font = new Font("Segoe UI", 12F, FontStyle.Bold);
+            btnIadeEt.ForeColor = Color.White;
+            btnIadeEt.Location = new Point(1050, 420);
+            btnIadeEt.Name = "btnIadeEt";
+            btnIadeEt.Size = new Size(130, 35);
+            btnIadeEt.TabIndex = 1;
+            btnIadeEt.Text = "İade Et";
+            btnIadeEt.UseVisualStyleBackColor = false;
+            btnIadeEt.Click += btnIadeEt_Click;
             // 
-            // EmanetIslemleriForm
+            // OduncIslemleriForm
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(245)))), ((int)(((byte)(245)))), ((int)(((byte)(245)))));
-            this.ClientSize = new System.Drawing.Size(1200, 700);
-            this.Controls.Add(this.panelActions);
-            this.Controls.Add(this.panelSearch);
-            this.Controls.Add(this.panelStats);
-            this.Controls.Add(this.panelHeader);
-            this.Name = "EmanetIslemleriForm";
-            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "Emanet İşlemleri";
-            this.panelHeader.ResumeLayout(false);
-            this.panelHeader.PerformLayout();
-            this.panelStats.ResumeLayout(false);
-            this.panelStats.PerformLayout();
-            this.panelSearch.ResumeLayout(false);
-            this.panelSearch.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewEmanetler)).EndInit();
-            this.panelActions.ResumeLayout(false);
-            this.ResumeLayout(false);
+            AutoScaleDimensions = new SizeF(7F, 15F);
+            AutoScaleMode = AutoScaleMode.Font;
+            BackColor = Color.FromArgb(245, 245, 245);
+            ClientSize = new Size(1200, 700);
+            Controls.Add(panelActions);
+            Controls.Add(panelSearch);
+            Controls.Add(panelStats);
+            Controls.Add(panelHeader);
+            Name = "OduncIslemleriForm";
+            StartPosition = FormStartPosition.CenterScreen;
+            Text = "Emanet İşlemleri";
+            panelHeader.ResumeLayout(false);
+            panelHeader.PerformLayout();
+            panelStats.ResumeLayout(false);
+            panelStats.PerformLayout();
+            panelSearch.ResumeLayout(false);
+            panelSearch.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)dataGridViewEmanetler).EndInit();
+            panelActions.ResumeLayout(false);
+            ResumeLayout(false);
 
         }
 

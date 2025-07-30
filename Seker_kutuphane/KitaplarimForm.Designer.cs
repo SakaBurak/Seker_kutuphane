@@ -93,7 +93,6 @@ namespace Seker_kutuphane
             // panelStats
             // 
             panelStats.BackColor = Color.White;
-            panelStats.BorderStyle = BorderStyle.None;
             panelStats.Controls.Add(lblKitapSayisi);
             panelStats.Controls.Add(lblMaxKitap);
             panelStats.Controls.Add(progressBar);
@@ -131,12 +130,10 @@ namespace Seker_kutuphane
             progressBar.Size = new Size(600, 20);
             progressBar.Style = ProgressBarStyle.Continuous;
             progressBar.TabIndex = 2;
-            progressBar.Value = 0;
             // 
             // panelEmptyState
             // 
             panelEmptyState.BackColor = Color.White;
-            panelEmptyState.BorderStyle = BorderStyle.None;
             panelEmptyState.Controls.Add(lblEmptyIcon);
             panelEmptyState.Controls.Add(lblEmptyTitle);
             panelEmptyState.Controls.Add(lblEmptyMessage);
@@ -249,7 +246,7 @@ namespace Seker_kutuphane
             Controls.Add(panelMain);
             Name = "KitaplarimForm";
             StartPosition = FormStartPosition.CenterParent;
-            Text = "Kitaplarım";
+            Text = "ye";
             panelMain.ResumeLayout(false);
             panelStats.ResumeLayout(false);
             panelEmptyState.ResumeLayout(false);

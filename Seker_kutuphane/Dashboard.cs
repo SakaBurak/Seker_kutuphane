@@ -74,6 +74,15 @@ namespace Seker_kutuphane
                     btnYonetim.BackColor = Color.FromArgb(76, 175, 80); // Açık yeşil
             };
 
+            btnTest.MouseEnter += (s, e) => {
+                if (btnTest.Enabled)
+                    btnTest.BackColor = Color.FromArgb(255, 167, 38); // Daha açık turuncu
+            };
+            btnTest.MouseLeave += (s, e) => {
+                if (btnTest.Enabled)
+                    btnTest.BackColor = Color.FromArgb(255, 152, 0); // Turuncu
+            };
+
             btnCikis.MouseEnter += (s, e) => {
                 btnCikis.BackColor = Color.FromArgb(239, 83, 80); // Daha açık kırmızı
             };
@@ -160,6 +169,10 @@ namespace Seker_kutuphane
             btnYonetim.Text = "Sistem Yönetimi";
             btnYonetim.Enabled = true;
             
+            btnTest.Visible = true;
+            btnTest.Text = "API Test";
+            btnTest.Enabled = true;
+            
             btnCikis.Visible = true;
             btnCikis.Text = "Çıkış";
             btnCikis.Enabled = true;
@@ -190,6 +203,7 @@ namespace Seker_kutuphane
             btnEmanetler.Visible = false;
             btnRaporlar.Visible = false;
             btnYonetim.Visible = false;
+            btnTest.Visible = false;
         }
 
         private void SetupGorevliPermissions()
@@ -222,6 +236,7 @@ namespace Seker_kutuphane
             // Raporlar ve yönetim gizli (sadece admin)
             btnRaporlar.Visible = false;
             btnYonetim.Visible = false;
+            btnTest.Visible = false;
         }
 
         private void SetupAdminPermissions()
@@ -262,6 +277,12 @@ namespace Seker_kutuphane
             btnYonetim.Visible = true;
             btnYonetim.BackColor = Color.FromArgb(76, 175, 80); // Açık yeşil
             btnYonetim.ForeColor = Color.White;
+
+            btnTest.Text = "API Test";
+            btnTest.Enabled = true;
+            btnTest.Visible = true;
+            btnTest.BackColor = Color.FromArgb(255, 152, 0); // Turuncu
+            btnTest.ForeColor = Color.White;
         }
 
         private void Dashboard_Load(object? sender, EventArgs e)

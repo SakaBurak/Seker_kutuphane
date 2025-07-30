@@ -13,11 +13,11 @@ namespace Seker_kutuphane
 {
     public partial class OduncIslemleriForm : Form
     {
-        private ApiHelper apiHelper;
-        private string kullaniciAdi;
-        private string rol;
-        private dynamic userData;
-        private DataTable emanetTable;
+        private ApiHelper apiHelper = null!;
+        private string kullaniciAdi = string.Empty;
+        private string rol = string.Empty;
+        private dynamic? userData;
+        private DataTable emanetTable = null!;
 
         public OduncIslemleriForm(string kullaniciAdi, string rol, dynamic userData = null)
         {
@@ -57,11 +57,11 @@ namespace Seker_kutuphane
                 // Debug: API yanıtını kontrol et
                 Console.WriteLine($"API Response Type: {oduncler?.GetType()}");
                 Console.WriteLine($"API Response: {oduncler}");
-                
+
                 if (oduncler is Newtonsoft.Json.Linq.JArray oduncArray)
                 {
                     Console.WriteLine($"JArray Count: {oduncArray.Count}");
-                    
+
                     // API yanıtını daha detaylı logla
                     Console.WriteLine($"=== API Response Details ===");
                     for (int i = 0; i < oduncArray.Count; i++)
@@ -70,25 +70,25 @@ namespace Seker_kutuphane
                         Console.WriteLine($"Item {i}: ID={item["odunc_id"]}, TeslimEdildi={item["teslim_edildi"]}, Ad={item["ad"]}, Kitap={item["title"]}");
                     }
                     Console.WriteLine($"=== End API Response Details ===");
-                    
+
                     foreach (var odunc in oduncArray)
                     {
                         Console.WriteLine($"Processing odunc: {odunc}");
-                        
+
                         // Debug: teslim_edildi değerini kontrol et
                         var teslimEdildi = odunc["teslim_edildi"]?.ToString() ?? "0";
                         var oduncId = odunc["odunc_id"]?.ToString() ?? "0";
                         Console.WriteLine($"Odunc ID: {oduncId}, Teslim Edildi: '{teslimEdildi}' (Type: {teslimEdildi.GetType()})");
-                        
+
                         // Sadece iade edilmemiş ödünçleri göster (teslim_edildi = 0)
                         if (teslimEdildi == "1" || teslimEdildi == "True" || teslimEdildi == "true")
                         {
                             Console.WriteLine($"Skipping returned odunc: {oduncId}");
                             continue; // İade edilmiş ödünçleri atla
                         }
-                        
+
                         var row = emanetTable.NewRow();
-                        
+
                         try
                         {
                             // API'deki alan adlarına göre uyarlama
@@ -117,7 +117,7 @@ namespace Seker_kutuphane
                     var teslimEdildi = odunc["teslim_edildi"]?.ToString() ?? "0";
                     var oduncId = odunc["odunc_id"]?.ToString() ?? "0";
                     Console.WriteLine($"Single Odunc ID: {oduncId}, Teslim Edildi: '{teslimEdildi}'");
-                    
+
                     if (teslimEdildi != "1" && teslimEdildi != "True" && teslimEdildi != "true") // Sadece iade edilmemiş ödünçleri göster
                     {
                         var row = emanetTable.NewRow();
@@ -171,6 +171,10 @@ namespace Seker_kutuphane
         private async void btnYeniOdunc_Click(object sender, EventArgs e)
         {
             var yeniOduncForm = new YeniOduncForm(apiHelper);
+            
+            // Callback ayarla - ödünç oluşturulduğunda listeyi yenile
+            yeniOduncForm.OnOduncCreated = () => LoadOduncler();
+            
             if (yeniOduncForm.ShowDialog() == DialogResult.OK)
             {
                 LoadOduncler();
@@ -265,9 +269,9 @@ namespace Seker_kutuphane
             }
         }
 
-        private void btnYenile_Click(object sender, EventArgs e)
+        private async void btnYenile_Click(object sender, EventArgs e)
         {
-            LoadOduncler();
+            await Task.Run(() => LoadOduncler());
         }
 
         // Test butonu için event handler
@@ -277,11 +281,11 @@ namespace Seker_kutuphane
             {
                 var oduncler = await apiHelper.GetAllOdunclerAsync();
                 string debugInfo = "=== API Debug Bilgileri ===\n";
-                
+
                 if (oduncler is Newtonsoft.Json.Linq.JArray oduncArray)
                 {
                     debugInfo += $"Toplam Ödünç Sayısı: {oduncArray.Count}\n\n";
-                    
+
                     for (int i = 0; i < oduncArray.Count; i++)
                     {
                         var item = oduncArray[i];
@@ -289,8 +293,8 @@ namespace Seker_kutuphane
                         var teslimEdildi = item["teslim_edildi"]?.ToString() ?? "N/A";
                         var ad = item["ad"]?.ToString() ?? "N/A";
                         var kitap = item["title"]?.ToString() ?? "N/A";
-                        
-                        debugInfo += $"Ödünç {i+1}:\n";
+
+                        debugInfo += $"Ödünç {i + 1}:\n";
                         debugInfo += $"  ID: {id}\n";
                         debugInfo += $"  Teslim Edildi: '{teslimEdildi}' (Type: {teslimEdildi.GetType()})\n";
                         debugInfo += $"  Kullanıcı: {ad}\n";
@@ -303,7 +307,7 @@ namespace Seker_kutuphane
                     debugInfo += $"Yanıt tipi: {oduncler?.GetType()}\n";
                     debugInfo += $"Yanıt içeriği: {oduncler}";
                 }
-                
+
                 MessageBox.Show(debugInfo, "API Debug Bilgileri", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
             catch (Exception ex)
@@ -349,6 +353,11 @@ namespace Seker_kutuphane
                     dataGridViewEmanetler.Rows[e.RowIndex].DefaultCellStyle.BackColor = Color.LightCoral;
                 }
             }
+        }
+
+        private void lblToplamEmanetTitle_Click(object sender, EventArgs e)
+        {
+
         }
     }
 } 

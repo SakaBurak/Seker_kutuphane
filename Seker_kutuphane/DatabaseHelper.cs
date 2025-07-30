@@ -83,7 +83,7 @@ namespace Seker_kutuphane
             var response = await client.GetAsync($"{apiBaseUrl}/kullanicilar");
             response.EnsureSuccessStatusCode();
             var json = await response.Content.ReadAsStringAsync();
-            return JsonConvert.DeserializeObject(json);
+            return JsonConvert.DeserializeObject(json) ?? new List<object>();
         }
 
         // Roller: GET /roller
@@ -92,7 +92,7 @@ namespace Seker_kutuphane
             var response = await client.GetAsync($"{apiBaseUrl}/roller");
             response.EnsureSuccessStatusCode();
             var json = await response.Content.ReadAsStringAsync();
-            return JsonConvert.DeserializeObject(json);
+            return JsonConvert.DeserializeObject(json) ?? new List<object>();
         }
 
         // TC doğrulama: POST /verify-tc
@@ -119,7 +119,7 @@ namespace Seker_kutuphane
         // API endpoint'lerini test et
         public async Task<string> TestEndpointsAsync()
         {
-            var endpoints = new[] { "/register", "/kayit", "/user", "/users", "/kullanici" };
+            var endpoints = new[] { "/register", "/kayit", "/user", "/users", "/kullanici", "/kitaplar" };
             var results = new List<string>();
             
             foreach (var endpoint in endpoints)
@@ -128,6 +128,14 @@ namespace Seker_kutuphane
                 {
                     var response = await client.GetAsync($"{apiBaseUrl}{endpoint}");
                     results.Add($"{endpoint}: {response.StatusCode}");
+                    
+                    // Kitaplar endpoint'i için detaylı bilgi
+                    if (endpoint == "/kitaplar")
+                    {
+                        var content = await response.Content.ReadAsStringAsync();
+                        results.Add($"Kitaplar Response Length: {content?.Length ?? 0}");
+                        results.Add($"Kitaplar Response Preview: {content?.Substring(0, Math.Min(200, content?.Length ?? 0))}");
+                    }
                 }
                 catch (Exception ex)
                 {
@@ -183,40 +191,30 @@ namespace Seker_kutuphane
             try
             {
                 var fullUrl = $"{apiBaseUrl}/kitaplar";
-                
-                // Debug: URL'yi yazdır
-                Console.WriteLine($"GetAllBooks URL: {fullUrl}");
-                
                 var response = await client.GetAsync(fullUrl);
-                
-                Console.WriteLine($"GetAllBooks Response Status: {response.StatusCode}");
                 
                 if (response.StatusCode == System.Net.HttpStatusCode.NotFound)
                 {
-                    // 404 hatası durumunda boş liste döndür
-                    Console.WriteLine("GetAllBooks 404 Not Found - Boş liste döndürülüyor");
                     return new List<object>();
                 }
                 
                 if (!response.IsSuccessStatusCode)
                 {
-                    // API'den veri gelmezse boş liste döndür
-                    Console.WriteLine($"GetAllBooks API Error: {response.StatusCode} - Boş liste döndürülüyor");
                     return new List<object>();
                 }
                 
                 var json = await response.Content.ReadAsStringAsync();
-                Console.WriteLine($"GetAllBooks API Response: {json}");
                 
-                var result = JsonConvert.DeserializeObject(json);
-                Console.WriteLine($"GetAllBooks Parsed Result Type: {result?.GetType()}");
+                if (string.IsNullOrEmpty(json))
+                {
+                    return new List<object>();
+                }
                 
+                var result = JsonConvert.DeserializeObject(json) ?? new List<object>();
                 return result;
             }
             catch (Exception ex)
             {
-                // Hata durumunda boş liste döndür
-                Console.WriteLine($"GetAllBooks Error: {ex.Message}");
                 return new List<object>();
             }
         }
@@ -274,7 +272,7 @@ namespace Seker_kutuphane
                 var json = await response.Content.ReadAsStringAsync();
                 Console.WriteLine($"API Response: {json}");
                 
-                var result = JsonConvert.DeserializeObject(json);
+                var result = JsonConvert.DeserializeObject(json) ?? new List<object>();
                 Console.WriteLine($"Parsed Result Type: {result?.GetType()}");
                 
                 return result;
@@ -312,16 +310,56 @@ namespace Seker_kutuphane
             {
                 var jsonData = JsonConvert.SerializeObject(oduncData);
                 var content = new StringContent(jsonData, Encoding.UTF8, "application/json");
-                var response = await client.PostAsync($"{apiBaseUrl}/odunc-ekle", content);
                 
+                Console.WriteLine($"CreateOduncAsync - URL: {apiBaseUrl}/odunc-ekle");
+                Console.WriteLine($"CreateOduncAsync - Data: {jsonData}");
+                
+                var response = await client.PostAsync($"{apiBaseUrl}/odunc-ekle", content);
                 var responseContent = await response.Content.ReadAsStringAsync();
+                
+                Console.WriteLine($"CreateOduncAsync - Status: {response.StatusCode}");
+                Console.WriteLine($"CreateOduncAsync - Response: {responseContent}");
+                
+                // API yanıtını parse et
+                var result = JsonConvert.DeserializeObject(responseContent);
+                
+                // Başarılı yanıt aldıktan sonra, gerçekten kayıt oluşup oluşmadığını kontrol et
+                if (response.IsSuccessStatusCode)
+                {
+                    // 2 saniye bekle ve sonra tüm ödünçleri kontrol et
+                    await Task.Delay(2000);
+                    
+                    try
+                    {
+                        var allOduncler = await GetAllOdunclerAsync();
+                        Console.WriteLine($"CreateOduncAsync - Kontrol: Toplam ödünç sayısı: {allOduncler?.GetType()}");
+                        
+                        if (allOduncler is Newtonsoft.Json.Linq.JArray oduncArray)
+                        {
+                            Console.WriteLine($"CreateOduncAsync - Kontrol: JArray count: {oduncArray.Count}");
+                            
+                            // Son eklenen ödünçü bul
+                            var lastOdunc = oduncArray.LastOrDefault();
+                            if (lastOdunc != null)
+                            {
+                                Console.WriteLine($"CreateOduncAsync - Kontrol: Son ödünç ID: {lastOdunc["odunc_id"]}");
+                                Console.WriteLine($"CreateOduncAsync - Kontrol: Son ödünç kullanıcı: {lastOdunc["kullanici_id"]}");
+                                Console.WriteLine($"CreateOduncAsync - Kontrol: Son ödünç kitap: {lastOdunc["kitap_id"]}");
+                            }
+                        }
+                    }
+                    catch (Exception checkEx)
+                    {
+                        Console.WriteLine($"CreateOduncAsync - Kontrol hatası: {checkEx.Message}");
+                    }
+                }
                 
                 if (!response.IsSuccessStatusCode)
                 {
                     throw new HttpRequestException($"HTTP {response.StatusCode}: {responseContent}");
                 }
                 
-                return JsonConvert.DeserializeObject(responseContent);
+                return result;
             }
             catch (Exception ex)
             {
@@ -436,7 +474,7 @@ namespace Seker_kutuphane
                 // Test odunc-ekle endpoint (mevcut API'deki endpoint)
                 try
                 {
-                    var testData = new { kullanici_id = 1, kitap_id = 1, odunc_tarihi = "2024-01-01", iade_tarihi = "2024-02-01", durum = "AKTİF" };
+                    var testData = new { kullanici_id = 30, kitap_id = 229, odunc_tarihi = "2024-01-01", iade_tarihi = "2024-02-01", durum = "AKTİF" };
                     var content = new StringContent(JsonConvert.SerializeObject(testData), Encoding.UTF8, "application/json");
                     var response = await client.PostAsync($"{apiBaseUrl}/odunc-ekle", content);
                     var responseContent = await response.Content.ReadAsStringAsync();
@@ -446,6 +484,21 @@ namespace Seker_kutuphane
                 catch (Exception ex)
                 {
                     results.Add($"POST /odunc-ekle: Error - {ex.Message}");
+                }
+
+                // Test emanet-ekle endpoint (alternatif endpoint)
+                try
+                {
+                    var testData = new { kullanici_id = 30, kitap_id = 229, odunc_tarihi = "2024-01-01", iade_tarihi = "2024-02-01", durum = "AKTİF" };
+                    var content = new StringContent(JsonConvert.SerializeObject(testData), Encoding.UTF8, "application/json");
+                    var response = await client.PostAsync($"{apiBaseUrl}/emanet-ekle", content);
+                    var responseContent = await response.Content.ReadAsStringAsync();
+                    results.Add($"POST /emanet-ekle: {response.StatusCode}");
+                    results.Add($"Response: {responseContent}");
+                }
+                catch (Exception ex)
+                {
+                    results.Add($"POST /emanet-ekle: Error - {ex.Message}");
                 }
 
                 // Test odunc-iade endpoint (mevcut API'deki endpoint)

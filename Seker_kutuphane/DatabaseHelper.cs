@@ -213,7 +213,7 @@ namespace Seker_kutuphane
                 var result = JsonConvert.DeserializeObject(json) ?? new List<object>();
                 return result;
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 return new List<object>();
             }
@@ -448,6 +448,108 @@ namespace Seker_kutuphane
             {
                 Console.WriteLine($"GetKullaniciEmanetlerAsync Error: {ex.Message}");
                 return new List<object>();
+            }
+        }
+
+        // Kullanıcının güncel rolünü getir
+        public async Task<dynamic> GetCurrentUserRoleAsync(int kullaniciId)
+        {
+            try
+            {
+                // Kullanıcı bilgilerini getir ve rolünü çıkar
+                var response = await client.GetAsync($"{apiBaseUrl}/kullanicilar");
+                response.EnsureSuccessStatusCode();
+                var json = await response.Content.ReadAsStringAsync();
+                
+                var kullanicilar = JsonConvert.DeserializeObject(json);
+                
+                if (kullanicilar is Newtonsoft.Json.Linq.JArray kullaniciArray)
+                {
+                    var kullanici = kullaniciArray.FirstOrDefault(k => 
+                        k["kullanici_id"]?.ToString() == kullaniciId.ToString());
+                    
+                    if (kullanici != null)
+                    {
+                        var rol = kullanici["rol"] ?? kullanici["rol_adi"];
+                        return rol;
+                    }
+                }
+                
+                return null;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"GetCurrentUserRoleAsync Error: {ex.Message}");
+                return null;
+            }
+        }
+
+        // Profil güncelleme: PUT /kullanici-guncelle
+        public async Task<dynamic> UpdateUserProfileAsync(object userData)
+        {
+            try
+            {
+                var jsonData = JsonConvert.SerializeObject(userData);
+                var content = new StringContent(jsonData, Encoding.UTF8, "application/json");
+                
+                Console.WriteLine($"UpdateUserProfileAsync - URL: {apiBaseUrl}/kullanici-guncelle");
+                Console.WriteLine($"UpdateUserProfileAsync - Data: {jsonData}");
+                
+                var response = await client.PutAsync($"{apiBaseUrl}/kullanici-guncelle", content);
+                var responseContent = await response.Content.ReadAsStringAsync();
+                
+                Console.WriteLine($"UpdateUserProfileAsync - Status: {response.StatusCode}");
+                Console.WriteLine($"UpdateUserProfileAsync - Response: {responseContent}");
+                
+                if (!response.IsSuccessStatusCode)
+                {
+                    throw new HttpRequestException($"HTTP {response.StatusCode}: {responseContent}");
+                }
+                
+                return JsonConvert.DeserializeObject(responseContent);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"UpdateUserProfileAsync Error: {ex.Message}");
+                throw;
+            }
+        }
+
+        // Şifre güncelleme
+        public async Task<dynamic> UpdatePasswordAsync(int kullaniciId, string mevcutSifre, string yeniSifre)
+        {
+            try
+            {
+                var updateData = new
+                {
+                    kullanici_id = kullaniciId,
+                    mevcut_sifre = mevcutSifre, // Hash'lenmemiş mevcut şifre
+                    yeni_sifre = yeniSifre // Hash'lenmiş yeni şifre
+                };
+                
+                var jsonData = JsonConvert.SerializeObject(updateData);
+                var content = new StringContent(jsonData, Encoding.UTF8, "application/json");
+                
+                Console.WriteLine($"UpdatePasswordAsync - URL: {apiBaseUrl}/change-password");
+                Console.WriteLine($"UpdatePasswordAsync - Data: {jsonData}");
+                
+                var response = await client.PostAsync($"{apiBaseUrl}/change-password", content);
+                var responseContent = await response.Content.ReadAsStringAsync();
+                
+                Console.WriteLine($"UpdatePasswordAsync - Status: {response.StatusCode}");
+                Console.WriteLine($"UpdatePasswordAsync - Response: {responseContent}");
+                
+                if (!response.IsSuccessStatusCode)
+                {
+                    throw new HttpRequestException($"HTTP {response.StatusCode}: {responseContent}");
+                }
+                
+                return JsonConvert.DeserializeObject(responseContent);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"UpdatePasswordAsync Error: {ex.Message}");
+                throw;
             }
         }
 

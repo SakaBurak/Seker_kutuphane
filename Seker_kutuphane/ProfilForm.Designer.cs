@@ -42,6 +42,7 @@ namespace Seker_kutuphane
         private System.Windows.Forms.Button btnGuncelle;
         private System.Windows.Forms.Button btnIptal;
         private System.Windows.Forms.Button btnSifreDegistir;
+        private System.Windows.Forms.Button btnYenile;
 
         private void InitializeComponent()
         {
@@ -61,6 +62,7 @@ namespace Seker_kutuphane
             btnGuncelle = new Button();
             btnIptal = new Button();
             btnSifreDegistir = new Button();
+            btnYenile = new Button();
             panelMain.SuspendLayout();
             SuspendLayout();
             // 
@@ -82,10 +84,11 @@ namespace Seker_kutuphane
             panelMain.Controls.Add(btnGuncelle);
             panelMain.Controls.Add(btnIptal);
             panelMain.Controls.Add(btnSifreDegistir);
+            panelMain.Controls.Add(btnYenile);
             panelMain.Dock = DockStyle.Fill;
             panelMain.Location = new Point(0, 0);
             panelMain.Name = "panelMain";
-            panelMain.Size = new Size(600, 500);
+            panelMain.Size = new Size(600, 520);
             panelMain.TabIndex = 0;
             // 
             // lblBaslik
@@ -104,16 +107,16 @@ namespace Seker_kutuphane
             lblAd.AutoSize = true;
             lblAd.Font = new Font("Segoe UI", 10F, FontStyle.Bold);
             lblAd.ForeColor = Color.FromArgb(0, 128, 0);
-            lblAd.Location = new Point(50, 80);
+            lblAd.Location = new Point(50, 79);
             lblAd.Name = "lblAd";
-            lblAd.Size = new Size(30, 19);
+            lblAd.Size = new Size(32, 19);
             lblAd.TabIndex = 1;
             lblAd.Text = "Ad:";
             // 
             // txtAd
             // 
             txtAd.Font = new Font("Segoe UI", 10F);
-            txtAd.Location = new Point(200, 77);
+            txtAd.Location = new Point(200, 76);
             txtAd.Name = "txtAd";
             txtAd.Size = new Size(300, 25);
             txtAd.TabIndex = 2;
@@ -123,7 +126,7 @@ namespace Seker_kutuphane
             lblSoyad.AutoSize = true;
             lblSoyad.Font = new Font("Segoe UI", 10F, FontStyle.Bold);
             lblSoyad.ForeColor = Color.FromArgb(0, 128, 0);
-            lblSoyad.Location = new Point(50, 120);
+            lblSoyad.Location = new Point(50, 119);
             lblSoyad.Name = "lblSoyad";
             lblSoyad.Size = new Size(55, 19);
             lblSoyad.TabIndex = 3;
@@ -132,7 +135,7 @@ namespace Seker_kutuphane
             // txtSoyad
             // 
             txtSoyad.Font = new Font("Segoe UI", 10F);
-            txtSoyad.Location = new Point(200, 117);
+            txtSoyad.Location = new Point(200, 116);
             txtSoyad.Name = "txtSoyad";
             txtSoyad.Size = new Size(300, 25);
             txtSoyad.TabIndex = 4;
@@ -142,7 +145,7 @@ namespace Seker_kutuphane
             lblTC.AutoSize = true;
             lblTC.Font = new Font("Segoe UI", 10F, FontStyle.Bold);
             lblTC.ForeColor = Color.FromArgb(0, 128, 0);
-            lblTC.Location = new Point(50, 160);
+            lblTC.Location = new Point(50, 159);
             lblTC.Name = "lblTC";
             lblTC.Size = new Size(100, 19);
             lblTC.TabIndex = 5;
@@ -151,7 +154,7 @@ namespace Seker_kutuphane
             // txtTC
             // 
             txtTC.Font = new Font("Segoe UI", 10F);
-            txtTC.Location = new Point(200, 157);
+            txtTC.Location = new Point(200, 156);
             txtTC.Name = "txtTC";
             txtTC.Size = new Size(300, 25);
             txtTC.TabIndex = 6;
@@ -161,16 +164,16 @@ namespace Seker_kutuphane
             lblTelefon.AutoSize = true;
             lblTelefon.Font = new Font("Segoe UI", 10F, FontStyle.Bold);
             lblTelefon.ForeColor = Color.FromArgb(0, 128, 0);
-            lblTelefon.Location = new Point(50, 200);
+            lblTelefon.Location = new Point(50, 199);
             lblTelefon.Name = "lblTelefon";
-            lblTelefon.Size = new Size(60, 19);
+            lblTelefon.Size = new Size(62, 19);
             lblTelefon.TabIndex = 7;
             lblTelefon.Text = "Telefon:";
             // 
             // txtTelefon
             // 
             txtTelefon.Font = new Font("Segoe UI", 10F);
-            txtTelefon.Location = new Point(200, 197);
+            txtTelefon.Location = new Point(200, 196);
             txtTelefon.Name = "txtTelefon";
             txtTelefon.Size = new Size(300, 25);
             txtTelefon.TabIndex = 8;
@@ -180,16 +183,16 @@ namespace Seker_kutuphane
             lblEmail.AutoSize = true;
             lblEmail.Font = new Font("Segoe UI", 10F, FontStyle.Bold);
             lblEmail.ForeColor = Color.FromArgb(0, 128, 0);
-            lblEmail.Location = new Point(50, 240);
+            lblEmail.Location = new Point(50, 239);
             lblEmail.Name = "lblEmail";
-            lblEmail.Size = new Size(50, 19);
+            lblEmail.Size = new Size(55, 19);
             lblEmail.TabIndex = 9;
             lblEmail.Text = "E-mail:";
             // 
             // txtEmail
             // 
             txtEmail.Font = new Font("Segoe UI", 10F);
-            txtEmail.Location = new Point(200, 237);
+            txtEmail.Location = new Point(200, 236);
             txtEmail.Name = "txtEmail";
             txtEmail.Size = new Size(300, 25);
             txtEmail.TabIndex = 10;
@@ -199,9 +202,9 @@ namespace Seker_kutuphane
             lblRol.AutoSize = true;
             lblRol.Font = new Font("Segoe UI", 10F, FontStyle.Bold);
             lblRol.ForeColor = Color.FromArgb(0, 128, 0);
-            lblRol.Location = new Point(50, 280);
+            lblRol.Location = new Point(50, 279);
             lblRol.Name = "lblRol";
-            lblRol.Size = new Size(100, 19);
+            lblRol.Size = new Size(65, 19);
             lblRol.TabIndex = 11;
             lblRol.Text = "Rol: Üye";
             // 
@@ -212,7 +215,7 @@ namespace Seker_kutuphane
             btnGuncelle.FlatStyle = FlatStyle.Flat;
             btnGuncelle.Font = new Font("Segoe UI", 10F, FontStyle.Bold);
             btnGuncelle.ForeColor = Color.White;
-            btnGuncelle.Location = new Point(200, 320);
+            btnGuncelle.Location = new Point(200, 319);
             btnGuncelle.Name = "btnGuncelle";
             btnGuncelle.Size = new Size(120, 40);
             btnGuncelle.TabIndex = 12;
@@ -227,7 +230,7 @@ namespace Seker_kutuphane
             btnIptal.FlatStyle = FlatStyle.Flat;
             btnIptal.Font = new Font("Segoe UI", 10F, FontStyle.Bold);
             btnIptal.ForeColor = Color.White;
-            btnIptal.Location = new Point(340, 320);
+            btnIptal.Location = new Point(340, 319);
             btnIptal.Name = "btnIptal";
             btnIptal.Size = new Size(120, 40);
             btnIptal.TabIndex = 13;
@@ -242,7 +245,7 @@ namespace Seker_kutuphane
             btnSifreDegistir.FlatStyle = FlatStyle.Flat;
             btnSifreDegistir.Font = new Font("Segoe UI", 10F, FontStyle.Bold);
             btnSifreDegistir.ForeColor = Color.White;
-            btnSifreDegistir.Location = new Point(200, 380);
+            btnSifreDegistir.Location = new Point(200, 379);
             btnSifreDegistir.Name = "btnSifreDegistir";
             btnSifreDegistir.Size = new Size(260, 40);
             btnSifreDegistir.TabIndex = 14;
@@ -250,11 +253,26 @@ namespace Seker_kutuphane
             btnSifreDegistir.UseVisualStyleBackColor = false;
             btnSifreDegistir.Click += btnSifreDegistir_Click;
             // 
+            // btnYenile
+            // 
+            btnYenile.BackColor = Color.FromArgb(76, 175, 80);
+            btnYenile.FlatAppearance.BorderSize = 0;
+            btnYenile.FlatStyle = FlatStyle.Flat;
+            btnYenile.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
+            btnYenile.ForeColor = Color.White;
+            btnYenile.Location = new Point(492, 473);
+            btnYenile.Name = "btnYenile";
+            btnYenile.Size = new Size(88, 35);
+            btnYenile.TabIndex = 15;
+            btnYenile.Text = "🔄 Yenile";
+            btnYenile.UseVisualStyleBackColor = false;
+            btnYenile.Click += btnYenile_Click;
+            // 
             // ProfilForm
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(600, 500);
+            ClientSize = new Size(600, 520);
             Controls.Add(panelMain);
             Name = "ProfilForm";
             StartPosition = FormStartPosition.CenterParent;

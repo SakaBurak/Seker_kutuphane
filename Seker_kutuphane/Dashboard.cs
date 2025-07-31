@@ -290,6 +290,14 @@ namespace Seker_kutuphane
             // Form yüklendiğinde rol bilgisini logla
             Console.WriteLine($"Dashboard yüklendi - Kullanıcı: {kullaniciAdi}, Rol: {rol}");
         }
+        
+        // Rol bilgisini güncelle ve butonları yeniden ayarla
+        public void UpdateRole(string newRole)
+        {
+            this.rol = newRole;
+            SetupRoleBasedAccess();
+            Console.WriteLine($"Dashboard rol güncellendi - Yeni rol: {rol}");
+        }
 
         private void btnKitaplar_Click(object sender, EventArgs e)
         {
@@ -303,6 +311,7 @@ namespace Seker_kutuphane
         {
             // Profil formu aç
             ProfilForm profilForm = new ProfilForm(kullaniciAdi, rol, userData);
+            profilForm.OnRoleUpdated = UpdateRole; // Rol güncellemesi için callback ayarla
             profilForm.ShowDialog();
         }
 

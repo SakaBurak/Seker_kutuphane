@@ -168,7 +168,7 @@ namespace Seker_kutuphane
             lblGecikmisEmanet.Text = gecikmisOdunc.ToString();
         }
 
-        private async void btnYeniOdunc_Click(object sender, EventArgs e)
+        private void btnYeniOdunc_Click(object sender, EventArgs e)
         {
             var yeniOduncForm = new YeniOduncForm(apiHelper);
             

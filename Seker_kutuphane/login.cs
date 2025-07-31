@@ -185,7 +185,7 @@ namespace Seker_kutuphane
 
         private void btnCikis_Click(object sender, EventArgs e)
         {
-            this.Close();
+            Application.Exit();
         }
 
         private void linkForgot_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)

@@ -67,7 +67,7 @@ namespace Seker_kutuphane
 
         private void btnCikis_Click(object sender, EventArgs e)
         {
-            this.Close();
+            Application.Exit();
         }
 
         private void panel1_Paint(object sender, PaintEventArgs e)

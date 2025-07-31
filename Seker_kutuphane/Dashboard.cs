@@ -166,7 +166,7 @@ namespace Seker_kutuphane
             btnRaporlar.Enabled = true;
             
             btnYonetim.Visible = true;
-            btnYonetim.Text = "Sistem Yönetimi";
+            btnYonetim.Text = "Üyelik İşlemleri";
             btnYonetim.Enabled = true;
             
             btnTest.Visible = true;
@@ -272,7 +272,7 @@ namespace Seker_kutuphane
             btnRaporlar.BackColor = Color.FromArgb(76, 175, 80); // Açık yeşil
             btnRaporlar.ForeColor = Color.White;
 
-            btnYonetim.Text = "Sistem Yönetimi";
+            btnYonetim.Text = "Üyelik İşlemleri";
             btnYonetim.Enabled = true;
             btnYonetim.Visible = true;
             btnYonetim.BackColor = Color.FromArgb(76, 175, 80); // Açık yeşil
@@ -346,9 +346,9 @@ namespace Seker_kutuphane
 
         private void btnYonetim_Click(object sender, EventArgs e)
         {
-            // Sistem yönetimi (sadece admin)
-            MessageBox.Show("Sistem yönetimi sayfası açılıyor...", "Sistem Yönetimi");
-            // SistemYonetimForm.Show();
+            // Üyelik işlemleri formunu aç
+            UyelikIslemleriForm uyelikForm = new UyelikIslemleriForm();
+            uyelikForm.ShowDialog();
         }
 
         private void btnCikis_Click(object sender, EventArgs e)

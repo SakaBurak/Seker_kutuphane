@@ -553,6 +553,127 @@ namespace Seker_kutuphane
             }
         }
 
+        // KULLANICI_ROLLERI tablosuna rol ekleme: PUT /kullanici-guncelle
+        public async Task<dynamic> AddRoleToUserAsync(int kullaniciId, int rolId)
+        {
+            try
+            {
+                // Önce mevcut kullanıcı bilgilerini al
+                var allUsers = await GetAllUsersAsync();
+                dynamic currentUser = null;
+                
+                if (allUsers is Newtonsoft.Json.Linq.JArray usersArray)
+                {
+                    foreach (var user in usersArray)
+                    {
+                        if (Convert.ToInt32(user["kullanici_id"]) == kullaniciId)
+                        {
+                            currentUser = user;
+                            break;
+                        }
+                    }
+                }
+                
+                if (currentUser == null)
+                {
+                    throw new Exception("Kullanıcı bulunamadı");
+                }
+                
+                // Mevcut rol ID'lerini al
+                var currentRolIds = new List<int>();
+                if (currentUser["rol_ids"] != null)
+                {
+                    var rolIdsArray = currentUser["rol_ids"] as Newtonsoft.Json.Linq.JArray;
+                    if (rolIdsArray != null)
+                    {
+                        foreach (var rolIdItem in rolIdsArray)
+                        {
+                            currentRolIds.Add(Convert.ToInt32(rolIdItem));
+                        }
+                    }
+                }
+                
+                // Yeni rol ID'sini ekle (eğer zaten yoksa)
+                if (!currentRolIds.Contains(rolId))
+                {
+                    currentRolIds.Add(rolId);
+                }
+                
+                // Güncelleme verisi hazırla
+                var updateData = new
+                {
+                    kullanici_id = kullaniciId,
+                    ad = currentUser["ad"],
+                    soyad = currentUser["soyad"],
+                    tc = currentUser["tc"],
+                    telefon = currentUser["telefon"],
+                    email = currentUser["email"],
+                    rol_ids = currentRolIds.ToArray()
+                };
+                
+                var jsonData = JsonConvert.SerializeObject(updateData);
+                var content = new StringContent(jsonData, Encoding.UTF8, "application/json");
+                
+                Console.WriteLine($"AddRoleToUserAsync - URL: {apiBaseUrl}/kullanici-guncelle");
+                Console.WriteLine($"AddRoleToUserAsync - Data: {jsonData}");
+                
+                var response = await client.PutAsync($"{apiBaseUrl}/kullanici-guncelle", content);
+                var responseContent = await response.Content.ReadAsStringAsync();
+                
+                Console.WriteLine($"AddRoleToUserAsync - Status: {response.StatusCode}");
+                Console.WriteLine($"AddRoleToUserAsync - Response: {responseContent}");
+                
+                if (!response.IsSuccessStatusCode)
+                {
+                    throw new HttpRequestException($"HTTP {response.StatusCode}: {responseContent}");
+                }
+                
+                return JsonConvert.DeserializeObject(responseContent);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"AddRoleToUserAsync Error: {ex.Message}");
+                throw;
+            }
+        }
+
+        // Kullanıcı silme (soft delete) - status'u 0 yap
+        public async Task<dynamic> DeleteUserAsync(int kullaniciId)
+        {
+            try
+            {
+                var deleteData = new
+                {
+                    kullanici_id = kullaniciId,
+                    status = 0
+                };
+                
+                var jsonData = JsonConvert.SerializeObject(deleteData);
+                var content = new StringContent(jsonData, Encoding.UTF8, "application/json");
+                
+                Console.WriteLine($"DeleteUserAsync - URL: {apiBaseUrl}/kullanici-sil");
+                Console.WriteLine($"DeleteUserAsync - Data: {jsonData}");
+                
+                var response = await client.PostAsync($"{apiBaseUrl}/kullanici-sil", content);
+                var responseContent = await response.Content.ReadAsStringAsync();
+                
+                Console.WriteLine($"DeleteUserAsync - Status: {response.StatusCode}");
+                Console.WriteLine($"DeleteUserAsync - Response: {responseContent}");
+                
+                if (!response.IsSuccessStatusCode)
+                {
+                    throw new HttpRequestException($"HTTP {response.StatusCode}: {responseContent}");
+                }
+                
+                return JsonConvert.DeserializeObject(responseContent);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"DeleteUserAsync Error: {ex.Message}");
+                throw;
+            }
+        }
+
         // Emanet endpoint'lerini test et
         public async Task<string> TestEmanetEndpointsAsync()
         {

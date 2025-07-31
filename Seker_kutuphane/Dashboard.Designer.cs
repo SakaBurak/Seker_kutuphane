@@ -156,7 +156,7 @@
             btnYonetim.Name = "btnYonetim";
             btnYonetim.Size = new Size(180, 45);
             btnYonetim.TabIndex = 4;
-            btnYonetim.Text = "Sistem Yönetimi";
+            btnYonetim.Text = "Üyelik İşlemleri";
             btnYonetim.UseVisualStyleBackColor = false;
             btnYonetim.Click += btnYonetim_Click;
             // 

@@ -195,7 +195,7 @@ namespace Seker_kutuphane
             string kitapAdi = selectedRow.Cells["KitapAdi"].Value.ToString();
             string durum = selectedRow.Cells["Durum"].Value.ToString();
 
-            // Eğer ödünç zaten iade edilmişse uyarı ver
+            // Eğer ödünç zaten iade edilmişse uyarı ver 
             if (durum == "İade Edildi")
             {
                 MessageBox.Show("Bu ödünç zaten iade edilmiş.", "Uyarı", MessageBoxButtons.OK, MessageBoxIcon.Warning);

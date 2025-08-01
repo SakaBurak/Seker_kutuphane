@@ -295,6 +295,7 @@ namespace Seker_kutuphane
             Controls.Add(panelSearch);
             Controls.Add(panelStats);
             Controls.Add(panelHeader);
+            FormBorderStyle = FormBorderStyle.None;
             Name = "OduncIslemleriForm";
             StartPosition = FormStartPosition.CenterScreen;
             Text = "Emanet İşlemleri";

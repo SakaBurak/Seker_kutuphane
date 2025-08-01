@@ -26,248 +26,269 @@ namespace Seker_kutuphane
 
         private void InitializeComponent()
         {
-            this.panelMain = new Panel();
-            this.lblBaslik = new Label();
-            this.lblAd = new Label();
-            this.txtAd = new TextBox();
-            this.lblSoyad = new Label();
-            this.txtSoyad = new TextBox();
-            this.lblTC = new Label();
-            this.txtTC = new TextBox();
-            this.lblTelefon = new Label();
-            this.txtTelefon = new TextBox();
-            this.lblEmail = new Label();
-            this.txtEmail = new TextBox();
-            this.lblSifre = new Label();
-            this.txtSifre = new TextBox();
-            this.lblSifreTekrar = new Label();
-            this.txtSifreTekrar = new TextBox();
-            this.lblRol = new Label();
-            this.clbRoller = new CheckedListBox();
-            this.btnEkle = new Button();
-            this.btnIptal = new Button();
-            this.panelMain.SuspendLayout();
-            this.SuspendLayout();
-
+            panelMain = new Panel();
+            lblBaslik = new Label();
+            lblAd = new Label();
+            txtAd = new TextBox();
+            lblSoyad = new Label();
+            txtSoyad = new TextBox();
+            lblTC = new Label();
+            txtTC = new TextBox();
+            lblTelefon = new Label();
+            txtTelefon = new TextBox();
+            lblEmail = new Label();
+            txtEmail = new TextBox();
+            lblSifre = new Label();
+            txtSifre = new TextBox();
+            lblSifreTekrar = new Label();
+            txtSifreTekrar = new TextBox();
+            lblRol = new Label();
+            clbRoller = new CheckedListBox();
+            btnEkle = new Button();
+            btnIptal = new Button();
+            panelMain.SuspendLayout();
+            SuspendLayout();
+            // 
             // panelMain
-            this.panelMain.BackColor = Color.FromArgb(245, 245, 245);
-            this.panelMain.Controls.Add(this.lblBaslik);
-            this.panelMain.Controls.Add(this.lblAd);
-            this.panelMain.Controls.Add(this.txtAd);
-            this.panelMain.Controls.Add(this.lblSoyad);
-            this.panelMain.Controls.Add(this.txtSoyad);
-            this.panelMain.Controls.Add(this.lblTC);
-            this.panelMain.Controls.Add(this.txtTC);
-            this.panelMain.Controls.Add(this.lblTelefon);
-            this.panelMain.Controls.Add(this.txtTelefon);
-            this.panelMain.Controls.Add(this.lblEmail);
-            this.panelMain.Controls.Add(this.txtEmail);
-            this.panelMain.Controls.Add(this.lblSifre);
-            this.panelMain.Controls.Add(this.txtSifre);
-            this.panelMain.Controls.Add(this.lblSifreTekrar);
-            this.panelMain.Controls.Add(this.txtSifreTekrar);
-            this.panelMain.Controls.Add(this.lblRol);
-            this.panelMain.Controls.Add(this.clbRoller);
-            this.panelMain.Controls.Add(this.btnEkle);
-            this.panelMain.Controls.Add(this.btnIptal);
-            this.panelMain.Dock = DockStyle.Fill;
-            this.panelMain.Location = new Point(0, 0);
-            this.panelMain.Name = "panelMain";
-            this.panelMain.Size = new Size(500, 550);
-            this.panelMain.TabIndex = 0;
-
+            // 
+            panelMain.BackColor = Color.FromArgb(245, 245, 245);
+            panelMain.Controls.Add(lblBaslik);
+            panelMain.Controls.Add(lblAd);
+            panelMain.Controls.Add(txtAd);
+            panelMain.Controls.Add(lblSoyad);
+            panelMain.Controls.Add(txtSoyad);
+            panelMain.Controls.Add(lblTC);
+            panelMain.Controls.Add(txtTC);
+            panelMain.Controls.Add(lblTelefon);
+            panelMain.Controls.Add(txtTelefon);
+            panelMain.Controls.Add(lblEmail);
+            panelMain.Controls.Add(txtEmail);
+            panelMain.Controls.Add(lblSifre);
+            panelMain.Controls.Add(txtSifre);
+            panelMain.Controls.Add(lblSifreTekrar);
+            panelMain.Controls.Add(txtSifreTekrar);
+            panelMain.Controls.Add(lblRol);
+            panelMain.Controls.Add(clbRoller);
+            panelMain.Controls.Add(btnEkle);
+            panelMain.Controls.Add(btnIptal);
+            panelMain.Dock = DockStyle.Fill;
+            panelMain.Location = new Point(0, 0);
+            panelMain.Name = "panelMain";
+            panelMain.Size = new Size(500, 500);
+            panelMain.TabIndex = 0;
+            // 
             // lblBaslik
-            this.lblBaslik.Font = new Font("Segoe UI", 16F, FontStyle.Bold);
-            this.lblBaslik.ForeColor = Color.FromArgb(0, 128, 0);
-            this.lblBaslik.Location = new Point(20, 20);
-            this.lblBaslik.Name = "lblBaslik";
-            this.lblBaslik.Size = new Size(460, 40);
-            this.lblBaslik.TabIndex = 0;
-            this.lblBaslik.Text = "Yeni Kullanıcı Ekle";
-            this.lblBaslik.TextAlign = ContentAlignment.MiddleCenter;
-
+            // 
+            lblBaslik.Font = new Font("Segoe UI", 16F, FontStyle.Bold);
+            lblBaslik.ForeColor = Color.FromArgb(0, 128, 0);
+            lblBaslik.Location = new Point(20, 20);
+            lblBaslik.Name = "lblBaslik";
+            lblBaslik.Size = new Size(460, 40);
+            lblBaslik.TabIndex = 0;
+            lblBaslik.Text = "Yeni Kullanıcı Ekle";
+            lblBaslik.TextAlign = ContentAlignment.MiddleCenter;
+            // 
             // lblAd
-            this.lblAd.AutoSize = true;
-            this.lblAd.Font = new Font("Segoe UI", 10F, FontStyle.Bold);
-            this.lblAd.ForeColor = Color.FromArgb(0, 128, 0);
-            this.lblAd.Location = new Point(50, 80);
-            this.lblAd.Name = "lblAd";
-            this.lblAd.Size = new Size(32, 19);
-            this.lblAd.TabIndex = 1;
-            this.lblAd.Text = "Ad:";
-
+            // 
+            lblAd.AutoSize = true;
+            lblAd.Font = new Font("Segoe UI", 10F, FontStyle.Bold);
+            lblAd.ForeColor = Color.FromArgb(0, 128, 0);
+            lblAd.Location = new Point(50, 80);
+            lblAd.Name = "lblAd";
+            lblAd.Size = new Size(32, 19);
+            lblAd.TabIndex = 1;
+            lblAd.Text = "Ad:";
+            // 
             // txtAd
-            this.txtAd.Font = new Font("Segoe UI", 10F);
-            this.txtAd.Location = new Point(150, 77);
-            this.txtAd.Name = "txtAd";
-            this.txtAd.Size = new Size(300, 25);
-            this.txtAd.TabIndex = 2;
-
+            // 
+            txtAd.Font = new Font("Segoe UI", 10F);
+            txtAd.Location = new Point(150, 77);
+            txtAd.Name = "txtAd";
+            txtAd.Size = new Size(300, 25);
+            txtAd.TabIndex = 2;
+            // 
             // lblSoyad
-            this.lblSoyad.AutoSize = true;
-            this.lblSoyad.Font = new Font("Segoe UI", 10F, FontStyle.Bold);
-            this.lblSoyad.ForeColor = Color.FromArgb(0, 128, 0);
-            this.lblSoyad.Location = new Point(50, 120);
-            this.lblSoyad.Name = "lblSoyad";
-            this.lblSoyad.Size = new Size(55, 19);
-            this.lblSoyad.TabIndex = 3;
-            this.lblSoyad.Text = "Soyad:";
-
+            // 
+            lblSoyad.AutoSize = true;
+            lblSoyad.Font = new Font("Segoe UI", 10F, FontStyle.Bold);
+            lblSoyad.ForeColor = Color.FromArgb(0, 128, 0);
+            lblSoyad.Location = new Point(50, 120);
+            lblSoyad.Name = "lblSoyad";
+            lblSoyad.Size = new Size(55, 19);
+            lblSoyad.TabIndex = 3;
+            lblSoyad.Text = "Soyad:";
+            // 
             // txtSoyad
-            this.txtSoyad.Font = new Font("Segoe UI", 10F);
-            this.txtSoyad.Location = new Point(150, 117);
-            this.txtSoyad.Name = "txtSoyad";
-            this.txtSoyad.Size = new Size(300, 25);
-            this.txtSoyad.TabIndex = 4;
-
+            // 
+            txtSoyad.Font = new Font("Segoe UI", 10F);
+            txtSoyad.Location = new Point(150, 117);
+            txtSoyad.Name = "txtSoyad";
+            txtSoyad.Size = new Size(300, 25);
+            txtSoyad.TabIndex = 4;
+            // 
             // lblTC
-            this.lblTC.AutoSize = true;
-            this.lblTC.Font = new Font("Segoe UI", 10F, FontStyle.Bold);
-            this.lblTC.ForeColor = Color.FromArgb(0, 128, 0);
-            this.lblTC.Location = new Point(50, 160);
-            this.lblTC.Name = "lblTC";
-            this.lblTC.Size = new Size(100, 19);
-            this.lblTC.TabIndex = 5;
-            this.lblTC.Text = "TC Kimlik No:";
-
+            // 
+            lblTC.AutoSize = true;
+            lblTC.Font = new Font("Segoe UI", 10F, FontStyle.Bold);
+            lblTC.ForeColor = Color.FromArgb(0, 128, 0);
+            lblTC.Location = new Point(50, 160);
+            lblTC.Name = "lblTC";
+            lblTC.Size = new Size(100, 19);
+            lblTC.TabIndex = 5;
+            lblTC.Text = "TC Kimlik No:";
+            // 
             // txtTC
-            this.txtTC.Font = new Font("Segoe UI", 10F);
-            this.txtTC.Location = new Point(150, 157);
-            this.txtTC.Name = "txtTC";
-            this.txtTC.Size = new Size(300, 25);
-            this.txtTC.TabIndex = 6;
-
+            // 
+            txtTC.Font = new Font("Segoe UI", 10F);
+            txtTC.Location = new Point(150, 157);
+            txtTC.Name = "txtTC";
+            txtTC.Size = new Size(300, 25);
+            txtTC.TabIndex = 6;
+            // 
             // lblTelefon
-            this.lblTelefon.AutoSize = true;
-            this.lblTelefon.Font = new Font("Segoe UI", 10F, FontStyle.Bold);
-            this.lblTelefon.ForeColor = Color.FromArgb(0, 128, 0);
-            this.lblTelefon.Location = new Point(50, 200);
-            this.lblTelefon.Name = "lblTelefon";
-            this.lblTelefon.Size = new Size(62, 19);
-            this.lblTelefon.TabIndex = 7;
-            this.lblTelefon.Text = "Telefon:";
-
+            // 
+            lblTelefon.AutoSize = true;
+            lblTelefon.Font = new Font("Segoe UI", 10F, FontStyle.Bold);
+            lblTelefon.ForeColor = Color.FromArgb(0, 128, 0);
+            lblTelefon.Location = new Point(50, 200);
+            lblTelefon.Name = "lblTelefon";
+            lblTelefon.Size = new Size(62, 19);
+            lblTelefon.TabIndex = 7;
+            lblTelefon.Text = "Telefon:";
+            // 
             // txtTelefon
-            this.txtTelefon.Font = new Font("Segoe UI", 10F);
-            this.txtTelefon.Location = new Point(150, 197);
-            this.txtTelefon.Name = "txtTelefon";
-            this.txtTelefon.Size = new Size(300, 25);
-            this.txtTelefon.TabIndex = 8;
-
+            // 
+            txtTelefon.Font = new Font("Segoe UI", 10F);
+            txtTelefon.Location = new Point(150, 197);
+            txtTelefon.Name = "txtTelefon";
+            txtTelefon.Size = new Size(300, 25);
+            txtTelefon.TabIndex = 8;
+            // 
             // lblEmail
-            this.lblEmail.AutoSize = true;
-            this.lblEmail.Font = new Font("Segoe UI", 10F, FontStyle.Bold);
-            this.lblEmail.ForeColor = Color.FromArgb(0, 128, 0);
-            this.lblEmail.Location = new Point(50, 240);
-            this.lblEmail.Name = "lblEmail";
-            this.lblEmail.Size = new Size(55, 19);
-            this.lblEmail.TabIndex = 9;
-            this.lblEmail.Text = "E-mail:";
-
+            // 
+            lblEmail.AutoSize = true;
+            lblEmail.Font = new Font("Segoe UI", 10F, FontStyle.Bold);
+            lblEmail.ForeColor = Color.FromArgb(0, 128, 0);
+            lblEmail.Location = new Point(50, 240);
+            lblEmail.Name = "lblEmail";
+            lblEmail.Size = new Size(55, 19);
+            lblEmail.TabIndex = 9;
+            lblEmail.Text = "E-mail:";
+            // 
             // txtEmail
-            this.txtEmail.Font = new Font("Segoe UI", 10F);
-            this.txtEmail.Location = new Point(150, 237);
-            this.txtEmail.Name = "txtEmail";
-            this.txtEmail.Size = new Size(300, 25);
-            this.txtEmail.TabIndex = 10;
-
+            // 
+            txtEmail.Font = new Font("Segoe UI", 10F);
+            txtEmail.Location = new Point(150, 237);
+            txtEmail.Name = "txtEmail";
+            txtEmail.Size = new Size(300, 25);
+            txtEmail.TabIndex = 10;
+            // 
             // lblSifre
-            this.lblSifre.AutoSize = true;
-            this.lblSifre.Font = new Font("Segoe UI", 10F, FontStyle.Bold);
-            this.lblSifre.ForeColor = Color.FromArgb(0, 128, 0);
-            this.lblSifre.Location = new Point(50, 280);
-            this.lblSifre.Name = "lblSifre";
-            this.lblSifre.Size = new Size(45, 19);
-            this.lblSifre.TabIndex = 11;
-            this.lblSifre.Text = "Şifre:";
-
+            // 
+            lblSifre.AutoSize = true;
+            lblSifre.Font = new Font("Segoe UI", 10F, FontStyle.Bold);
+            lblSifre.ForeColor = Color.FromArgb(0, 128, 0);
+            lblSifre.Location = new Point(50, 280);
+            lblSifre.Name = "lblSifre";
+            lblSifre.Size = new Size(44, 19);
+            lblSifre.TabIndex = 11;
+            lblSifre.Text = "Şifre:";
+            // 
             // txtSifre
-            this.txtSifre.Font = new Font("Segoe UI", 10F);
-            this.txtSifre.Location = new Point(150, 277);
-            this.txtSifre.Name = "txtSifre";
-            this.txtSifre.PasswordChar = '●';
-            this.txtSifre.Size = new Size(300, 25);
-            this.txtSifre.TabIndex = 12;
-
+            // 
+            txtSifre.Font = new Font("Segoe UI", 10F);
+            txtSifre.Location = new Point(150, 277);
+            txtSifre.Name = "txtSifre";
+            txtSifre.PasswordChar = '●';
+            txtSifre.Size = new Size(300, 25);
+            txtSifre.TabIndex = 12;
+            // 
             // lblSifreTekrar
-            this.lblSifreTekrar.AutoSize = true;
-            this.lblSifreTekrar.Font = new Font("Segoe UI", 10F, FontStyle.Bold);
-            this.lblSifreTekrar.ForeColor = Color.FromArgb(0, 128, 0);
-            this.lblSifreTekrar.Location = new Point(50, 320);
-            this.lblSifreTekrar.Name = "lblSifreTekrar";
-            this.lblSifreTekrar.Size = new Size(100, 19);
-            this.lblSifreTekrar.TabIndex = 13;
-            this.lblSifreTekrar.Text = "Şifre (Tekrar):";
-
+            // 
+            lblSifreTekrar.AutoSize = true;
+            lblSifreTekrar.Font = new Font("Segoe UI", 10F, FontStyle.Bold);
+            lblSifreTekrar.ForeColor = Color.FromArgb(0, 128, 0);
+            lblSifreTekrar.Location = new Point(50, 320);
+            lblSifreTekrar.Name = "lblSifreTekrar";
+            lblSifreTekrar.Size = new Size(101, 19);
+            lblSifreTekrar.TabIndex = 13;
+            lblSifreTekrar.Text = "Şifre (Tekrar):";
+            // 
             // txtSifreTekrar
-            this.txtSifreTekrar.Font = new Font("Segoe UI", 10F);
-            this.txtSifreTekrar.Location = new Point(150, 317);
-            this.txtSifreTekrar.Name = "txtSifreTekrar";
-            this.txtSifreTekrar.PasswordChar = '●';
-            this.txtSifreTekrar.Size = new Size(300, 25);
-            this.txtSifreTekrar.TabIndex = 14;
-
+            // 
+            txtSifreTekrar.Font = new Font("Segoe UI", 10F);
+            txtSifreTekrar.Location = new Point(150, 317);
+            txtSifreTekrar.Name = "txtSifreTekrar";
+            txtSifreTekrar.PasswordChar = '●';
+            txtSifreTekrar.Size = new Size(300, 25);
+            txtSifreTekrar.TabIndex = 14;
+            // 
             // lblRol
-            this.lblRol.AutoSize = true;
-            this.lblRol.Font = new Font("Segoe UI", 10F, FontStyle.Bold);
-            this.lblRol.ForeColor = Color.FromArgb(0, 128, 0);
-            this.lblRol.Location = new Point(50, 360);
-            this.lblRol.Name = "lblRol";
-            this.lblRol.Size = new Size(35, 19);
-            this.lblRol.TabIndex = 15;
-            this.lblRol.Text = "Rol:";
-
+            // 
+            lblRol.AutoSize = true;
+            lblRol.Font = new Font("Segoe UI", 10F, FontStyle.Bold);
+            lblRol.ForeColor = Color.FromArgb(0, 128, 0);
+            lblRol.Location = new Point(50, 360);
+            lblRol.Name = "lblRol";
+            lblRol.Size = new Size(35, 19);
+            lblRol.TabIndex = 15;
+            lblRol.Text = "Rol:";
+            // 
             // clbRoller
-            this.clbRoller.Font = new Font("Segoe UI", 10F);
-            this.clbRoller.Location = new Point(150, 357);
-            this.clbRoller.Name = "clbRoller";
-            this.clbRoller.Size = new Size(300, 80);
-            this.clbRoller.TabIndex = 16;
-            this.clbRoller.CheckOnClick = true;
-
+            // 
+            clbRoller.CheckOnClick = true;
+            clbRoller.Font = new Font("Segoe UI", 10F);
+            clbRoller.Location = new Point(150, 357);
+            clbRoller.Name = "clbRoller";
+            clbRoller.Size = new Size(300, 64);
+            clbRoller.TabIndex = 16;
+            // 
             // btnEkle
-            this.btnEkle.BackColor = Color.FromArgb(76, 175, 80);
-            this.btnEkle.FlatAppearance.BorderSize = 0;
-            this.btnEkle.FlatStyle = FlatStyle.Flat;
-            this.btnEkle.Font = new Font("Segoe UI", 10F, FontStyle.Bold);
-            this.btnEkle.ForeColor = Color.White;
-            this.btnEkle.Location = new Point(150, 450);
-            this.btnEkle.Name = "btnEkle";
-            this.btnEkle.Size = new Size(120, 40);
-            this.btnEkle.TabIndex = 17;
-            this.btnEkle.Text = "Ekle";
-            this.btnEkle.UseVisualStyleBackColor = false;
-            this.btnEkle.Click += btnEkle_Click;
-
+            // 
+            btnEkle.BackColor = Color.FromArgb(76, 175, 80);
+            btnEkle.FlatAppearance.BorderSize = 0;
+            btnEkle.FlatStyle = FlatStyle.Flat;
+            btnEkle.Font = new Font("Segoe UI", 10F, FontStyle.Bold);
+            btnEkle.ForeColor = Color.White;
+            btnEkle.Location = new Point(150, 450);
+            btnEkle.Name = "btnEkle";
+            btnEkle.Size = new Size(120, 40);
+            btnEkle.TabIndex = 17;
+            btnEkle.Text = "Ekle";
+            btnEkle.UseVisualStyleBackColor = false;
+            btnEkle.Click += btnEkle_Click;
+            // 
             // btnIptal
-            this.btnIptal.BackColor = Color.FromArgb(158, 158, 158);
-            this.btnIptal.FlatAppearance.BorderSize = 0;
-            this.btnIptal.FlatStyle = FlatStyle.Flat;
-            this.btnIptal.Font = new Font("Segoe UI", 10F, FontStyle.Bold);
-            this.btnIptal.ForeColor = Color.White;
-            this.btnIptal.Location = new Point(290, 450);
-            this.btnIptal.Name = "btnIptal";
-            this.btnIptal.Size = new Size(120, 40);
-            this.btnIptal.TabIndex = 18;
-            this.btnIptal.Text = "İptal";
-            this.btnIptal.UseVisualStyleBackColor = false;
-            this.btnIptal.Click += btnIptal_Click;
-
+            // 
+            btnIptal.BackColor = Color.FromArgb(158, 158, 158);
+            btnIptal.FlatAppearance.BorderSize = 0;
+            btnIptal.FlatStyle = FlatStyle.Flat;
+            btnIptal.Font = new Font("Segoe UI", 10F, FontStyle.Bold);
+            btnIptal.ForeColor = Color.White;
+            btnIptal.Location = new Point(290, 450);
+            btnIptal.Name = "btnIptal";
+            btnIptal.Size = new Size(120, 40);
+            btnIptal.TabIndex = 18;
+            btnIptal.Text = "İptal";
+            btnIptal.UseVisualStyleBackColor = false;
+            btnIptal.Click += btnIptal_Click;
+            // 
             // KullaniciEkleForm
-            this.AutoScaleDimensions = new SizeF(7F, 15F);
-            this.AutoScaleMode = AutoScaleMode.Font;
-            this.ClientSize = new Size(500, 500);
-            this.Controls.Add(this.panelMain);
-            this.FormBorderStyle = FormBorderStyle.FixedDialog;
-            this.MaximizeBox = false;
-            this.MinimizeBox = false;
-            this.Name = "KullaniciEkleForm";
-            this.StartPosition = FormStartPosition.CenterParent;
-            this.Text = "Yeni Kullanıcı Ekle";
-            this.Load += KullaniciEkleForm_Load;
-            this.panelMain.ResumeLayout(false);
-            this.panelMain.PerformLayout();
-            this.ResumeLayout(false);
+            // 
+            AutoScaleDimensions = new SizeF(7F, 15F);
+            AutoScaleMode = AutoScaleMode.Font;
+            ClientSize = new Size(500, 500);
+            Controls.Add(panelMain);
+            FormBorderStyle = FormBorderStyle.None;
+            MaximizeBox = false;
+            MinimizeBox = false;
+            Name = "KullaniciEkleForm";
+            StartPosition = FormStartPosition.CenterParent;
+            Text = "Yeni Kullanıcı Ekle";
+            Load += KullaniciEkleForm_Load;
+            panelMain.ResumeLayout(false);
+            panelMain.PerformLayout();
+            ResumeLayout(false);
         }
 
         private Panel panelMain;

@@ -220,6 +220,7 @@
             Controls.Add(lblBaslik);
             Controls.Add(lblKullanici);
             Controls.Add(panelMenu);
+            FormBorderStyle = FormBorderStyle.None;
             Name = "Dashboard";
             StartPosition = FormStartPosition.CenterScreen;
             Text = "Dashboard";

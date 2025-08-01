@@ -244,6 +244,7 @@ namespace Seker_kutuphane
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(900, 650);
             Controls.Add(panelMain);
+            FormBorderStyle = FormBorderStyle.None;
             Name = "KitaplarimForm";
             StartPosition = FormStartPosition.CenterParent;
             Text = "ye";

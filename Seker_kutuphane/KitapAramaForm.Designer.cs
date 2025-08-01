@@ -280,7 +280,9 @@ namespace Seker_kutuphane
             Controls.Add(panelSonuc);
             Controls.Add(panelArama);
             Controls.Add(lblBaslik);
+            FormBorderStyle = FormBorderStyle.None;
             Name = "KitapAramaForm";
+            StartPosition = FormStartPosition.CenterScreen;
             Text = "Kitap Arama";
             FormClosing += KitapAramaForm_FormClosing;
             panelArama.ResumeLayout(false);

@@ -274,6 +274,7 @@ namespace Seker_kutuphane
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(600, 520);
             Controls.Add(panelMain);
+            FormBorderStyle = FormBorderStyle.None;
             Name = "ProfilForm";
             StartPosition = FormStartPosition.CenterParent;
             Text = "Profil Bilgileri";

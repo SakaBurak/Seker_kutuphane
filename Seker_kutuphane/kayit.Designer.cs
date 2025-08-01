@@ -86,7 +86,7 @@ namespace Seker_kutuphane
             textBox7.Margin = new Padding(3, 2, 3, 2);
             textBox7.Name = "textBox7";
             textBox7.Size = new Size(353, 23);
-            textBox7.TabIndex = 33;
+            textBox7.TabIndex = 44;
             // 
             // pictureBox1
             // 
@@ -131,7 +131,7 @@ namespace Seker_kutuphane
             // 
             // textBox1
             // 
-            textBox1.Location = new Point(48, 156);
+            textBox1.Location = new Point(48, 157);
             textBox1.Margin = new Padding(3, 2, 3, 2);
             textBox1.Name = "textBox1";
             textBox1.Size = new Size(158, 23);
@@ -169,7 +169,7 @@ namespace Seker_kutuphane
             textBox3.Margin = new Padding(3, 2, 3, 2);
             textBox3.Name = "textBox3";
             textBox3.Size = new Size(353, 23);
-            textBox3.TabIndex = 44;
+            textBox3.TabIndex = 46;
             // 
             // label4
             // 
@@ -186,7 +186,7 @@ namespace Seker_kutuphane
             textBox4.Margin = new Padding(3, 2, 3, 2);
             textBox4.Name = "textBox4";
             textBox4.Size = new Size(353, 23);
-            textBox4.TabIndex = 46;
+            textBox4.TabIndex = 48;
             // 
             // label5
             // 
@@ -204,7 +204,7 @@ namespace Seker_kutuphane
             textBox5.Name = "textBox5";
             textBox5.PasswordChar = '*';
             textBox5.Size = new Size(159, 23);
-            textBox5.TabIndex = 48;
+            textBox5.TabIndex = 50;
             // 
             // label6
             // 
@@ -222,7 +222,7 @@ namespace Seker_kutuphane
             textBox6.Name = "textBox6";
             textBox6.PasswordChar = '*';
             textBox6.Size = new Size(160, 23);
-            textBox6.TabIndex = 50;
+            textBox6.TabIndex = 52;
             // 
             // button1
             // 

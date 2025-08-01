@@ -164,7 +164,7 @@ namespace Seker_kutuphane
 
         private void cikisClk_Click(object sender, EventArgs e)
         {
-            this.Close();
+            Application.Exit();
         }
 
         private async void TestApiEndpoints()

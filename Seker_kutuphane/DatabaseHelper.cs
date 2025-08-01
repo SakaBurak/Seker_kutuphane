@@ -664,6 +664,69 @@ namespace Seker_kutuphane
             }
         }
 
+        public async Task<dynamic> ActivateUserAsync(int kullaniciId)
+        {
+            try
+            {
+                // Önce kullanıcının mevcut bilgilerini al
+                var allUsers = await GetAllUsersAsync();
+                dynamic currentUser = null;
+                
+                if (allUsers is Newtonsoft.Json.Linq.JArray usersArray)
+                {
+                    foreach (var user in usersArray)
+                    {
+                        if (Convert.ToInt32(user["kullanici_id"]) == kullaniciId)
+                        {
+                            currentUser = user;
+                            break;
+                        }
+                    }
+                }
+
+                if (currentUser == null)
+                {
+                    throw new Exception("Kullanıcı bulunamadı");
+                }
+
+                // Kullanıcının status'unu 1 yaparak aktifleştir
+                var updateData = new
+                {
+                    kullanici_id = kullaniciId,
+                    ad = currentUser["ad"],
+                    soyad = currentUser["soyad"],
+                    tc = currentUser["tc"],
+                    telefon = currentUser["telefon"],
+                    email = currentUser["email"],
+                    status = 1
+                };
+
+                var jsonData = JsonConvert.SerializeObject(updateData);
+                var content = new StringContent(jsonData, Encoding.UTF8, "application/json");
+                
+                Console.WriteLine($"ActivateUserAsync - URL: {apiBaseUrl}/kullanici-guncelle");
+                Console.WriteLine($"ActivateUserAsync - Data: {jsonData}");
+                
+                var response = await client.PutAsync($"{apiBaseUrl}/kullanici-guncelle", content);
+                var responseContent = await response.Content.ReadAsStringAsync();
+                
+                Console.WriteLine($"ActivateUserAsync - Status: {response.StatusCode}");
+                Console.WriteLine($"ActivateUserAsync - Response: {responseContent}");
+                
+                if (!response.IsSuccessStatusCode)
+                {
+                    throw new HttpRequestException($"HTTP {response.StatusCode}: {responseContent}");
+                }
+                
+                return JsonConvert.DeserializeObject(responseContent);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"ActivateUserAsync Error: {ex.Message}");
+                throw;
+            }
+        }
+
         // Emanet endpoint'lerini test et
         public async Task<string> TestEmanetEndpointsAsync()
         {

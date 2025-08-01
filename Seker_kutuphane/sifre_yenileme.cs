@@ -18,6 +18,30 @@ namespace Seker_kutuphane
         public sifre_yenileme()
         {
             InitializeComponent();
+            SetupTCRestrictions();
+            SetupEnterKeyEvents();
+        }
+
+        private void SetupTCRestrictions()
+        {
+            // TC kimlik numarası için sadece rakam girişi ve 11 hane sınırlaması
+            textBox3.MaxLength = 11;
+            textBox3.KeyPress += TextBox3_KeyPress;
+        }
+
+        private void TextBox3_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            // Sadece rakam girişine izin ver
+            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar))
+            {
+                e.Handled = true;
+            }
+        }
+
+        private void SetupEnterKeyEvents()
+        {
+            // TC textbox'ına Enter tuşu desteği ekle
+            textBox3.KeyDown += (sender, e) => { if (e.KeyCode == Keys.Enter) button1.PerformClick(); };
         }
 
         private void sifre_yenileme_Load(object sender, EventArgs e)
@@ -43,6 +67,14 @@ namespace Seker_kutuphane
                 MessageBox.Show("Lütfen TC kimlik numaranızı giriniz.", "Uyarı", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
+            
+            // TC kimlik numarası 11 hane olmalı
+            if (tc.Length != 11)
+            {
+                MessageBox.Show("TC kimlik numarası 11 haneli olmalıdır.", "Uyarı", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+            
             ApiHelper api = new ApiHelper();
             bool isValid = await api.VerifyTCAsync(tc);
             if (isValid)

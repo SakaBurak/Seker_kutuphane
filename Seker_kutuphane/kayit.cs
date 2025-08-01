@@ -19,6 +19,36 @@ namespace Seker_kutuphane
         public Kayit()
         {
             InitializeComponent();
+            SetupTCRestrictions();
+            SetupEnterKeyEvents();
+        }
+
+        private void SetupTCRestrictions()
+        {
+            // TC kimlik numarası için sadece rakam girişi ve 11 hane sınırlaması
+            textBox7.MaxLength = 11;
+            textBox7.KeyPress += TextBox7_KeyPress;
+        }
+
+        private void TextBox7_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            // Sadece rakam girişine izin ver
+            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar))
+            {
+                e.Handled = true;
+            }
+        }
+
+        private void SetupEnterKeyEvents()
+        {
+            // Tüm textbox'lara Enter tuşu desteği ekle
+            textBox1.KeyDown += (sender, e) => { if (e.KeyCode == Keys.Enter) button1.PerformClick(); };
+            textBox2.KeyDown += (sender, e) => { if (e.KeyCode == Keys.Enter) button1.PerformClick(); };
+            textBox3.KeyDown += (sender, e) => { if (e.KeyCode == Keys.Enter) button1.PerformClick(); };
+            textBox4.KeyDown += (sender, e) => { if (e.KeyCode == Keys.Enter) button1.PerformClick(); };
+            textBox5.KeyDown += (sender, e) => { if (e.KeyCode == Keys.Enter) button1.PerformClick(); };
+            textBox6.KeyDown += (sender, e) => { if (e.KeyCode == Keys.Enter) button1.PerformClick(); };
+            textBox7.KeyDown += (sender, e) => { if (e.KeyCode == Keys.Enter) button1.PerformClick(); };
         }
 
         private void panel1_Paint(object sender, PaintEventArgs e)

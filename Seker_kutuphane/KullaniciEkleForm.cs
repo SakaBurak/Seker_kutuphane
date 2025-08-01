@@ -21,6 +21,7 @@ namespace Seker_kutuphane
             this.apiHelper = new ApiHelper();
             this.isAdmin = isAdmin;
             SetupInputRestrictions();
+            SetupEnterKeyEvents();
         }
 
         private void InitializeComponent()
@@ -541,6 +542,18 @@ namespace Seker_kutuphane
                 }
                 return builder.ToString();
             }
+        }
+
+        private void SetupEnterKeyEvents()
+        {
+            // Tüm textbox'lara Enter tuşu desteği ekle
+            txtAd.KeyDown += (sender, e) => { if (e.KeyCode == Keys.Enter) btnEkle.PerformClick(); };
+            txtSoyad.KeyDown += (sender, e) => { if (e.KeyCode == Keys.Enter) btnEkle.PerformClick(); };
+            txtTC.KeyDown += (sender, e) => { if (e.KeyCode == Keys.Enter) btnEkle.PerformClick(); };
+            txtTelefon.KeyDown += (sender, e) => { if (e.KeyCode == Keys.Enter) btnEkle.PerformClick(); };
+            txtEmail.KeyDown += (sender, e) => { if (e.KeyCode == Keys.Enter) btnEkle.PerformClick(); };
+            txtSifre.KeyDown += (sender, e) => { if (e.KeyCode == Keys.Enter) btnEkle.PerformClick(); };
+            txtSifreTekrar.KeyDown += (sender, e) => { if (e.KeyCode == Keys.Enter) btnEkle.PerformClick(); };
         }
 
         private void btnIptal_Click(object sender, EventArgs e)

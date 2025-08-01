@@ -26,152 +26,191 @@ namespace Seker_kutuphane
 
         private void InitializeComponent()
         {
-            this.panelMain = new Panel();
-            this.lblBaslik = new Label();
-            this.dgvKullanicilar = new DataGridView();
-            this.btnYeniKullanici = new Button();
-            this.btnGuncelle = new Button();
-            this.btnSil = new Button();
-            this.btnYenile = new Button();
-            this.btnKapat = new Button();
-            this.panelMain.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dgvKullanicilar)).BeginInit();
-            this.SuspendLayout();
-
+            panelMain = new Panel();
+            lblBaslik = new Label();
+            lblIstatistikler = new Label();
+            dgvKullanicilar = new DataGridView();
+            btnYeniKullanici = new Button();
+            btnGuncelle = new Button();
+            btnSil = new Button();
+            btnAktiflestir = new Button();
+            btnYenile = new Button();
+            btnKapat = new Button();
+            panelMain.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)dgvKullanicilar).BeginInit();
+            SuspendLayout();
+            // 
             // panelMain
-            this.panelMain.BackColor = Color.FromArgb(245, 245, 245);
-            this.panelMain.Controls.Add(this.lblBaslik);
-            this.panelMain.Controls.Add(this.dgvKullanicilar);
-            this.panelMain.Controls.Add(this.btnYeniKullanici);
-            this.panelMain.Controls.Add(this.btnGuncelle);
-            this.panelMain.Controls.Add(this.btnSil);
-            this.panelMain.Controls.Add(this.btnYenile);
-            this.panelMain.Controls.Add(this.btnKapat);
-            this.panelMain.Dock = DockStyle.Fill;
-            this.panelMain.Location = new Point(0, 0);
-            this.panelMain.Name = "panelMain";
-            this.panelMain.Size = new Size(900, 600);
-            this.panelMain.TabIndex = 0;
-
+            // 
+            panelMain.BackColor = Color.FromArgb(245, 245, 245);
+            panelMain.Controls.Add(lblBaslik);
+            panelMain.Controls.Add(lblIstatistikler);
+            panelMain.Controls.Add(dgvKullanicilar);
+            panelMain.Controls.Add(btnYeniKullanici);
+            panelMain.Controls.Add(btnGuncelle);
+            panelMain.Controls.Add(btnSil);
+            panelMain.Controls.Add(btnAktiflestir);
+            panelMain.Controls.Add(btnYenile);
+            panelMain.Controls.Add(btnKapat);
+            panelMain.Dock = DockStyle.Fill;
+            panelMain.Location = new Point(0, 0);
+            panelMain.Name = "panelMain";
+            panelMain.Size = new Size(1063, 600);
+            panelMain.TabIndex = 0;
+            // 
             // lblBaslik
-            this.lblBaslik.Font = new Font("Segoe UI", 18F, FontStyle.Bold);
-            this.lblBaslik.ForeColor = Color.FromArgb(0, 128, 0);
-            this.lblBaslik.Location = new Point(20, 20);
-            this.lblBaslik.Name = "lblBaslik";
-            this.lblBaslik.Size = new Size(860, 40);
-            this.lblBaslik.TabIndex = 0;
-            this.lblBaslik.Text = "Üyelik İşlemleri";
-            this.lblBaslik.TextAlign = ContentAlignment.MiddleCenter;
-
+            // 
+            lblBaslik.Font = new Font("Segoe UI", 20F, FontStyle.Bold);
+            lblBaslik.ForeColor = Color.FromArgb(0, 128, 0);
+            lblBaslik.Location = new Point(20, 15);
+            lblBaslik.Name = "lblBaslik";
+            lblBaslik.Size = new Size(1023, 35);
+            lblBaslik.TabIndex = 0;
+            lblBaslik.Text = "Üyelik İşlemleri";
+            lblBaslik.TextAlign = ContentAlignment.MiddleCenter;
+            // 
+            // lblIstatistikler
+            // 
+            lblIstatistikler.Font = new Font("Segoe UI", 11F, FontStyle.Regular);
+            lblIstatistikler.ForeColor = Color.FromArgb(52, 73, 94);
+            lblIstatistikler.Location = new Point(20, 55);
+            lblIstatistikler.Name = "lblIstatistikler";
+            lblIstatistikler.Size = new Size(1023, 25);
+            lblIstatistikler.TabIndex = 1;
+            lblIstatistikler.Text = "Yükleniyor...";
+            lblIstatistikler.TextAlign = ContentAlignment.MiddleCenter;
+            // 
             // dgvKullanicilar
-            this.dgvKullanicilar.AllowUserToAddRows = false;
-            this.dgvKullanicilar.AllowUserToDeleteRows = false;
-            this.dgvKullanicilar.AutoGenerateColumns = true;
-            this.dgvKullanicilar.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
-            this.dgvKullanicilar.BackgroundColor = Color.White;
-            this.dgvKullanicilar.BorderStyle = BorderStyle.None;
-            this.dgvKullanicilar.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgvKullanicilar.Location = new Point(20, 80);
-            this.dgvKullanicilar.MultiSelect = false;
-            this.dgvKullanicilar.Name = "dgvKullanicilar";
-            this.dgvKullanicilar.ReadOnly = true;
-            this.dgvKullanicilar.RowTemplate.Height = 25;
-            this.dgvKullanicilar.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-            this.dgvKullanicilar.Size = new Size(860, 400);
-            this.dgvKullanicilar.TabIndex = 1;
-            this.dgvKullanicilar.CellClick += dgvKullanicilar_CellClick;
-
+            // 
+            dgvKullanicilar.AllowUserToAddRows = false;
+            dgvKullanicilar.AllowUserToDeleteRows = false;
+            dgvKullanicilar.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+            dgvKullanicilar.BackgroundColor = Color.White;
+            dgvKullanicilar.BorderStyle = BorderStyle.None;
+            dgvKullanicilar.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dgvKullanicilar.Location = new Point(20, 85);
+            dgvKullanicilar.MultiSelect = false;
+            dgvKullanicilar.Name = "dgvKullanicilar";
+            dgvKullanicilar.ReadOnly = true;
+            dgvKullanicilar.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
+            dgvKullanicilar.Size = new Size(1000, 400);
+            dgvKullanicilar.TabIndex = 1;
+            dgvKullanicilar.CellClick += dgvKullanicilar_CellClick;
+            // 
             // btnYeniKullanici
-            this.btnYeniKullanici.BackColor = Color.FromArgb(76, 175, 80);
-            this.btnYeniKullanici.FlatAppearance.BorderSize = 0;
-            this.btnYeniKullanici.FlatStyle = FlatStyle.Flat;
-            this.btnYeniKullanici.Font = new Font("Segoe UI", 10F, FontStyle.Bold);
-            this.btnYeniKullanici.ForeColor = Color.White;
-            this.btnYeniKullanici.Location = new Point(20, 500);
-            this.btnYeniKullanici.Name = "btnYeniKullanici";
-            this.btnYeniKullanici.Size = new Size(150, 40);
-            this.btnYeniKullanici.TabIndex = 2;
-            this.btnYeniKullanici.Text = "Yeni Kullanıcı";
-            this.btnYeniKullanici.UseVisualStyleBackColor = false;
-            this.btnYeniKullanici.Click += btnYeniKullanici_Click;
-
+            // 
+            btnYeniKullanici.BackColor = Color.FromArgb(102, 16, 242);
+            btnYeniKullanici.FlatAppearance.BorderSize = 0;
+            btnYeniKullanici.FlatStyle = FlatStyle.Flat;
+            btnYeniKullanici.Font = new Font("Segoe UI", 10F, FontStyle.Bold);
+            btnYeniKullanici.ForeColor = Color.White;
+            btnYeniKullanici.Location = new Point(20, 520);
+            btnYeniKullanici.Name = "btnYeniKullanici";
+            btnYeniKullanici.Size = new Size(150, 40);
+            btnYeniKullanici.TabIndex = 2;
+            btnYeniKullanici.Text = "Yeni Kullanıcı";
+            btnYeniKullanici.UseVisualStyleBackColor = false;
+            btnYeniKullanici.Click += btnYeniKullanici_Click;
+            // 
             // btnGuncelle
-            this.btnGuncelle.BackColor = Color.FromArgb(33, 150, 243);
-            this.btnGuncelle.FlatAppearance.BorderSize = 0;
-            this.btnGuncelle.FlatStyle = FlatStyle.Flat;
-            this.btnGuncelle.Font = new Font("Segoe UI", 10F, FontStyle.Bold);
-            this.btnGuncelle.ForeColor = Color.White;
-            this.btnGuncelle.Location = new Point(190, 500);
-            this.btnGuncelle.Name = "btnGuncelle";
-            this.btnGuncelle.Size = new Size(150, 40);
-            this.btnGuncelle.TabIndex = 3;
-            this.btnGuncelle.Text = "Güncelle";
-            this.btnGuncelle.UseVisualStyleBackColor = false;
-            this.btnGuncelle.Click += btnGuncelle_Click;
-
+            // 
+            btnGuncelle.BackColor = Color.FromArgb(33, 150, 243);
+            btnGuncelle.FlatAppearance.BorderSize = 0;
+            btnGuncelle.FlatStyle = FlatStyle.Flat;
+            btnGuncelle.Font = new Font("Segoe UI", 10F, FontStyle.Bold);
+            btnGuncelle.ForeColor = Color.White;
+            btnGuncelle.Location = new Point(190, 520);
+            btnGuncelle.Name = "btnGuncelle";
+            btnGuncelle.Size = new Size(150, 40);
+            btnGuncelle.TabIndex = 3;
+            btnGuncelle.Text = "Güncelle";
+            btnGuncelle.UseVisualStyleBackColor = false;
+            btnGuncelle.Click += btnGuncelle_Click;
+            // 
             // btnSil
-            this.btnSil.BackColor = Color.FromArgb(244, 67, 54);
-            this.btnSil.FlatAppearance.BorderSize = 0;
-            this.btnSil.FlatStyle = FlatStyle.Flat;
-            this.btnSil.Font = new Font("Segoe UI", 10F, FontStyle.Bold);
-            this.btnSil.ForeColor = Color.White;
-            this.btnSil.Location = new Point(360, 500);
-            this.btnSil.Name = "btnSil";
-            this.btnSil.Size = new Size(150, 40);
-            this.btnSil.TabIndex = 4;
-            this.btnSil.Text = "Sil";
-            this.btnSil.UseVisualStyleBackColor = false;
-            this.btnSil.Click += btnSil_Click;
-
+            // 
+            btnSil.BackColor = Color.FromArgb(244, 67, 54);
+            btnSil.FlatAppearance.BorderSize = 0;
+            btnSil.FlatStyle = FlatStyle.Flat;
+            btnSil.Font = new Font("Segoe UI", 10F, FontStyle.Bold);
+            btnSil.ForeColor = Color.White;
+            btnSil.Location = new Point(360, 520);
+            btnSil.Name = "btnSil";
+            btnSil.Size = new Size(150, 40);
+            btnSil.TabIndex = 4;
+            btnSil.Text = "Sil";
+            btnSil.UseVisualStyleBackColor = false;
+            btnSil.Click += btnSil_Click;
+            // 
+            // btnAktiflestir
+            // 
+            btnAktiflestir.BackColor = Color.FromArgb(40, 167, 69);
+            btnAktiflestir.FlatAppearance.BorderSize = 0;
+            btnAktiflestir.FlatStyle = FlatStyle.Flat;
+            btnAktiflestir.Font = new Font("Segoe UI", 10F, FontStyle.Bold);
+            btnAktiflestir.ForeColor = Color.White;
+            btnAktiflestir.Location = new Point(530, 520);
+            btnAktiflestir.Name = "btnAktiflestir";
+            btnAktiflestir.Size = new Size(150, 40);
+            btnAktiflestir.TabIndex = 5;
+            btnAktiflestir.Text = "Aktifleştir";
+            btnAktiflestir.UseVisualStyleBackColor = false;
+            btnAktiflestir.Click += btnAktiflestir_Click;
+            // 
             // btnYenile
-            this.btnYenile.BackColor = Color.FromArgb(255, 152, 0);
-            this.btnYenile.FlatAppearance.BorderSize = 0;
-            this.btnYenile.FlatStyle = FlatStyle.Flat;
-            this.btnYenile.Font = new Font("Segoe UI", 10F, FontStyle.Bold);
-            this.btnYenile.ForeColor = Color.White;
-            this.btnYenile.Location = new Point(530, 500);
-            this.btnYenile.Name = "btnYenile";
-            this.btnYenile.Size = new Size(150, 40);
-            this.btnYenile.TabIndex = 5;
-            this.btnYenile.Text = "Yenile";
-            this.btnYenile.UseVisualStyleBackColor = false;
-            this.btnYenile.Click += btnYenile_Click;
-
+            // 
+            btnYenile.BackColor = Color.FromArgb(255, 152, 0);
+            btnYenile.FlatAppearance.BorderSize = 0;
+            btnYenile.FlatStyle = FlatStyle.Flat;
+            btnYenile.Font = new Font("Segoe UI", 10F, FontStyle.Bold);
+            btnYenile.ForeColor = Color.White;
+            btnYenile.Location = new Point(700, 520);
+            btnYenile.Name = "btnYenile";
+            btnYenile.Size = new Size(150, 40);
+            btnYenile.TabIndex = 6;
+            btnYenile.Text = "Yenile";
+            btnYenile.UseVisualStyleBackColor = false;
+            btnYenile.Click += btnYenile_Click;
+            // 
             // btnKapat
-            this.btnKapat.BackColor = Color.FromArgb(158, 158, 158);
-            this.btnKapat.FlatAppearance.BorderSize = 0;
-            this.btnKapat.FlatStyle = FlatStyle.Flat;
-            this.btnKapat.Font = new Font("Segoe UI", 10F, FontStyle.Bold);
-            this.btnKapat.ForeColor = Color.White;
-            this.btnKapat.Location = new Point(700, 500);
-            this.btnKapat.Name = "btnKapat";
-            this.btnKapat.Size = new Size(150, 40);
-            this.btnKapat.TabIndex = 6;
-            this.btnKapat.Text = "Kapat";
-            this.btnKapat.UseVisualStyleBackColor = false;
-            this.btnKapat.Click += btnKapat_Click;
-
+            // 
+            btnKapat.BackColor = Color.FromArgb(158, 158, 158);
+            btnKapat.FlatAppearance.BorderSize = 0;
+            btnKapat.FlatStyle = FlatStyle.Flat;
+            btnKapat.Font = new Font("Segoe UI", 10F, FontStyle.Bold);
+            btnKapat.ForeColor = Color.White;
+            btnKapat.Location = new Point(870, 520);
+            btnKapat.Name = "btnKapat";
+            btnKapat.Size = new Size(150, 40);
+            btnKapat.TabIndex = 7;
+            btnKapat.Text = "Kapat";
+            btnKapat.UseVisualStyleBackColor = false;
+            btnKapat.Click += btnKapat_Click;
+            // 
             // UyelikIslemleriForm
-            this.AutoScaleDimensions = new SizeF(7F, 15F);
-            this.AutoScaleMode = AutoScaleMode.Font;
-            this.ClientSize = new Size(900, 600);
-            this.Controls.Add(this.panelMain);
-            this.FormBorderStyle = FormBorderStyle.FixedDialog;
-            this.MaximizeBox = false;
-            this.Name = "UyelikIslemleriForm";
-            this.StartPosition = FormStartPosition.CenterParent;
-            this.Text = "Üyelik İşlemleri";
-            this.panelMain.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.dgvKullanicilar)).EndInit();
-            this.ResumeLayout(false);
+            // 
+            AutoScaleDimensions = new SizeF(7F, 15F);
+            AutoScaleMode = AutoScaleMode.Font;
+            ClientSize = new Size(1063, 600);
+            Controls.Add(panelMain);
+            FormBorderStyle = FormBorderStyle.FixedDialog;
+            MaximizeBox = false;
+            Name = "UyelikIslemleriForm";
+            StartPosition = FormStartPosition.CenterParent;
+            Text = "Üyelik İşlemleri";
+            panelMain.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)dgvKullanicilar).EndInit();
+            ResumeLayout(false);
         }
 
         private Panel panelMain;
         private Label lblBaslik;
+        private Label lblIstatistikler;
         private DataGridView dgvKullanicilar;
         private Button btnYeniKullanici;
         private Button btnGuncelle;
         private Button btnSil;
+        private Button btnAktiflestir;
         private Button btnYenile;
         private Button btnKapat;
 
@@ -185,9 +224,12 @@ namespace Seker_kutuphane
             kullanicilarTable.Columns.Add("telefon", typeof(string));
             kullanicilarTable.Columns.Add("email", typeof(string));
             kullanicilarTable.Columns.Add("rol_adlari", typeof(string));
-            kullanicilarTable.Columns.Add("status", typeof(int));
+            kullanicilarTable.Columns.Add("status", typeof(string));
 
             dgvKullanicilar.DataSource = kullanicilarTable;
+            
+            // Hücre formatlaması için event ekle
+            dgvKullanicilar.CellFormatting += dgvKullanicilar_CellFormatting;
         }
 
         private async void LoadKullanicilar()
@@ -205,13 +247,7 @@ namespace Seker_kutuphane
 
                     foreach (var kullanici in kullaniciArray)
                     {
-                        // Sadece aktif kullanıcıları göster (status = 1 veya null)
-                        var status = kullanici["status"];
-                        if (status != null && Convert.ToInt32(status) == 0)
-                        {
-                            continue; // Bu kullanıcıyı atla (silinmiş)
-                        }
-
+                        // Tüm kullanıcıları göster (aktif ve pasif)
                         string rolAdlari = "";
                         if (kullanici["rol_adlari"] != null)
                         {
@@ -222,6 +258,14 @@ namespace Seker_kutuphane
                             }
                         }
 
+                        // Status değerini kullanıcı dostu metne çevir
+                        string statusText = "Aktif";
+                        var status = kullanici["status"];
+                        if (status != null && Convert.ToInt32(status) == 0)
+                        {
+                            statusText = "Pasif";
+                        }
+
                         kullanicilarTable.Rows.Add(
                             kullanici["kullanici_id"],
                             kullanici["ad"]?.ToString() ?? "",
@@ -230,17 +274,31 @@ namespace Seker_kutuphane
                             kullanici["telefon"]?.ToString() ?? "",
                             kullanici["email"]?.ToString() ?? "",
                             rolAdlari,
-                            kullanici["status"]
+                            statusText
                         );
                     }
                 }
 
-                lblBaslik.Text = $"Üyelik İşlemleri - Toplam {kullanicilarTable.Rows.Count} Kullanıcı";
+                // İstatistikleri hesapla
+                int aktifKullanici = 0;
+                int pasifKullanici = 0;
                 
-                // Status sütununu gizle (sadece veri için kullanılacak)
+                foreach (DataRow row in kullanicilarTable.Rows)
+                {
+                    if (row["status"].ToString() == "Aktif")
+                        aktifKullanici++;
+                    else
+                        pasifKullanici++;
+                }
+                
+                // İstatistikleri göster
+                lblIstatistikler.Text = $"📊 Toplam: {kullanicilarTable.Rows.Count} Kullanıcı    •    ✅ Aktif: {aktifKullanici}    •    ❌ Pasif: {pasifKullanici}";
+                
+                // Status sütununu görünür yap ve başlığını güncelle
                 if (dgvKullanicilar.Columns.Contains("status"))
                 {
-                    dgvKullanicilar.Columns["status"].Visible = false;
+                    dgvKullanicilar.Columns["status"].HeaderText = "Durum";
+                    dgvKullanicilar.Columns["status"].Visible = true;
                 }
             }
             catch (Exception ex)
@@ -251,6 +309,32 @@ namespace Seker_kutuphane
             {
                 btnYenile.Enabled = true;
                 btnYenile.Text = "Yenile";
+            }
+        }
+
+        private void dgvKullanicilar_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
+        {
+            if (e.RowIndex >= 0 && e.ColumnIndex >= 0)
+            {
+                // Status sütununu bul (7. sütun)
+                int statusColumnIndex = 7;
+                if (dgvKullanicilar.Columns.Count > statusColumnIndex)
+                {
+                    var statusValue = dgvKullanicilar.Rows[e.RowIndex].Cells[statusColumnIndex].Value?.ToString();
+                    
+                    // Eğer status "Pasif" ise tüm satırı kırmızı yap
+                    if (statusValue == "Pasif")
+                    {
+                        dgvKullanicilar.Rows[e.RowIndex].DefaultCellStyle.ForeColor = Color.White;
+                        dgvKullanicilar.Rows[e.RowIndex].DefaultCellStyle.BackColor = Color.FromArgb(220, 53, 69); // Kırmızı
+                    }
+                    else
+                    {
+                        // Aktif kullanıcılar için normal renk
+                        dgvKullanicilar.Rows[e.RowIndex].DefaultCellStyle.ForeColor = Color.Black;
+                        dgvKullanicilar.Rows[e.RowIndex].DefaultCellStyle.BackColor = Color.White;
+                    }
+                }
             }
         }
 
@@ -344,6 +428,60 @@ namespace Seker_kutuphane
                 {
                     btnSil.Enabled = true;
                     btnSil.Text = "Sil";
+                }
+            }
+        }
+
+        private async void btnAktiflestir_Click(object sender, EventArgs e)
+        {
+            if (dgvKullanicilar.SelectedRows.Count == 0)
+            {
+                MessageBox.Show("Lütfen aktifleştirilecek kullanıcıyı seçin.", "Uyarı", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
+            var selectedRow = dgvKullanicilar.SelectedRows[0];
+            int kullaniciId = Convert.ToInt32(selectedRow.Cells["kullanici_id"].Value);
+            string kullaniciAdi = selectedRow.Cells["ad"].Value.ToString() + " " + selectedRow.Cells["soyad"].Value.ToString();
+            string durum = selectedRow.Cells["status"].Value.ToString();
+
+            // Sadece pasif kullanıcıları aktifleştir
+            if (durum != "Pasif")
+            {
+                MessageBox.Show("Sadece pasif kullanıcılar aktifleştirilebilir.", "Uyarı", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
+            var result = MessageBox.Show(
+                $"'{kullaniciAdi}' adlı kullanıcıyı aktifleştirmek istediğinizden emin misiniz?",
+                "Kullanıcı Aktifleştirme Onayı",
+                MessageBoxButtons.YesNo,
+                MessageBoxIcon.Question
+            );
+
+            if (result == DialogResult.Yes)
+            {
+                try
+                {
+                    btnAktiflestir.Enabled = false;
+                    btnAktiflestir.Text = "Aktifleştiriliyor...";
+
+                    // Kullanıcıyı aktifleştir (status = 1)
+                    var response = await apiHelper.ActivateUserAsync(kullaniciId);
+                    
+                    MessageBox.Show("Kullanıcı başarıyla aktifleştirildi.", "Başarılı", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    
+                    // Listeyi yenile
+                    LoadKullanicilar();
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show($"Kullanıcı aktifleştirilirken hata oluştu: {ex.Message}", "Hata", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+                finally
+                {
+                    btnAktiflestir.Enabled = true;
+                    btnAktiflestir.Text = "Aktifleştir";
                 }
             }
         }

@@ -11,13 +11,15 @@ namespace Seker_kutuphane
         private int kullaniciId;
         private DataGridViewRow selectedRow;
         private ApiHelper apiHelper;
+        private bool isAdmin; // Admin kontrolü için
 
-        public KullaniciGuncelleForm(int kullaniciId, DataGridViewRow selectedRow)
+        public KullaniciGuncelleForm(int kullaniciId, DataGridViewRow selectedRow, bool isAdmin = false)
         {
             InitializeComponent();
             this.kullaniciId = kullaniciId;
             this.selectedRow = selectedRow;
             this.apiHelper = new ApiHelper();
+            this.isAdmin = isAdmin;
             LoadKullaniciData();
         }
 
@@ -36,7 +38,7 @@ namespace Seker_kutuphane
             this.lblEmail = new Label();
             this.txtEmail = new TextBox();
             this.lblRol = new Label();
-            this.txtRol = new TextBox();
+            this.clbRoller = new CheckedListBox();
             this.btnGuncelle = new Button();
             this.btnIptal = new Button();
             this.panelMain.SuspendLayout();
@@ -56,13 +58,13 @@ namespace Seker_kutuphane
             this.panelMain.Controls.Add(this.lblEmail);
             this.panelMain.Controls.Add(this.txtEmail);
             this.panelMain.Controls.Add(this.lblRol);
-            this.panelMain.Controls.Add(this.txtRol);
+            this.panelMain.Controls.Add(this.clbRoller);
             this.panelMain.Controls.Add(this.btnGuncelle);
             this.panelMain.Controls.Add(this.btnIptal);
             this.panelMain.Dock = DockStyle.Fill;
             this.panelMain.Location = new Point(0, 0);
             this.panelMain.Name = "panelMain";
-            this.panelMain.Size = new Size(500, 400);
+            this.panelMain.Size = new Size(500, 450);
             this.panelMain.TabIndex = 0;
 
             // lblBaslik
@@ -170,14 +172,14 @@ namespace Seker_kutuphane
             this.lblRol.TabIndex = 11;
             this.lblRol.Text = "Roller:";
 
-            // txtRol
-            this.txtRol.Font = new Font("Segoe UI", 10F);
-            this.txtRol.Location = new Point(150, 277);
-            this.txtRol.Name = "txtRol";
-            this.txtRol.ReadOnly = true;
-            this.txtRol.Size = new Size(300, 25);
-            this.txtRol.TabIndex = 12;
-            this.txtRol.BackColor = Color.LightGray;
+            // clbRoller
+            this.clbRoller.Font = new Font("Segoe UI", 10F);
+            this.clbRoller.Location = new Point(150, 277);
+            this.clbRoller.Name = "clbRoller";
+            this.clbRoller.Size = new Size(300, 80);
+            this.clbRoller.TabIndex = 12;
+            this.clbRoller.CheckOnClick = true;
+            this.clbRoller.Enabled = isAdmin; // Sadece Admin rol değiştirebilir
 
             // btnGuncelle
             this.btnGuncelle.BackColor = Color.FromArgb(76, 175, 80);
@@ -185,7 +187,7 @@ namespace Seker_kutuphane
             this.btnGuncelle.FlatStyle = FlatStyle.Flat;
             this.btnGuncelle.Font = new Font("Segoe UI", 10F, FontStyle.Bold);
             this.btnGuncelle.ForeColor = Color.White;
-            this.btnGuncelle.Location = new Point(150, 320);
+            this.btnGuncelle.Location = new Point(150, 370);
             this.btnGuncelle.Name = "btnGuncelle";
             this.btnGuncelle.Size = new Size(120, 40);
             this.btnGuncelle.TabIndex = 13;
@@ -199,7 +201,7 @@ namespace Seker_kutuphane
             this.btnIptal.FlatStyle = FlatStyle.Flat;
             this.btnIptal.Font = new Font("Segoe UI", 10F, FontStyle.Bold);
             this.btnIptal.ForeColor = Color.White;
-            this.btnIptal.Location = new Point(290, 320);
+            this.btnIptal.Location = new Point(290, 370);
             this.btnIptal.Name = "btnIptal";
             this.btnIptal.Size = new Size(120, 40);
             this.btnIptal.TabIndex = 14;
@@ -210,7 +212,7 @@ namespace Seker_kutuphane
             // KullaniciGuncelleForm
             this.AutoScaleDimensions = new SizeF(7F, 15F);
             this.AutoScaleMode = AutoScaleMode.Font;
-            this.ClientSize = new Size(500, 400);
+            this.ClientSize = new Size(500, 450);
             this.Controls.Add(this.panelMain);
             this.FormBorderStyle = FormBorderStyle.FixedDialog;
             this.MaximizeBox = false;
@@ -236,11 +238,11 @@ namespace Seker_kutuphane
         private Label lblEmail;
         private TextBox txtEmail;
         private Label lblRol;
-        private TextBox txtRol;
+        private CheckedListBox clbRoller;
         private Button btnGuncelle;
         private Button btnIptal;
 
-        private void LoadKullaniciData()
+        private async void LoadKullaniciData()
         {
             // Seçilen satırdan kullanıcı verilerini yükle
             txtAd.Text = selectedRow.Cells["ad"].Value?.ToString() ?? "";
@@ -248,10 +250,60 @@ namespace Seker_kutuphane
             txtTC.Text = selectedRow.Cells["tc"].Value?.ToString() ?? "";
             txtTelefon.Text = selectedRow.Cells["telefon"].Value?.ToString() ?? "";
             txtEmail.Text = selectedRow.Cells["email"].Value?.ToString() ?? "";
-            txtRol.Text = selectedRow.Cells["rol_adlari"].Value?.ToString() ?? "";
 
             // Form başlığını güncelle
             this.Text = $"Kullanıcı Güncelle - {txtAd.Text} {txtSoyad.Text}";
+
+            // CheckedListBox'ı Admin durumuna göre aktif/pasif yap
+            clbRoller.Enabled = isAdmin;
+
+            // Roller yükle
+            await LoadRoller();
+        }
+
+        private async Task LoadRoller()
+        {
+            try
+            {
+                // Tüm roller yükle
+                var response = await apiHelper.GetRolesAsync();
+                if (response is Newtonsoft.Json.Linq.JArray rollerArray)
+                {
+                    clbRoller.Items.Clear();
+                    
+                    foreach (var rol in rollerArray)
+                    {
+                        string rolAdi = rol["rol_adi"]?.ToString() ?? "";
+                        if (!string.IsNullOrEmpty(rolAdi))
+                        {
+                            clbRoller.Items.Add(rolAdi, false);
+                        }
+                    }
+
+                    // Kullanıcının mevcut rollerini işaretle
+                    string currentRoles = selectedRow.Cells["rol_adlari"].Value?.ToString() ?? "";
+                    if (!string.IsNullOrEmpty(currentRoles))
+                    {
+                        string[] roles = currentRoles.Split(',');
+                        foreach (string role in roles)
+                        {
+                            string trimmedRole = role.Trim();
+                            for (int i = 0; i < clbRoller.Items.Count; i++)
+                            {
+                                if (clbRoller.Items[i].ToString() == trimmedRole)
+                                {
+                                    clbRoller.SetItemChecked(i, true);
+                                    break;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Roller yüklenirken hata oluştu: {ex.Message}", "Hata", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
 
         private async void btnGuncelle_Click(object sender, EventArgs e)
@@ -302,6 +354,12 @@ namespace Seker_kutuphane
                 };
 
                 var response = await apiHelper.UpdateUserProfileAsync(updateData);
+
+                // Eğer Admin ise ve roller değiştirildiyse, rolleri güncelle
+                if (isAdmin)
+                {
+                    await UpdateUserRoles();
+                }
                 
                 this.DialogResult = DialogResult.OK;
                 this.Close();
@@ -314,6 +372,89 @@ namespace Seker_kutuphane
             {
                 btnGuncelle.Enabled = true;
                 btnGuncelle.Text = "Güncelle";
+            }
+        }
+
+        private async Task UpdateUserRoles()
+        {
+            try
+            {
+                // Seçilen rollerin ID'lerini bul
+                var selectedRoleIds = new List<int>();
+                var selectedRoleNames = new List<string>();
+                
+                for (int i = 0; i < clbRoller.Items.Count; i++)
+                {
+                    if (clbRoller.GetItemChecked(i))
+                    {
+                        string rolAdi = clbRoller.Items[i].ToString();
+                        int rolId = await GetRolId(rolAdi);
+                        selectedRoleIds.Add(rolId);
+                        selectedRoleNames.Add(rolAdi);
+                    }
+                }
+
+                // Kullanıcının mevcut rollerini al
+                var allUsers = await apiHelper.GetAllUsersAsync();
+                dynamic currentUser = null;
+                
+                if (allUsers is Newtonsoft.Json.Linq.JArray usersArray)
+                {
+                    foreach (var user in usersArray)
+                    {
+                        if (Convert.ToInt32(user["kullanici_id"]) == kullaniciId)
+                        {
+                            currentUser = user;
+                            break;
+                        }
+                    }
+                }
+
+                if (currentUser != null)
+                {
+                    // Güncelleme verisi hazırla
+                    var updateData = new
+                    {
+                        kullanici_id = kullaniciId,
+                        ad = currentUser["ad"],
+                        soyad = currentUser["soyad"],
+                        tc = currentUser["tc"],
+                        telefon = currentUser["telefon"],
+                        email = currentUser["email"],
+                        rol_ids = selectedRoleIds.ToArray()
+                    };
+
+                    await apiHelper.UpdateUserProfileAsync(updateData);
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Roller güncellenirken hata oluştu: {ex.Message}", "Uyarı", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
+        }
+
+        private async Task<int> GetRolId(string rolAdi)
+        {
+            try
+            {
+                var response = await apiHelper.GetRolesAsync();
+                
+                if (response is Newtonsoft.Json.Linq.JArray rollerArray)
+                {
+                    foreach (var rol in rollerArray)
+                    {
+                        if (rol["rol_adi"]?.ToString() == rolAdi)
+                        {
+                            return Convert.ToInt32(rol["rol_id"]);
+                        }
+                    }
+                }
+                
+                return 1; // Varsayılan
+            }
+            catch
+            {
+                return 1; // Varsayılan
             }
         }
 

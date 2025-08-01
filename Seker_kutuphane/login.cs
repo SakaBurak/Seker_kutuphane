@@ -21,6 +21,7 @@ namespace Seker_kutuphane
         {
             InitializeComponent();
             SetupTCRestrictions();
+            SetupEnterKeyEvents();
         }
 
         private void SetupTCRestrictions()
@@ -29,6 +30,29 @@ namespace Seker_kutuphane
             txtTC.MaxLength = 11; // 11 hane sınırı
             txtTC.KeyPress += TxtTC_KeyPress; // Sadece sayı girişi
             txtTC.TextChanged += TxtTC_TextChanged; // Boşluk engelleme
+        }
+
+        private void SetupEnterKeyEvents()
+        {
+            // TC alanında Enter tuşuna basıldığında şifre alanına geç
+            txtTC.KeyDown += (sender, e) =>
+            {
+                if (e.KeyCode == Keys.Enter)
+                {
+                    txtSifre.Focus();
+                    e.Handled = true;
+                }
+            };
+
+            // Şifre alanında Enter tuşuna basıldığında giriş yap
+            txtSifre.KeyDown += (sender, e) =>
+            {
+                if (e.KeyCode == Keys.Enter)
+                {
+                    PerformLogin();
+                    e.Handled = true;
+                }
+            };
         }
 
         private void TxtTC_KeyPress(object? sender, KeyPressEventArgs e)
@@ -91,13 +115,18 @@ namespace Seker_kutuphane
 
         private async void btnGirisYap_Click(object sender, EventArgs e)
         {
+            await PerformLogin();
+        }
+
+        private async Task PerformLogin()
+        {
             string tc = txtTC.Text.Trim();
             string sifre = txtSifre.Text.Trim();
             string hashedSifre = Sha256Hash(sifre);
             
             if (string.IsNullOrEmpty(tc) || string.IsNullOrEmpty(sifre))
             {
-                MessageBox.Show("Lütfen TC Kimlik No ve şifre giriniz.");
+                MessageBox.Show("Lütfen TC Kimlik No ve şifre giriniz.", "Uyarı", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
             
@@ -107,6 +136,14 @@ namespace Seker_kutuphane
                 var (sessionId, user) = await api.LoginAsync(tc, hashedSifre);
                 if (user != null)
                 {
+                    // Silinen kullanıcı kontrolü (status = 0)
+                    var status = user.status;
+                    if (status != null && Convert.ToInt32(status) == 0)
+                    {
+                        MessageBox.Show("Bu hesap silinmiş durumda!\n\nLütfen yönetici ile iletişime geçin.", "Hesap Silinmiş", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        return;
+                    }
+
                     string ad = user.ad ?? "";
                     
                     // Rol bilgisini rol_ids_str veya rol_adlari array'inden al
@@ -174,12 +211,14 @@ namespace Seker_kutuphane
                 }
                 else
                 {
-                    MessageBox.Show("Kullanıcı bulunamadı veya bilgiler hatalı!");
+                    MessageBox.Show("TC Kimlik Numarası veya şifre hatalı!\n\nLütfen bilgilerinizi kontrol edip tekrar deneyin.", "Giriş Hatası", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Giriş başarısız: {ex.Message}");
+                // Daha kullanıcı dostu hata mesajları
+                string userFriendlyMessage = "TC Kimlik Numarası veya şifre hatalı!\n\nLütfen bilgilerinizi kontrol edip tekrar deneyin.";
+                MessageBox.Show(userFriendlyMessage, "Giriş Hatası", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -194,6 +233,8 @@ namespace Seker_kutuphane
             yenile.Show();
             this.Hide();
         }
+
+
 
         private void label3_Click(object sender, EventArgs e)
         {

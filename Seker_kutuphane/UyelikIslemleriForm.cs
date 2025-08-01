@@ -12,12 +12,14 @@ namespace Seker_kutuphane
     {
         private ApiHelper apiHelper;
         private DataTable kullanicilarTable;
+        private bool isAdmin; // Admin kontrolü için
 
-        public UyelikIslemleriForm()
+        public UyelikIslemleriForm(bool isAdmin = false)
         {
             InitializeComponent();
             this.apiHelper = new ApiHelper();
             this.kullanicilarTable = new DataTable();
+            this.isAdmin = isAdmin;
             SetupDataGridView();
             LoadKullanicilar();
         }
@@ -203,7 +205,13 @@ namespace Seker_kutuphane
 
                     foreach (var kullanici in kullaniciArray)
                     {
-                        // Tüm kullanıcıları göster (status kontrolünü kaldır)
+                        // Sadece aktif kullanıcıları göster (status = 1 veya null)
+                        var status = kullanici["status"];
+                        if (status != null && Convert.ToInt32(status) == 0)
+                        {
+                            continue; // Bu kullanıcıyı atla (silinmiş)
+                        }
+
                         string rolAdlari = "";
                         if (kullanici["rol_adlari"] != null)
                         {
@@ -256,8 +264,8 @@ namespace Seker_kutuphane
 
         private void btnYeniKullanici_Click(object sender, EventArgs e)
         {
-            // Yeni kullanıcı ekleme dialog'u aç
-            using (var ekleForm = new KullaniciEkleForm())
+            // Yeni kullanıcı ekleme dialog'u aç (Admin kontrolü ile)
+            using (var ekleForm = new KullaniciEkleForm(isAdmin))
             {
                 if (ekleForm.ShowDialog() == DialogResult.OK)
                 {
@@ -281,8 +289,8 @@ namespace Seker_kutuphane
             int kullaniciId = Convert.ToInt32(selectedRow.Cells["kullanici_id"].Value);
             string kullaniciAdi = selectedRow.Cells["ad"].Value.ToString() + " " + selectedRow.Cells["soyad"].Value.ToString();
 
-            // Kullanıcı güncelleme dialog'u aç
-            using (var guncelleForm = new KullaniciGuncelleForm(kullaniciId, selectedRow))
+            // Kullanıcı güncelleme dialog'u aç (Admin kontrolü ile)
+            using (var guncelleForm = new KullaniciGuncelleForm(kullaniciId, selectedRow, isAdmin))
             {
                 if (guncelleForm.ShowDialog() == DialogResult.OK)
                 {

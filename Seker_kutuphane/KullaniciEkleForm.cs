@@ -13,11 +13,13 @@ namespace Seker_kutuphane
     public partial class KullaniciEkleForm : Form
     {
         private ApiHelper apiHelper;
+        private bool isAdmin; // Admin kontrolü için
 
-        public KullaniciEkleForm()
+        public KullaniciEkleForm(bool isAdmin = false)
         {
             InitializeComponent();
             this.apiHelper = new ApiHelper();
+            this.isAdmin = isAdmin;
             SetupInputRestrictions();
         }
 
@@ -358,6 +360,9 @@ namespace Seker_kutuphane
                             clbRoller.Items.Add(rolAdi, false); // Hiçbiri seçili değil
                         }
                     }
+
+                    // Admin değilse CheckedListBox'ı devre dışı bırak
+                    clbRoller.Enabled = isAdmin;
                 }
             }
             catch (Exception ex)
@@ -376,7 +381,7 @@ namespace Seker_kutuphane
                 string.IsNullOrEmpty(txtEmail.Text.Trim()) ||
                 string.IsNullOrEmpty(txtSifre.Text.Trim()) ||
                 string.IsNullOrEmpty(txtSifreTekrar.Text.Trim()) ||
-                clbRoller.CheckedItems.Count == 0)
+                (isAdmin && clbRoller.CheckedItems.Count == 0)) // Sadece Admin için rol seçimi zorunlu
             {
                 MessageBox.Show("Lütfen tüm alanları doldurunuz.", "Uyarı", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;

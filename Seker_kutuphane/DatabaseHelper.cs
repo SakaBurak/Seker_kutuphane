@@ -642,19 +642,9 @@ namespace Seker_kutuphane
         {
             try
             {
-                var deleteData = new
-                {
-                    kullanici_id = kullaniciId,
-                    status = 0
-                };
+                Console.WriteLine($"DeleteUserAsync - URL: {apiBaseUrl}/kullanici-sil/{kullaniciId}");
                 
-                var jsonData = JsonConvert.SerializeObject(deleteData);
-                var content = new StringContent(jsonData, Encoding.UTF8, "application/json");
-                
-                Console.WriteLine($"DeleteUserAsync - URL: {apiBaseUrl}/kullanici-sil");
-                Console.WriteLine($"DeleteUserAsync - Data: {jsonData}");
-                
-                var response = await client.PostAsync($"{apiBaseUrl}/kullanici-sil", content);
+                var response = await client.DeleteAsync($"{apiBaseUrl}/kullanici-sil/{kullaniciId}");
                 var responseContent = await response.Content.ReadAsStringAsync();
                 
                 Console.WriteLine($"DeleteUserAsync - Status: {response.StatusCode}");

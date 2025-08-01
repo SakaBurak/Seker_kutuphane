@@ -126,7 +126,7 @@
             btnEmanetler.Name = "btnEmanetler";
             btnEmanetler.Size = new Size(180, 45);
             btnEmanetler.TabIndex = 2;
-            btnEmanetler.Text = "Emanet İşlemleri";
+            btnEmanetler.Text = "Ödünç İşlemleri";
             btnEmanetler.UseVisualStyleBackColor = false;
             btnEmanetler.Click += btnEmanetler_Click;
             // 
@@ -137,7 +137,7 @@
             btnRaporlar.FlatStyle = FlatStyle.Flat;
             btnRaporlar.Font = new Font("Segoe UI", 10F, FontStyle.Bold);
             btnRaporlar.ForeColor = Color.White;
-            btnRaporlar.Location = new Point(10, 245);
+            btnRaporlar.Location = new Point(10, 300);
             btnRaporlar.Name = "btnRaporlar";
             btnRaporlar.Size = new Size(180, 45);
             btnRaporlar.TabIndex = 3;
@@ -152,7 +152,7 @@
             btnYonetim.FlatStyle = FlatStyle.Flat;
             btnYonetim.Font = new Font("Segoe UI", 10F, FontStyle.Bold);
             btnYonetim.ForeColor = Color.White;
-            btnYonetim.Location = new Point(10, 300);
+            btnYonetim.Location = new Point(10, 245);
             btnYonetim.Name = "btnYonetim";
             btnYonetim.Size = new Size(180, 45);
             btnYonetim.TabIndex = 4;

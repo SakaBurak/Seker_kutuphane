@@ -233,9 +233,15 @@ namespace Seker_kutuphane
             btnEmanetler.BackColor = Color.FromArgb(76, 175, 80); // Açık yeşil
             btnEmanetler.ForeColor = Color.White;
 
-            // Raporlar ve yönetim gizli (sadece admin)
+            // Üyelik işlemleri butonu görünür (rol değiştirme yetkisi yok)
+            btnYonetim.Text = "Üyelik İşlemleri";
+            btnYonetim.Enabled = true;
+            btnYonetim.Visible = true;
+            btnYonetim.BackColor = Color.FromArgb(76, 175, 80); // Açık yeşil
+            btnYonetim.ForeColor = Color.White;
+
+            // Raporlar ve test gizli (sadece admin)
             btnRaporlar.Visible = false;
-            btnYonetim.Visible = false;
             btnTest.Visible = false;
         }
 
@@ -346,9 +352,45 @@ namespace Seker_kutuphane
 
         private void btnYonetim_Click(object sender, EventArgs e)
         {
-            // Üyelik işlemleri formunu aç
-            UyelikIslemleriForm uyelikForm = new UyelikIslemleriForm();
+            // Üyelik işlemleri formunu aç (Admin kontrolü ile)
+            bool isAdmin = CheckIfUserIsAdmin();
+            UyelikIslemleriForm uyelikForm = new UyelikIslemleriForm(isAdmin);
             uyelikForm.ShowDialog();
+        }
+
+        private bool CheckIfUserIsAdmin()
+        {
+            try
+            {
+                // userData'dan rol bilgilerini kontrol et
+                if (userData != null && userData.rol_ids != null)
+                {
+                    var rolIds = userData.rol_ids as Newtonsoft.Json.Linq.JArray;
+                    if (rolIds != null)
+                    {
+                        foreach (var rolId in rolIds)
+                        {
+                            // Admin rol ID'si genellikle 3'tür (API'ye göre değişebilir)
+                            if (Convert.ToInt32(rolId) == 3)
+                            {
+                                return true;
+                            }
+                        }
+                    }
+                }
+
+                // Alternatif olarak rol string'ini kontrol et
+                if (!string.IsNullOrEmpty(rol))
+                {
+                    return rol.ToLower().Contains("admin");
+                }
+
+                return false;
+            }
+            catch
+            {
+                return false;
+            }
         }
 
         private void btnCikis_Click(object sender, EventArgs e)

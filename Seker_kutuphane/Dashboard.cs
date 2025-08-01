@@ -74,13 +74,13 @@ namespace Seker_kutuphane
                     btnYonetim.BackColor = Color.FromArgb(76, 175, 80); // Açık yeşil
             };
 
-            btnTest.MouseEnter += (s, e) => {
-                if (btnTest.Enabled)
-                    btnTest.BackColor = Color.FromArgb(255, 167, 38); // Daha açık turuncu
+            btnKitapEkle.MouseEnter += (s, e) => {
+                if (btnKitapEkle.Enabled)
+                    btnKitapEkle.BackColor = Color.FromArgb(255, 167, 38); // Daha açık turuncu
             };
-            btnTest.MouseLeave += (s, e) => {
-                if (btnTest.Enabled)
-                    btnTest.BackColor = Color.FromArgb(255, 152, 0); // Turuncu
+            btnKitapEkle.MouseLeave += (s, e) => {
+                if (btnKitapEkle.Enabled)
+                    btnKitapEkle.BackColor = Color.FromArgb(255, 152, 0); // Turuncu
             };
 
             btnCikis.MouseEnter += (s, e) => {
@@ -169,9 +169,9 @@ namespace Seker_kutuphane
             btnYonetim.Text = "Üyelik İşlemleri";
             btnYonetim.Enabled = true;
             
-            btnTest.Visible = true;
-            btnTest.Text = "API Test";
-            btnTest.Enabled = true;
+            btnKitapEkle.Visible = true;
+            btnKitapEkle.Text = "Kitap Ekle";
+            btnKitapEkle.Enabled = true;
             
             btnCikis.Visible = true;
             btnCikis.Text = "Çıkış";
@@ -203,7 +203,7 @@ namespace Seker_kutuphane
             btnEmanetler.Visible = false;
             btnRaporlar.Visible = false;
             btnYonetim.Visible = false;
-            btnTest.Visible = false;
+            btnKitapEkle.Visible = false;
         }
 
         private void SetupGorevliPermissions()
@@ -240,9 +240,9 @@ namespace Seker_kutuphane
             btnYonetim.BackColor = Color.FromArgb(76, 175, 80); // Açık yeşil
             btnYonetim.ForeColor = Color.White;
 
-            // Raporlar ve test gizli (sadece admin)
+            // Raporlar ve kitap ekleme gizli (sadece admin)
             btnRaporlar.Visible = false;
-            btnTest.Visible = false;
+            btnKitapEkle.Visible = false;
         }
 
         private void SetupAdminPermissions()
@@ -284,11 +284,11 @@ namespace Seker_kutuphane
             btnYonetim.BackColor = Color.FromArgb(76, 175, 80); // Açık yeşil
             btnYonetim.ForeColor = Color.White;
 
-            btnTest.Text = "API Test";
-            btnTest.Enabled = true;
-            btnTest.Visible = true;
-            btnTest.BackColor = Color.FromArgb(255, 152, 0); // Turuncu
-            btnTest.ForeColor = Color.White;
+            btnKitapEkle.Text = "Kitap İşlemleri";
+            btnKitapEkle.Enabled = true;
+            btnKitapEkle.Visible = true;
+            btnKitapEkle.BackColor = Color.FromArgb(255, 152, 0); // Turuncu
+            btnKitapEkle.ForeColor = Color.White;
         }
 
         private void Dashboard_Load(object? sender, EventArgs e)
@@ -329,18 +329,18 @@ namespace Seker_kutuphane
             oduncForm.Show();
         }
 
-        // Test amaçlı emanet API test formu
-        private void btnEmanetTest_Click(object sender, EventArgs e)
+        // Kitap işlemleri formu
+        private void btnKitapEkle_Click(object sender, EventArgs e)
         {
-            var testForm = new EmanetTestForm();
-            testForm.Show();
-        }
-
-        // Emanet test butonu için event handler
-        private void btnTestEmanet_Click(object sender, EventArgs e)
-        {
-            var testForm = new EmanetTestForm();
-            testForm.Show();
+            // Sadece Admin kullanabilir
+            if (!CheckIfUserIsAdmin())
+            {
+                MessageBox.Show("Bu işlem sadece Admin kullanıcılar tarafından yapılabilir.", "Yetki Hatası", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+            
+            var kitapIslemleriForm = new KitapIslemleriForm();
+            kitapIslemleriForm.ShowDialog();
         }
 
         private void btnRaporlar_Click(object sender, EventArgs e)

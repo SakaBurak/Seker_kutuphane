@@ -34,7 +34,7 @@
         private System.Windows.Forms.Button btnRaporlar;
         private System.Windows.Forms.Button btnYonetim;
         private System.Windows.Forms.Button btnCikis;
-        private System.Windows.Forms.Button btnTest;
+        private System.Windows.Forms.Button btnKitapEkle;
         private System.Windows.Forms.Label lblBaslik;
         private System.Windows.Forms.Label lblKullanici;
         private void InitializeComponent()
@@ -47,7 +47,7 @@
             btnRaporlar = new Button();
             btnYonetim = new Button();
             btnCikis = new Button();
-            btnTest = new Button();
+            btnKitapEkle = new Button();
             lblBaslik = new Label();
             lblKullanici = new Label();
             panelMenu.SuspendLayout();
@@ -63,7 +63,7 @@
             panelMenu.Controls.Add(btnRaporlar);
             panelMenu.Controls.Add(btnYonetim);
             panelMenu.Controls.Add(btnCikis);
-            panelMenu.Controls.Add(btnTest);
+            panelMenu.Controls.Add(btnKitapEkle);
             panelMenu.Dock = DockStyle.Left;
             panelMenu.Location = new Point(0, 0);
             panelMenu.Name = "panelMenu";
@@ -175,20 +175,20 @@
             btnCikis.UseVisualStyleBackColor = false;
             btnCikis.Click += btnCikis_Click;
             // 
-            // btnTest
+            // btnKitapEkle
             // 
-            btnTest.BackColor = Color.FromArgb(255, 152, 0);
-            btnTest.FlatAppearance.BorderSize = 0;
-            btnTest.FlatStyle = FlatStyle.Flat;
-            btnTest.Font = new Font("Segoe UI", 10F, FontStyle.Bold);
-            btnTest.ForeColor = Color.White;
-            btnTest.Location = new Point(10, 355);
-            btnTest.Name = "btnTest";
-            btnTest.Size = new Size(180, 45);
-            btnTest.TabIndex = 6;
-            btnTest.Text = "API Test";
-            btnTest.UseVisualStyleBackColor = false;
-            btnTest.Click += btnEmanetTest_Click;
+            btnKitapEkle.BackColor = Color.FromArgb(255, 152, 0);
+            btnKitapEkle.FlatAppearance.BorderSize = 0;
+            btnKitapEkle.FlatStyle = FlatStyle.Flat;
+            btnKitapEkle.Font = new Font("Segoe UI", 10F, FontStyle.Bold);
+            btnKitapEkle.ForeColor = Color.White;
+            btnKitapEkle.Location = new Point(10, 355);
+            btnKitapEkle.Name = "btnKitapEkle";
+            btnKitapEkle.Size = new Size(180, 45);
+            btnKitapEkle.TabIndex = 6;
+            btnKitapEkle.Text = "Kitap İşlemleri";
+            btnKitapEkle.UseVisualStyleBackColor = false;
+            btnKitapEkle.Click += btnKitapEkle_Click;
             // 
             // lblBaslik
             // 

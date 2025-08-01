@@ -408,7 +408,43 @@ namespace Seker_kutuphane
                 }
                 
                 var json = await response.Content.ReadAsStringAsync();
-                return JsonConvert.DeserializeObject(json);
+                var allOduncler = JsonConvert.DeserializeObject(json);
+                
+                // Eğer arama terimi boşsa, sadece aktif ödünçleri döndür
+                if (string.IsNullOrEmpty(searchTerm))
+                {
+                    return allOduncler;
+                }
+                
+                // Arama terimi varsa, hem arama hem de aktif filtreleme yap
+                if (allOduncler is Newtonsoft.Json.Linq.JArray oduncArray)
+                {
+                    var filteredResults = new List<object>();
+                    
+                    foreach (var odunc in oduncArray)
+                    {
+                        // Önce aktif ödünç kontrolü yap
+                        var teslimEdildi = odunc["teslim_edildi"]?.ToString() ?? "0";
+                        if (teslimEdildi == "1" || teslimEdildi == "True" || teslimEdildi == "true")
+                        {
+                            continue; // İade edilmiş ödünçleri atla
+                        }
+                        
+                        // Sonra arama kontrolü yap
+                        var kullaniciAdi = $"{odunc["ad"]?.ToString() ?? ""} {odunc["soyad"]?.ToString() ?? ""}".ToLower();
+                        var kitapAdi = odunc["title"]?.ToString()?.ToLower() ?? "";
+                        var searchLower = searchTerm.ToLower();
+                        
+                        if (kullaniciAdi.Contains(searchLower) || kitapAdi.Contains(searchLower))
+                        {
+                            filteredResults.Add(odunc);
+                        }
+                    }
+                    
+                    return filteredResults;
+                }
+                
+                return allOduncler;
             }
             catch (Exception ex)
             {
@@ -723,6 +759,106 @@ namespace Seker_kutuphane
             catch (Exception ex)
             {
                 Console.WriteLine($"ActivateUserAsync Error: {ex.Message}");
+                throw;
+            }
+        }
+
+        public async Task<dynamic> AddBookAsync(dynamic bookData)
+        {
+            try
+            {
+                var jsonData = JsonConvert.SerializeObject(bookData);
+                var content = new StringContent(jsonData, Encoding.UTF8, "application/json");
+                
+                Console.WriteLine($"AddBookAsync - URL: {apiBaseUrl}/kitap-ekle");
+                Console.WriteLine($"AddBookAsync - Data: {jsonData}");
+                
+                var response = await client.PostAsync($"{apiBaseUrl}/kitap-ekle", content);
+                var responseContent = await response.Content.ReadAsStringAsync();
+                
+                Console.WriteLine($"AddBookAsync - Status: {response.StatusCode}");
+                Console.WriteLine($"AddBookAsync - Response: {responseContent}");
+                
+                if (!response.IsSuccessStatusCode)
+                {
+                    throw new HttpRequestException($"HTTP {response.StatusCode}: {responseContent}");
+                }
+                
+                return JsonConvert.DeserializeObject(responseContent);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"AddBookAsync Error: {ex.Message}");
+                throw;
+            }
+        }
+
+        public async Task<dynamic> UpdateBookAsync(dynamic bookData)
+        {
+            try
+            {
+                // kitap_id'yi al
+                int kitapId = Convert.ToInt32(bookData.kitap_id);
+                
+                // kitap_id'yi çıkar ve sadece güncellenecek verileri al
+                var updateData = new
+                {
+                    kitap_adi = bookData.kitap_adi,
+                    yazar = bookData.yazar,
+                    yayinevi = bookData.yayinevi,
+                    basim_yili = bookData.date, // API'de basim_yili olarak tanımlı
+                    kitap_adet = bookData.kitap_adet,
+                    sayfa_sayisi = bookData.sayfa_sayisi // Sayfa sayısı alanını ekle
+                };
+                
+                var jsonData = JsonConvert.SerializeObject(updateData);
+                var content = new StringContent(jsonData, Encoding.UTF8, "application/json");
+                
+                Console.WriteLine($"UpdateBookAsync - URL: {apiBaseUrl}/kitap-guncelle/{kitapId}");
+                Console.WriteLine($"UpdateBookAsync - Data: {jsonData}");
+                
+                var response = await client.PutAsync($"{apiBaseUrl}/kitap-guncelle/{kitapId}", content);
+                var responseContent = await response.Content.ReadAsStringAsync();
+                
+                Console.WriteLine($"UpdateBookAsync - Status: {response.StatusCode}");
+                Console.WriteLine($"UpdateBookAsync - Response: {responseContent}");
+                
+                if (!response.IsSuccessStatusCode)
+                {
+                    throw new HttpRequestException($"HTTP {response.StatusCode}: {responseContent}");
+                }
+                
+                return JsonConvert.DeserializeObject(responseContent);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"UpdateBookAsync Error: {ex.Message}");
+                throw;
+            }
+        }
+
+        public async Task<dynamic> DeleteBookAsync(int kitapId)
+        {
+            try
+            {
+                Console.WriteLine($"DeleteBookAsync - URL: {apiBaseUrl}/kitap-sil/{kitapId}");
+                
+                var response = await client.DeleteAsync($"{apiBaseUrl}/kitap-sil/{kitapId}");
+                var responseContent = await response.Content.ReadAsStringAsync();
+                
+                Console.WriteLine($"DeleteBookAsync - Status: {response.StatusCode}");
+                Console.WriteLine($"DeleteBookAsync - Response: {responseContent}");
+                
+                if (!response.IsSuccessStatusCode)
+                {
+                    throw new HttpRequestException($"HTTP {response.StatusCode}: {responseContent}");
+                }
+                
+                return JsonConvert.DeserializeObject(responseContent);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"DeleteBookAsync Error: {ex.Message}");
                 throw;
             }
         }

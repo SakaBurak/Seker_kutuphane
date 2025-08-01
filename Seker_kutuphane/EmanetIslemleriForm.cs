@@ -240,13 +240,6 @@ namespace Seker_kutuphane
                 {
                     foreach (var odunc in sonucArray)
                     {
-                        // Sadece iade edilmemiş ödünçleri göster
-                        var teslimEdildi = odunc["teslim_edildi"]?.ToString() ?? "0";
-                        if (teslimEdildi == "1")
-                        {
-                            continue; // İade edilmiş ödünçleri atla
-                        }
-
                         var row = emanetTable.NewRow();
                         row["EmanetId"] = odunc["odunc_id"]?.ToString() != null ? int.Parse(odunc["odunc_id"].ToString()) : 0;
                         row["KullaniciAdi"] = $"{odunc["ad"]?.ToString() ?? ""} {odunc["soyad"]?.ToString() ?? ""}".Trim();
